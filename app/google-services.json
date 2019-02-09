@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "883883096585",
+    "firebase_url": "https://mata-elang-8c8a7.firebaseio.com",
+    "project_id": "mata-elang-8c8a7",
+    "storage_bucket": "mata-elang-8c8a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:883883096585:android:6cc7dd2c7960ed10",
+        "android_client_info": {
+          "package_name": "com.firdausy.rafly.mataelang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "883883096585-ue3anh3d46hdgdbqiqcsm22ip2obi1du.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.firdausy.rafly.mataelang",
+            "certificate_hash": "cd19397f4aa149d58e4f456b692274ae9c1f6355"
+          }
+        },
+        {
+          "client_id": "883883096585-fc8ahmsb1csk21dc88u2dlnm3pj6sq62.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBwRx5waFA6PSMjbVmNeVzaY8Xzqr0ZVY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "883883096585-fc8ahmsb1csk21dc88u2dlnm3pj6sq62.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
