@@ -5,33 +5,33 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/action_tambahUser"
+            android:icon="@drawable/add"
+            android:title="@string/tambah_admin_user_ibu" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/action_input"
+            android:icon="@drawable/input"
+            android:title="@string/input_data_antropometri" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/action_lihat"
+            android:icon="@drawable/lihat"
+            android:title="@string/lihat_data_antropomteri" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/action_pengaturan"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="@string/pengaturan" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/managemen_akun">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/action_edit"
+                android:icon="@drawable/profile"
+                android:title="@string/edit_profile" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/action_logout"
+                android:icon="@drawable/logout"
+                android:title="Logout" />
         </menu>
     </item>
 

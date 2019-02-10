@@ -1,9 +1,24 @@
 <resources>
-    <string name="app_name">MataElang</string>
+    <string name="app_name">Mata Elang</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="mata_elang">Mata Elang</string>
+    <string name="deskripsi_mata_elang">Mari Pantau Elektronik Antropometri Gizi</string>
+    <string name="tambah_admin_user_ibu">Tambah Admin / User Ibu</string>
+    <string name="input_data_antropometri">Input Data Antropometri</string>
+    <string name="lihat_data_antropomteri">Lihat Data Antropomteri</string>
+    <string name="managemen_akun">Managemen Akun</string>
+    <string name="pengaturan">Pengaturan </string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="nama_pengguna">Nama Pengguna</string>
+    <string name="email_gmail_com">email@gmail.com</string>
+    <string name="tentang_aplikasi">Tentang Aplikasi</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="loading">Loading...</string>
+    <string name="bayi_terdaftar">Bayi Terdaftar</string>
+    <string name="ibu_terdaftar">Ibu Terdaftar</string>
 </resources>
