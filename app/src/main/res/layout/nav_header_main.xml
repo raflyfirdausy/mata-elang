@@ -17,7 +17,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:contentDescription="@string/nav_header_desc"
-        android:src="@drawable/ic_eagle" />
+        android:src="@drawable/mataelang" />
 
     <RelativeLayout
         android:layout_width="match_parent"
