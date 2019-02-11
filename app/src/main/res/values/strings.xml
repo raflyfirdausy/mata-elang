@@ -21,11 +21,21 @@
     <string name="loading">Loading...</string>
     <string name="bayi_terdaftar">Bayi Terdaftar</string>
     <string name="ibu_terdaftar">Ibu Terdaftar</string>
-
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="mata_elang_splash">\"MATA ELANG\"</string>
     <string name="mari_pantau_stunting_elektronik_antropometri_gizi">Mari Pantau Stunting Elektronik Antropometri Gizi</string>
     <string name="cek_koneksi_internet">Tidak ada koneksi internet !\nSilahkan periksa kembali koneksi internet anda !</string>
+    <string name="title_activity_tambah_admin_user_ibu">TambahAdminUserIbuActivity</string>
+    <string name="pilih_tipe_akun">Pilih Tipe Akun</string>
+    <string name="admin">Admin</string>
+    <string name="user_ibu">User Ibu</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="alamat_lengkap">Alamat Lengkap</string>
+    <string name="nomer_hp">Nomer Hp</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="ulangi_password">Ulangi Password</string>
+    <string name="daftar">Daftar</string>
 </resources>

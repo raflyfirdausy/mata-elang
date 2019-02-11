@@ -2,15 +2,13 @@ package com.firdausy.rafly.mataelang.Activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 
-import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Helper.Internet;
 import com.firdausy.rafly.mataelang.R;
 
@@ -31,8 +29,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
         Timer timer = new Timer();
         boolean cekKoneksi = new Internet().CekKoneksi(context);
-        if(cekKoneksi){
-            timer.schedule(new Splash(), 3000);
+        if (cekKoneksi) {
+            timer.schedule(new Splash(), 4000);
         } else {
             Snackbar.make(coordinatorLayout, "Tidak Ada Koneksi Internet !", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Coba Lagi", new View.OnClickListener() {
@@ -47,7 +45,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     class Splash extends TimerTask {
-
         @Override
         public void run() {
             startActivity(new Intent(context, MainActivity.class));

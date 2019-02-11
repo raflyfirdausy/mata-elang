@@ -5,6 +5,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/action_dashboard"
+            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:title="@string/dashboard" />
+        <item
             android:id="@+id/action_tambahUser"
             android:icon="@drawable/add"
             android:title="@string/tambah_admin_user_ibu" />
@@ -20,6 +24,10 @@
             android:id="@+id/action_pengaturan"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/pengaturan" />
+        <item
+            android:id="@+id/action_about"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Tentang Aplikasi" />
     </group>
 
     <item android:title="@string/managemen_akun">
