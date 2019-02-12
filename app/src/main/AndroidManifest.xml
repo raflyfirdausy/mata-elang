@@ -15,6 +15,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".Activity.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBarTransparent"
+            tools:ignore="InnerclassSeparator" />
+        <activity
             android:name=".Activity.TambahAdminUserActivity"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
