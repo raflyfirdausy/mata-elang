@@ -176,9 +176,10 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1">
+                            android:layout_weight="0">
 
                             <Button
+                                android:visibility="gone"
                                 android:layout_width="match_parent"
                                 android:layout_height="?attr/actionBarSize"
                                 android:backgroundTint="@color/colorPrimary"
@@ -193,9 +194,10 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1">
+                            android:layout_weight="2">
 
                             <Button
+                                android:id="@+id/btn_daftar"
                                 android:layout_width="match_parent"
                                 android:layout_height="?attr/actionBarSize"
                                 android:backgroundTint="@color/darkBlue"

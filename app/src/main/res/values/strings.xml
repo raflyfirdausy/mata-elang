@@ -78,4 +78,21 @@
     <string name="anak_umur_23_bulan">Anak Umur 23 Bulan</string>
     <string name="anak_umur_24_bulan">Anak Umur 24 Bulan</string>
     <string name="simpan">SIMPAN</string>
+    <string name="semua_data_tentang_posyandu">Semua data tentang posyandu</string>
+    <string name="nama_posyandu">Nama Posyandu</string>
+    <string name="alamat_lengkap_posyandu">Alamat Lengkap Posyandu</string>
+    <string name="alamat_posyandu">Alamat Posyandu</string>
+    <string name="kecamatan">Kecamatan</string>
+    <string name="nomer_hp_kantor">Nomer HP Kantor</string>
+    <string name="edit">Edit</string>
+    <string name="username_password_kosong">username atau password masih Kosong!</string>
+    <string name="jenis_akun_admin">Jenis Akun : Admin</string>
+    <string name="tipe_admin">Jenis Akun : Admin</string>
+    <string name="tipe_user_ibu">Jenis Akun : User Ibu</string>
+    <string name="masih_kosong">Masih Ada Data Yang Kosong !</string>
+    <string name="pass_salah">Konfirmasi Password Salah !</string>
+    <string name="databae_url">https://mata-elang-8c8a7.firebaseio.com/</string>
+    <string name="web_api">AIzaSyDCbTEo1D55Gpr7MeN-Dqz3MZ9ekw_bBZo</string>
+    <string name="project_idku">com.firdausy.rafly.mataelang</string>
+    <string name="berhasil_membuat_akun">Berhasil Membuat akun</string>
 </resources>

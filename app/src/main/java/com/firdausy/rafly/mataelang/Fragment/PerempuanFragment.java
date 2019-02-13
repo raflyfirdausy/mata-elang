@@ -13,10 +13,6 @@ import com.firdausy.rafly.mataelang.R;
 
 import java.util.Objects;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class PerempuanFragment extends Fragment {
 
 

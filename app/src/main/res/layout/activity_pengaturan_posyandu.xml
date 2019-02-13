@@ -1,17 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.PengaturanPosyanduActivity">
+    tools:context=".Activity.PengaturanPosyanduActivity"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/side_nav_bar"
-        android:orientation="vertical">
+        android:layout_height="100dp"
+        android:orientation="horizontal">
 
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_health"
+            android:tint="@color/colorPrimary"
+            android:padding="20dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:text="@string/posyandu"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:paddingTop="5dp"
+                    android:text="@string/semua_data_tentang_posyandu"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nama_posyandu"
+            android:textColor="@color/black"
+            android:fontFamily="monospace"/>
+
+        <EditText
+            android:id="@+id/et_namaPosyandu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/nama_posyandu"
+            android:inputType="text"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/alamat_posyandu"
+            android:textColor="@color/black"
+            android:fontFamily="monospace"/>
+
+        <EditText
+            android:id="@+id/et_alamatPosyandu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/alamat_posyandu"
+            android:inputType="textPostalAddress"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/kecamatan"
+            android:textColor="@color/black"
+            android:fontFamily="monospace"/>
+
+        <EditText
+            android:id="@+id/et_kecamatan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/kecamatan"
+            android:inputType="textPostalAddress"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nomer_hp_kantor"
+            android:textColor="@color/black"
+            android:fontFamily="monospace"/>
+
+        <EditText
+            android:id="@+id/et_nomerHpKantor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/nomer_hp_kantor"
+            android:inputType="phone"/>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/tombol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50">
+                <Button
+                    android:id="@+id/btn_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:fontFamily="monospace"
+                    android:text="@string/edit"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    tools:targetApi="lollipop" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50">
+                <Button
+                    android:id="@+id/btn_simpan"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:backgroundTint="@color/blue"
+                    android:textColor="@color/white"
+                    android:fontFamily="monospace"
+                    android:text="@string/simpan"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    tools:targetApi="lollipop" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -38,7 +38,7 @@
             tools:ignore="RtlSymmetry">
 
             <TextView
-                android:id="@+id/et_namaPengguna"
+                android:id="@+id/tv_namaPengguna"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="monospace"
@@ -49,11 +49,18 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/et_emailPengguna"
+                android:id="@+id/tv_emailPengguna"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="monospace"
                 android:text="@string/email_gmail_com" />
+
+            <TextView
+                android:id="@+id/tv_tipePengguna"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="@string/jenis_akun_admin" />
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
