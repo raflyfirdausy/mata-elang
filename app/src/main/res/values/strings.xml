@@ -95,4 +95,6 @@
     <string name="web_api">AIzaSyDCbTEo1D55Gpr7MeN-Dqz3MZ9ekw_bBZo</string>
     <string name="project_idku">com.firdausy.rafly.mataelang</string>
     <string name="berhasil_membuat_akun">Berhasil Membuat akun</string>
+    <string name="data_berhasil_di_simpan">Data Berhasil Di Simpan !</string>
+    <string name="batal">Batal</string>
 </resources>

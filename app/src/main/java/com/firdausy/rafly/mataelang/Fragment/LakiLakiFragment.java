@@ -2,9 +2,12 @@ package com.firdausy.rafly.mataelang.Fragment;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +15,18 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.firdausy.rafly.mataelang.Activity.PengaturanAntrompometriActivity;
+import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class LakiLakiFragment extends Fragment {
@@ -51,6 +64,9 @@ public class LakiLakiFragment extends Fragment {
     private Button btn_reset;
     private Button btn_simpan;
 
+    private DatabaseReference databaseReference;
+    private ProgressDialog progressDialog;
+
 
     public LakiLakiFragment() {
         // Required empty public constructor
@@ -65,6 +81,8 @@ public class LakiLakiFragment extends Fragment {
 
         btn_reset = v.findViewById(R.id.btn_reset);
         btn_simpan = v.findViewById(R.id.btn_simpan);
+
+
 
         editTexts = new EditText[25];
         for(int i = 0; i < 25 ; i++){
@@ -82,10 +100,83 @@ public class LakiLakiFragment extends Fragment {
             }
         });
 
+        databaseReference = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("antropometri")
+                .child("lakilaki");
+
+        btn_simpan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prosesSimpan();
+            }
+        });
+
+        getData();
+
         return v;
     }
 
+    private void getData() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (int i = 0; i < 25; i++) {
+                    if(i < 10){
+                        editTexts[i].setText(dataSnapshot.child("bulan0" + i).getValue(String.class));
+                    } else {
+                        editTexts[i].setText(dataSnapshot.child("bulan" + i).getValue(String.class));
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                new Bantuan(getActivity()).alertDialogPeringatan(databaseError.getMessage());
+            }
+        });
+    }
+
+    private void prosesSimpan() {
+        boolean adayangKosong = false;
+        for(int i = 0; i < 25 ; i++){
+            if((TextUtils.isEmpty(editTexts[i].getText().toString()))){
+                adayangKosong = true;
+                break;
+            }
+        }
+
+        if (adayangKosong){
+            new Bantuan(getActivity()).alertDialogPeringatan(getString(R.string.masih_kosong));
+        } else {
+            //TODO : proses Simpan
+            progressDialog = ProgressDialog.show(getActivity(),
+                    "Tunggu Beberapa Saat",
+                    "Proses Menyimpan ...",
+                    true);
+
+            Map data = new HashMap();
+            for (int i = 0; i < 25 ; i++){
+                if(i < 10){
+                    data.put("bulan0" + i , (editTexts[i].getText().toString()));
+                } else {
+                    data.put("bulan" + i , (editTexts[i].getText().toString()));
+                }
+            }
+
+            databaseReference.setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    progressDialog.dismiss();
+                    if(task.isSuccessful()){
+                            new Bantuan(getActivity()).alertDialogInformasi("Data Berhasil Di Simpan !");
+                    } else {
+                        new Bantuan(getActivity()).alertDialogInformasi(Objects.requireNonNull(task.getException()).getMessage());
+                    }
+                }
+            });
+        }
+    }
 
 
 }
