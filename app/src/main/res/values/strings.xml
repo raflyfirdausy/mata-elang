@@ -98,4 +98,10 @@
     <string name="data_berhasil_di_simpan">Data Berhasil Di Simpan !</string>
     <string name="batal">Batal</string>
     <string name="orang">Orang</string>
+    <string name="daftar_nama_ibu">Daftar Nama Ibu</string>
+    <string name="silahkan_klik_salah_satu_nama_ibu_di_bawah_ini_untuk_mengisi_data_antropometri">Silahkan pilih salah satu nama ibu di bawah ini untuk mengisi data antropometri</string>
+    <string name="search">Search</string>
+    <string name="tidak_ditemukan">Data Tidak Di Temukan !</string>
+    <string name="nama_ibu">Nama Ibu</string>
+    <string name="email_ibu">Email Ibu</string>
 </resources>

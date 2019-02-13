@@ -10,13 +10,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.firdausy.rafly.mataelang.Adapter.IbuAdapter;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Model.IbuModel;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,84 +30,89 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity
+public class InputDataAntropometriActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Context context = MainActivity.this;
+    private Context context = InputDataAntropometriActivity.this;
     private FirebaseAuth firebaseAuth;
     private TextView tv_namaPengguna;
     private TextView tv_emailPengguna;
     private TextView tv_tipePengguna;
-    private TextView tv_totalIbu;
     private DatabaseReference databaseReference;
+    private ListView lv_konten;
+    private List<IbuModel> list = new ArrayList<>();
+    private IbuAdapter ibuAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_input_data_antropometri);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.mata_elang);
-        toolbar.setSubtitle(R.string.dashboard);
-
+        toolbar.setSubtitle(R.string.input_data_antropometri);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.getMenu().getItem(0).setChecked(true);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.getMenu().getItem(2).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
 
         tv_namaPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_namaPengguna);
         tv_emailPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_emailPengguna);
         tv_tipePengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_tipePengguna);
-        tv_totalIbu = findViewById(R.id.tv_totalIbu);
 
-        LinearLayout ll_ibu = findViewById(R.id.ll_ibu);
-        LinearLayout ll_bayi = findViewById(R.id.ll_bayi);
-
-        ll_ibu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(context, InputDataAntropometriActivity.class));
-                finish();
-            }
-        });
-
-        ll_bayi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(context, InputDataAntropometriActivity.class));
-                finish();
-            }
-        });
+        lv_konten = findViewById(R.id.lv_konten);
 
         //firebase
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.keepSynced(true);
 
+        getAndSetData();
+
+    }
+
+    private void getAndSetData() {
         databaseReference.child("user")
                 .child("ibu")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            int jumlahIbu = 0;
-                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                jumlahIbu++;
+                        IbuModel ibuModel = null;
+                        list.clear();
+
+                        if(dataSnapshot.exists()){
+                            for(DataSnapshot ds : dataSnapshot.getChildren()){
+                                ibuModel = ds.getValue(IbuModel.class);
+                                ibuModel.setKeyIbu(ds.getKey());
+                                list.add(ibuModel);
                             }
-                            tv_totalIbu.setText(String.valueOf(jumlahIbu) + " ibu");
+
+                            ibuAdapter = new IbuAdapter(InputDataAntropometriActivity.this , list);
+                            lv_konten.setAdapter(ibuAdapter);
+                            lv_konten.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    //TODO : pindah ke activity isi data Antropometri
+                                }
+                            });
+
+                        } else {
+                            new Bantuan(context).alertDialogPeringatan(getString(R.string.tidak_ditemukan));
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
                     }
                 });
     }
@@ -151,7 +161,6 @@ public class MainActivity extends AppCompatActivity
                         }
                     });
         }
-
     }
 
     @Override
@@ -165,25 +174,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if(id == R.id.action_about){
-//            new Bantuan(context).alertDialogDebugging("About Coming Soon !");
-//        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem menuItem) {
-
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
 
         if (id == R.id.action_dashboard) {
@@ -210,8 +201,45 @@ public class MainActivity extends AppCompatActivity
             new Bantuan(context).alertDialogDebugging("About Coming Soon !");
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_antropometri, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //TODO : Action ketika tombol submit :v
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //TODO : Action ketika textnya berubah seperti dia yang sekarang bukan lagi yang dulu :(
+                if (TextUtils.isEmpty(newText)) {
+                    ibuAdapter.cariPesan("");
+                    lv_konten.clearTextFilter();
+                } else {
+                    ibuAdapter.cariPesan(newText);
+                }
+                return true;
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

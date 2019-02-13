@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="searchViewStyle">@style/SearchView</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -45,5 +46,10 @@
         <item name="colorControlNormal">@color/white</item>
         <item name="colorControlActivated">@color/white</item>
     </style>
+
+    <style name="SearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:maxWidth">@dimen/maxSize</item>
+    </style>
+    <dimen name="maxSize">1000dp</dimen>
 
 </resources>

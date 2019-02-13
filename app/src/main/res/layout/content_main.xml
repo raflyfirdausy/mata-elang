@@ -20,6 +20,7 @@
         app:cardCornerRadius="5dp">
 
         <LinearLayout
+            android:id="@+id/ll_ibu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
@@ -93,6 +94,7 @@
         android:layout_marginEnd="2dp">
 
         <LinearLayout
+            android:id="@+id/ll_bayi"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"

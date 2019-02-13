@@ -279,7 +279,8 @@ public class TambahAdminUserActivity extends AppCompatActivity
             startActivity(new Intent(context, TambahAdminUserActivity.class));
             finish();
         } else if (id == R.id.action_input) {
-
+            startActivity(new Intent(context, InputDataAntropometriActivity.class));
+            finish();
         } else if (id == R.id.action_lihat) {
 
         } else if (id == R.id.action_pengaturan) {
