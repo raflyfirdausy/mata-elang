@@ -183,7 +183,7 @@
                                 android:layout_height="?attr/actionBarSize"
                                 android:backgroundTint="@color/colorPrimary"
                                 android:fontFamily="monospace"
-                                android:text="Reset"
+                                android:text="@string/reset"
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
                                 android:textStyle="bold"

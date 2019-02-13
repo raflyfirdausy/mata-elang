@@ -19,7 +19,7 @@
         <item
             android:id="@+id/action_lihat"
             android:icon="@drawable/lihat"
-            android:title="@string/lihat_data_antropomteri" />
+            android:title="@string/lihat_data_antropometeri" />
         <item
             android:id="@+id/action_pengaturan"
             android:icon="@drawable/ic_menu_manage"

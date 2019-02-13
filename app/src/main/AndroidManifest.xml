@@ -14,6 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Activity.PengaturanAntrompometriActivity"
+            tools:ignore="InnerclassSeparator"/>
+        <activity android:name=".Activity.PengaturanPosyanduActivity"
+            tools:ignore="InnerclassSeparator"/>
+        <activity
+            android:name=".Activity.PengaturanActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".Activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBarTransparent"

@@ -87,7 +87,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.action_lihat) {
 
         } else if (id == R.id.action_pengaturan) {
-
+            startActivity(new Intent(context, PengaturanActivity.class));
+            finish();
         } else if (id == R.id.action_edit) {
 
         } else if (id == R.id.action_logout) {

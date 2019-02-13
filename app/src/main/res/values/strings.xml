@@ -10,9 +10,9 @@
     <string name="deskripsi_mata_elang">Mari Pantau Elektronik Antropometri Gizi</string>
     <string name="tambah_admin_user_ibu">Tambah Admin / User Ibu</string>
     <string name="input_data_antropometri">Input Data Antropometri</string>
-    <string name="lihat_data_antropomteri">Lihat Data Antropomteri</string>
+    <string name="lihat_data_antropometeri">Lihat Data Antropometeri</string>
     <string name="managemen_akun">Managemen Akun</string>
-    <string name="pengaturan">Pengaturan </string>
+
     <string name="edit_profile">Edit Profile</string>
     <string name="nama_pengguna">Nama Pengguna</string>
     <string name="email_gmail_com">email@gmail.com</string>
@@ -40,4 +40,42 @@
     <string name="daftar">Daftar</string>
     <string name="login_mata_elang">LOGIN MATA ELANG</string>
     <string name="login">LOGIN</string>
+    <string name="reset">Reset</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="perempuan">Perempuan</string>
+    <string name="laki_laki">Laki - Laki</string>
+    <string name="pengaturan">Pengaturan</string>
+    <string name="standar_antropometeri">Standar Antropometeri</string>
+    <string name="posyandu">Posyandu</string>
+    <string name="standar_antropometri">Standar Antropomteri</string>
+
+    <string name="pb_normal_cm">PB Normal (cm)</string>
+    <string name="anak_umur_0_bulan">Anak Umur 0 Bulan</string>
+    <string name="anak_umur_1_bulan">Anak Umur 1 Bulan</string>
+    <string name="anak_umur_2_bulan">Anak Umur 2 Bulan</string>
+    <string name="anak_umur_3_bulan">Anak Umur 3 Bulan</string>
+    <string name="anak_umur_4_bulan">Anak Umur 4 Bulan</string>
+    <string name="anak_umur_5_bulan">Anak Umur 5 Bulan</string>
+    <string name="anak_umur_6_bulan">Anak Umur 6 Bulan</string>
+    <string name="anak_umur_7_bulan">Anak Umur 7 Bulan</string>
+    <string name="anak_umur_8_bulan">Anak Umur 8 Bulan</string>
+    <string name="anak_umur_9_bulan">Anak Umur 9 Bulan</string>
+    <string name="anak_umur_10_bulan">Anak Umur 10 Bulan</string>
+    <string name="anak_umur_11_bulan">Anak Umur 11 Bulan</string>
+    <string name="anak_umur_12_bulan">Anak Umur 12 Bulan</string>
+    <string name="anak_umur_13_bulan">Anak Umur 13 Bulan</string>
+    <string name="anak_umur_14_bulan">Anak Umur 14 Bulan</string>
+    <string name="anak_umur_15_bulan">Anak Umur 15 Bulan</string>
+    <string name="anak_umur_16_bulan">Anak Umur 16 Bulan</string>
+    <string name="anak_umur_17_bulan">Anak Umur 17 Bulan</string>
+    <string name="anak_umur_18_bulan">Anak Umur 18 Bulan</string>
+    <string name="anak_umur_19_bulan">Anak Umur 19 Bulan</string>
+    <string name="anak_umur_20_bulan">Anak Umur 20 Bulan</string>
+    <string name="anak_umur_21_bulan">Anak Umur 21 Bulan</string>
+    <string name="anak_umur_22_bulan">Anak Umur 22 Bulan</string>
+    <string name="anak_umur_23_bulan">Anak Umur 23 Bulan</string>
+    <string name="anak_umur_24_bulan">Anak Umur 24 Bulan</string>
+    <string name="simpan">SIMPAN</string>
 </resources>
