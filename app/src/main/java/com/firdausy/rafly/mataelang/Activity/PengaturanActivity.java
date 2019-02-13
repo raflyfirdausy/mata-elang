@@ -13,16 +13,28 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
 
 public class PengaturanActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Context context = PengaturanActivity.this;
     private FirebaseAuth firebaseAuth;
+    private TextView tv_namaPengguna;
+    private TextView tv_emailPengguna;
+    private TextView tv_tipePengguna;
+    private DatabaseReference databaseReference;
 
 
     @Override
@@ -43,8 +55,14 @@ public class PengaturanActivity extends AppCompatActivity
         navigationView.getMenu().getItem(4).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
 
+        tv_namaPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_namaPengguna);
+        tv_emailPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_emailPengguna);
+        tv_tipePengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_tipePengguna);
+
         //firebase
         firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.keepSynced(true);
 
         LinearLayout action_posyandu = findViewById(R.id.action_posyandu);
         LinearLayout action_antropometeri = findViewById(R.id.action_antropometeri);
@@ -65,6 +83,52 @@ public class PengaturanActivity extends AppCompatActivity
             }
         });
 
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
+
+        if(firebaseAuth.getCurrentUser() != null){
+            databaseReference.child("user")
+                    .child("admin")
+                    .child(firebaseAuth.getCurrentUser().getUid())
+                    .child("namaLengkap")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
+                                tv_tipePengguna.setText(getString(R.string.tipe_admin));
+                            } else {
+                                databaseReference.child("user")
+                                        .child("ibu")
+                                        .child(firebaseAuth.getCurrentUser().getUid())
+                                        .child("namaLengkap")
+                                        .addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                if(dataSnapshot.exists()) {
+                                                    tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
+                                                    tv_tipePengguna.setText(getString(R.string.tipe_user_ibu));
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                                            }
+                                        });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                        }
+                    });
+        }
     }
 
     @Override

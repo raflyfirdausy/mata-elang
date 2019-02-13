@@ -28,8 +28,11 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -106,6 +109,52 @@ public class TambahAdminUserActivity extends AppCompatActivity
                 prosesDaftar();
             }
         });
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
+
+        if(firebaseAuth.getCurrentUser() != null){
+            databaseReference.child("user")
+                    .child("admin")
+                    .child(firebaseAuth.getCurrentUser().getUid())
+                    .child("namaLengkap")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
+                                tv_tipePengguna.setText(getString(R.string.tipe_admin));
+                            } else {
+                                databaseReference.child("user")
+                                        .child("ibu")
+                                        .child(firebaseAuth.getCurrentUser().getUid())
+                                        .child("namaLengkap")
+                                        .addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                if(dataSnapshot.exists()) {
+                                                    tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
+                                                    tv_tipePengguna.setText(getString(R.string.tipe_user_ibu));
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                                            }
+                                        });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                        }
+                    });
+        }
     }
 
     private void prosesDaftar() {
