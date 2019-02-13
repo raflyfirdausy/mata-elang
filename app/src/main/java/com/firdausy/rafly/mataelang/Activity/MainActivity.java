@@ -4,10 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.MenuInflater;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -37,7 +33,8 @@ public class MainActivity extends AppCompatActivity
     private TextView tv_namaPengguna;
     private TextView tv_emailPengguna;
     private TextView tv_tipePengguna;
-    private DatabaseReference databaseReference;
+    private TextView tv_totalIbu;
+    private DatabaseReference databaseReference, dbHitungIbuTerdaftar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +58,32 @@ public class MainActivity extends AppCompatActivity
         tv_namaPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_namaPengguna);
         tv_emailPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_emailPengguna);
         tv_tipePengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_tipePengguna);
+        tv_totalIbu = findViewById(R.id.tv_totalIbu);
 
         //firebase
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.keepSynced(true);
+
+        databaseReference.child("user")
+                .child("ibu")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            int jumlahIbu = 0;
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                jumlahIbu++;
+                            }
+                            tv_totalIbu.setText(String.valueOf(jumlahIbu) + " ibu");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
     }
 
     @Override
@@ -73,7 +91,7 @@ public class MainActivity extends AppCompatActivity
         super.onPostResume();
         tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
 
-        if(firebaseAuth.getCurrentUser() != null){
+        if (firebaseAuth.getCurrentUser() != null) {
             databaseReference.child("user")
                     .child("admin")
                     .child(firebaseAuth.getCurrentUser().getUid())
@@ -81,7 +99,7 @@ public class MainActivity extends AppCompatActivity
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.exists()){
+                            if (dataSnapshot.exists()) {
                                 tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
                                 tv_tipePengguna.setText(getString(R.string.tipe_admin));
                             } else {
@@ -92,7 +110,7 @@ public class MainActivity extends AppCompatActivity
                                         .addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                if(dataSnapshot.exists()) {
+                                                if (dataSnapshot.exists()) {
                                                     tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
                                                     tv_tipePengguna.setText(getString(R.string.tipe_user_ibu));
                                                 }
@@ -112,6 +130,7 @@ public class MainActivity extends AppCompatActivity
                         }
                     });
         }
+
     }
 
     @Override
