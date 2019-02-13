@@ -6,8 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.firdausy.rafly.mataelang.R;
+
+import java.util.Objects;
 
 
 /**
@@ -44,6 +48,10 @@ public class PerempuanFragment extends Fragment {
             80.0
     };
 
+    private EditText[] editTexts;
+    private Button btn_reset;
+    private Button btn_simpan;
+
     public PerempuanFragment() {
         // Required empty public constructor
     }
@@ -53,7 +61,28 @@ public class PerempuanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_perempuan, container, false);
+        View v = inflater.inflate(R.layout.fragment_perempuan, container, false);
+
+        btn_reset = v.findViewById(R.id.btn_reset);
+        btn_simpan = v.findViewById(R.id.btn_simpan);
+
+        editTexts = new EditText[25];
+        for(int i = 0; i < 25 ; i++){
+            String editTextID = "et_pb" + i;
+            int resID = getResources().getIdentifier(editTextID, "id", Objects.requireNonNull(getActivity()).getPackageName());
+            editTexts[i] = v.findViewById(resID);
+        }
+
+        btn_reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int i = 0; i < 25 ; i++){
+                    editTexts[i].setText(String.valueOf(PB_defaultPerempuan[i]));
+                }
+            }
+        });
+
+        return v;
     }
 
 }

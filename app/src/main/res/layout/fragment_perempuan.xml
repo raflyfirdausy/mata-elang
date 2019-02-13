@@ -1033,6 +1033,7 @@
             android:layout_height="match_parent"
             android:layout_weight="50">
             <Button
+                android:id="@+id/btn_reset"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:backgroundTint="@color/colorPrimary"
@@ -1048,6 +1049,7 @@
             android:layout_height="match_parent"
             android:layout_weight="50">
             <Button
+                android:id="@+id/btn_simpan"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:backgroundTint="@color/blue"
