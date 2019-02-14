@@ -8,9 +8,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -18,10 +19,10 @@
 
             <ImageView
                 android:layout_width="100dp"
-                android:layout_height="120dp"
-                android:src="@drawable/ic_mother"
+                android:layout_height="150dp"
                 android:padding="20dp"
-                android:tint="@color/colorPrimary"/>
+                android:src="@drawable/ic_mother"
+                android:tint="@color/colorPrimary" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -51,8 +52,20 @@
                         android:paddingTop="5dp"
                         android:text="@string/pilih_anak"
                         android:textColor="@color/black"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:textStyle="normal" />
+
+                    <Button
+                        android:id="@+id/btn_panggil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:text="@string/panggil"
+                        android:textStyle="bold"
+                        android:drawableTint="@color/white"
+                        android:textColor="@color/white"
+                        android:fontFamily="monospace"
+                        android:drawableLeft="@drawable/ic_call_black_24dp"/>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -60,10 +73,10 @@
         </LinearLayout>
 
         <TextView
-            android:layout_marginTop="21dp"
-            android:layout_marginStart="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="21dp"
             android:fontFamily="monospace"
             android:text="@string/pilih_data_bayi"
             android:textColor="@color/black"
@@ -71,16 +84,207 @@
             android:textStyle="normal" />
 
         <com.jaredrummler.materialspinner.MaterialSpinner
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:id="@+id/spinner_anak"
-            app:ms_dropdown_max_height="300dp"
-            app:ms_dropdown_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"/>
-        
+            android:textSize="20sp"
+            app:ms_dropdown_height="wrap_content"
+            app:ms_dropdown_max_height="300dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/layout_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <EditText
+                        android:id="@+id/et_tanggalInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/tanggal_input"
+                        android:inputType="date"
+                        android:textColor="@color/black" />
+                </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_inputUmur"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="30dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:paddingBottom="5dp"
+                                android:text="@string/umur_n_bulan"
+                                android:textColor="@color/black"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="50">
+
+                        <EditText
+                            android:id="@+id/et_bulanKe"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal"
+                            android:hint="@string/bulan"
+                            android:inputType="numberDecimal"
+                            android:textColor="@color/black"
+                            android:textSize="40sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_inputPanjangBadan"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="30dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:paddingBottom="5dp"
+                                android:text="@string/panjang_badan"
+                                android:textColor="@color/black"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="50">
+
+                        <EditText
+                            android:id="@+id/et_panjangBadan"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal"
+                            android:hint="@string/cm"
+                            android:inputType="numberDecimal"
+                            android:textColor="@color/black"
+                            android:textSize="40sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_inputBeratBadan"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="30dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:paddingBottom="5dp"
+                                android:text="@string/berat_badan"
+                                android:textColor="@color/black"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="50">
+
+                        <EditText
+                            android:id="@+id/et_beratBadan"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal"
+                            android:hint="(Kg)"
+                            android:inputType="numberDecimal"
+                            android:textColor="@color/black"
+                            android:textSize="40sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_simpan"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:backgroundTint="@color/darkBlue"
+                    android:fontFamily="monospace"
+                    android:text="@string/simpan"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:targetApi="lollipop" />
+            </LinearLayout>
+
+        </ScrollView>
+
     </LinearLayout>
 
 
@@ -88,21 +292,18 @@
         android:id="@+id/fab_tambahDataAnak"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:tooltipText="@string/tambah_data_anak"
-        app:fab_label="@string/tambah_data_anak"
         android:src="@drawable/add"
-        tools:targetApi="o"
-        app:fabSize="normal"
-        app:fab_showShadow="false"
+        android:tooltipText="@string/tambah_data_anak"
         app:backgroundTint="@color/colorPrimaryDark"
-        app:fab_showAnimation="@anim/fab_slide_in_from_right"/>
-
-
-
+        app:fabSize="normal"
+        app:fab_label="@string/tambah_data_anak"
+        app:fab_showAnimation="@anim/fab_slide_in_from_right"
+        app:fab_showShadow="false"
+        tools:targetApi="o" />
 
 
 </RelativeLayout>

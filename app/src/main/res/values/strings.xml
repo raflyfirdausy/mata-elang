@@ -94,7 +94,7 @@
     <string name="databae_url">https://mata-elang-8c8a7.firebaseio.com/</string>
     <string name="web_api">AIzaSyDCbTEo1D55Gpr7MeN-Dqz3MZ9ekw_bBZo</string>
     <string name="project_idku">com.firdausy.rafly.mataelang</string>
-    <string name="berhasil_membuat_akun">Berhasil Membuat akun</string>
+    <string name="berhasil_membuat_akun">Berhasil Membuat akun </string>
     <string name="data_berhasil_di_simpan">Data Berhasil Di Simpan !</string>
     <string name="batal">Batal</string>
     <string name="orang">Orang</string>
@@ -115,4 +115,15 @@
     <string name="berhasil_menambah_data_bayi">Berhasil Menambah Data Bayi !</string>
     <string name="belum_ada_data_anak">Belum Ada Data Anak</string>
     <string name="pilih_data_bayi">Pilih Nama Anak</string>
+    <string name="panjang_badan">Panjang\nBadan</string>
+    <string name="cm">(Cm)</string>
+    <string name="berat_badan">Berat\nBadan</string>
+    <string name="tanggal_input">Tanggal Input</string>
+    <string name="panggil">Panggil</string>
+    <string name="granted">Permission Granted !</string>
+    <string name="denied">Permission Denied !</string>
+    <string name="umur_n_bulan">Umur\n(Bulan)</string>
+    <string name="bulan">(Bulan)</string>
+    <string name="beresiko_stunting">Anak Anda Berisiko Stunting !</string>
+    <string name="anak_normal">Anak Anda Normal !</string>
 </resources>

@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private TextView tv_emailPengguna;
     private TextView tv_tipePengguna;
     private TextView tv_totalIbu;
+    private TextView tv_totalBayi;
     private DatabaseReference databaseReference;
 
     @Override
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity
         tv_emailPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_emailPengguna);
         tv_tipePengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_tipePengguna);
         tv_totalIbu = findViewById(R.id.tv_totalIbu);
+        tv_totalBayi = findViewById(R.id.tv_totalBayi);
 
         LinearLayout ll_ibu = findViewById(R.id.ll_ibu);
         LinearLayout ll_bayi = findViewById(R.id.ll_bayi);
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         ll_bayi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(context, InputDataAntropometriActivity.class));
+                startActivity(new Intent(context, LihatDataAntropometriActivity.class));
                 finish();
             }
         });
@@ -86,6 +88,12 @@ public class MainActivity extends AppCompatActivity
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.keepSynced(true);
 
+        getAndSetData();
+
+
+    }
+
+    private void getAndSetData() {
         databaseReference.child("user")
                 .child("ibu")
                 .addValueEventListener(new ValueEventListener() {
@@ -98,6 +106,27 @@ public class MainActivity extends AppCompatActivity
                             }
                             tv_totalIbu.setText(String.valueOf(jumlahIbu) + " ibu");
                         }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+        databaseReference.child("bayi")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        int jumlahBayi = 0;
+                        if(dataSnapshot.exists()){
+                            for(DataSnapshot ds : dataSnapshot.getChildren()){
+                                for (DataSnapshot DS : ds.getChildren()){
+                                    jumlahBayi ++;
+                                }
+                            }
+                        }
+                        tv_totalBayi.setText(String.valueOf(jumlahBayi) + " bayi");
                     }
 
                     @Override
