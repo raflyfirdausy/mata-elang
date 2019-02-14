@@ -2,13 +2,13 @@ package com.firdausy.rafly.mataelang.Activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -34,10 +34,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class InputDataAntropometriActivity extends AppCompatActivity
+public class LihatDataAntropometriActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Context context = InputDataAntropometriActivity.this;
+    private Context context = LihatDataAntropometriActivity.this;
     private FirebaseAuth firebaseAuth;
     private TextView tv_namaPengguna;
     private TextView tv_emailPengguna;
@@ -50,11 +50,11 @@ public class InputDataAntropometriActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_input_data_antropometri);
+        setContentView(R.layout.activity_lihat_data_antropometri);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.mata_elang);
-        toolbar.setSubtitle(R.string.input_data_antropometri);
+        toolbar.setSubtitle(R.string.lihat_data_antropometeri);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -62,7 +62,7 @@ public class InputDataAntropometriActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.getMenu().getItem(2).setChecked(true);
+        navigationView.getMenu().getItem(3).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
 
         tv_namaPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_namaPengguna);
@@ -77,7 +77,6 @@ public class InputDataAntropometriActivity extends AppCompatActivity
         databaseReference.keepSynced(true);
 
         getAndSetData();
-
     }
 
     private void getAndSetData() {
@@ -96,15 +95,12 @@ public class InputDataAntropometriActivity extends AppCompatActivity
                                 list.add(ibuModel);
                             }
 
-                            ibuAdapter = new IbuAdapter(InputDataAntropometriActivity.this , list);
+                            ibuAdapter = new IbuAdapter(LihatDataAntropometriActivity.this , list);
                             lv_konten.setAdapter(ibuAdapter);
                             lv_konten.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    //TODO : pindah ke activity isi data Antropometri\
-                                    Intent intent = new Intent(context, IbuDetailActivity.class);
-                                    intent.putExtra("keyIbu", list.get(position).getKeyIbu());
-                                    startActivity(intent);
+                                    //TODO : pindah ke activity isi data Antropometri
                                 }
                             });
 
@@ -178,40 +174,6 @@ public class InputDataAntropometriActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        int id = menuItem.getItemId();
-
-        if (id == R.id.action_dashboard) {
-            startActivity(new Intent(context, MainActivity.class));
-            finish();
-        } else if (id == R.id.action_tambahUser) {
-            startActivity(new Intent(context, TambahAdminUserActivity.class));
-            finish();
-        } else if (id == R.id.action_input) {
-            startActivity(new Intent(context, InputDataAntropometriActivity.class));
-            finish();
-        } else if (id == R.id.action_lihat) {
-            startActivity(new Intent(context, LihatDataAntropometriActivity.class));
-            finish();
-        } else if (id == R.id.action_pengaturan) {
-            startActivity(new Intent(context, PengaturanActivity.class));
-            finish();
-        } else if (id == R.id.action_edit) {
-
-        } else if (id == R.id.action_logout) {
-            firebaseAuth.signOut();
-            startActivity(new Intent(context, LoginActivity.class));
-            finish();
-        } else if (id == R.id.action_about) {
-            new Bantuan(context).alertDialogDebugging("About Coming Soon !");
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_antropometri, menu);
 
@@ -247,4 +209,39 @@ public class InputDataAntropometriActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int id = menuItem.getItemId();
+
+        if (id == R.id.action_dashboard) {
+            startActivity(new Intent(context, MainActivity.class));
+            finish();
+        } else if (id == R.id.action_tambahUser) {
+            startActivity(new Intent(context, TambahAdminUserActivity.class));
+            finish();
+        } else if (id == R.id.action_input) {
+            startActivity(new Intent(context, InputDataAntropometriActivity.class));
+            finish();
+        } else if (id == R.id.action_lihat) {
+            startActivity(new Intent(context, LihatDataAntropometriActivity.class));
+            finish();
+        } else if (id == R.id.action_pengaturan) {
+            startActivity(new Intent(context, PengaturanActivity.class));
+            finish();
+        } else if (id == R.id.action_edit) {
+
+        } else if (id == R.id.action_logout) {
+            firebaseAuth.signOut();
+            startActivity(new Intent(context, LoginActivity.class));
+            finish();
+        } else if (id == R.id.action_about) {
+            new Bantuan(context).alertDialogDebugging("About Coming Soon !");
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
 }

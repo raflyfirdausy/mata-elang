@@ -40,7 +40,7 @@
     <string name="daftar">Daftar</string>
     <string name="login_mata_elang">LOGIN MATA ELANG</string>
     <string name="login">LOGIN</string>
-    <string name="reset">Reset</string>
+    <string name="reset">Reset Default</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -104,4 +104,15 @@
     <string name="tidak_ditemukan">Data Tidak Di Temukan !</string>
     <string name="nama_ibu">Nama Ibu</string>
     <string name="email_ibu">Email Ibu</string>
+    <string name="silahkan_pilih_salah_satu_nama_ibu_di_bawah_ini_untuk_melihat_detail_data_dan_grafik_antropometri">Silahkan pilih salah satu nama ibu di bawah ini untuk melihat detail data dan grafik antropometri</string>
+    <string name="pilih_anak">Silahkan pilih salah satu nama anak yang terdaftar di bawah ini untuk mengisi data antropometri pada anak tersebut.</string>
+    <string name="tambah_data_anak">Tambah Data Anak</string>
+    <string name="isi_data">Silahkan isi data bayi di bawah ini sesuai dengan kondisi bayi</string>
+    <string name="nama_lengkap_bayi">Nama Lengkap Bayi</string>
+    <string name="tanggal_lahir">Tanggal Lahir</string>
+    <string name="tempat_lahir">Tempat Lahir</string>
+    <string name="input_data_anak">IInput Data Anak</string>
+    <string name="berhasil_menambah_data_bayi">Berhasil Menambah Data Bayi !</string>
+    <string name="belum_ada_data_anak">Belum Ada Data Anak</string>
+    <string name="pilih_data_bayi">Pilih Nama Anak</string>
 </resources>

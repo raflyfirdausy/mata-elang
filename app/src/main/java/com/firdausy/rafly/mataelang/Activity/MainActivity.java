@@ -196,7 +196,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(context, InputDataAntropometriActivity.class));
             finish();
         } else if (id == R.id.action_lihat) {
-
+            startActivity(new Intent(context, LihatDataAntropometriActivity.class));
+            finish();
         } else if (id == R.id.action_pengaturan) {
             startActivity(new Intent(context, PengaturanActivity.class));
             finish();

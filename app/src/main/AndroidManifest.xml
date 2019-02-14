@@ -14,6 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Activity.TambahDataAnakActivity"></activity>
+        <activity android:name=".Activity.IbuDetailActivity" />
+        <activity
+            android:name=".Activity.LihatDataAntropometriActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".Activity.InputDataAntropometriActivity"
             android:configChanges="orientation"
@@ -63,6 +71,7 @@
             tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

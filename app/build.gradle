@@ -37,5 +37,7 @@ dependencies {
     implementation 'com.scwang.wave:MultiWaveHeader:1.0.0-alpha-1'
 
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    implementation 'com.jaredrummler:material-spinner:1.2.5'
+    implementation 'com.github.clans:fab:1.6.4'
 }
 apply plugin: 'com.google.gms.google-services'

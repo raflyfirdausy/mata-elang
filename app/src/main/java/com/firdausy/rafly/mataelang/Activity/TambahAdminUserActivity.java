@@ -264,7 +264,8 @@ public class TambahAdminUserActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            startActivity(new Intent(context, MainActivity.class));
+            finish();
         }
     }
 
@@ -282,7 +283,8 @@ public class TambahAdminUserActivity extends AppCompatActivity
             startActivity(new Intent(context, InputDataAntropometriActivity.class));
             finish();
         } else if (id == R.id.action_lihat) {
-
+            startActivity(new Intent(context, LihatDataAntropometriActivity.class));
+            finish();
         } else if (id == R.id.action_pengaturan) {
             startActivity(new Intent(context, PengaturanActivity.class));
             finish();
