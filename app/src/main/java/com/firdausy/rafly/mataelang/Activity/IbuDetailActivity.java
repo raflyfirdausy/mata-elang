@@ -1,6 +1,7 @@
 package com.firdausy.rafly.mataelang.Activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InputFilterMinMax;
 import com.firdausy.rafly.mataelang.Model.BayiModel;
 import com.firdausy.rafly.mataelang.R;
 import com.github.clans.fab.FloatingActionButton;
@@ -34,8 +37,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +58,7 @@ public class IbuDetailActivity extends AppCompatActivity {
     private EditText et_beratBadan;
     private Button btn_simpan;
     private Button btn_panggil;
+    private Button btn_lihatData;
     private LinearLayout layout_input;
     private int tanggal, bulan, tahun;
 
@@ -77,10 +83,13 @@ public class IbuDetailActivity extends AppCompatActivity {
         fab_tambahDataAnak = findViewById(R.id.fab_tambahDataAnak);
         btn_simpan = findViewById(R.id.btn_simpan);
         btn_panggil = findViewById(R.id.btn_panggil);
+        btn_lihatData = findViewById(R.id.btn_lihatData);
         et_tanggalInput = findViewById(R.id.et_tanggalInput);
         et_panjangBadan = findViewById(R.id.et_panjangBadan);
         et_beratBadan = findViewById(R.id.et_beratBadan);
         et_bulanKe = findViewById(R.id.et_bulanKe);
+        et_bulanKe.setFilters(new InputFilter[]{ new InputFilterMinMax(0, 24)});
+
         et_tanggalInput.setFocusable(false);
         layout_input = findViewById(R.id.layout_input);
 
@@ -95,6 +104,16 @@ public class IbuDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 prosesSimpan();
+            }
+        });
+
+        btn_lihatData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, LihatDetailDataAntropometryActivity.class);
+                intent.putExtra("keyIbu", getIntent().getStringExtra("keyIbu"));
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -132,9 +151,10 @@ public class IbuDetailActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void prosesSimpan() {
         if ((TextUtils.isEmpty(et_bulanKe.getText().toString())) ||
-                (TextUtils.isEmpty(et_tanggalInput.getText().toString())) ||
+//                (TextUtils.isEmpty(et_tanggalInput.getText().toString())) ||
                 (TextUtils.isEmpty(et_panjangBadan.getText().toString())) ||
                 (TextUtils.isEmpty(et_beratBadan.getText().toString()))) {
             new Bantuan(context).alertDialogPeringatan(getString(R.string.masih_kosong));
@@ -146,20 +166,27 @@ public class IbuDetailActivity extends AppCompatActivity {
                     true);
 
             Map data = new HashMap();
-            data.put("tanggalInput", et_tanggalInput.getText().toString());
+//            data.put("tanggalInput", et_tanggalInput.getText().toString());
             data.put("panjangBadan", et_panjangBadan.getText().toString());
             data.put("beratBadan", et_beratBadan.getText().toString());
-            data.put("bulanKe", et_bulanKe.getText().toString());
+            data.put("tanggalInput", new SimpleDateFormat(getString(R.string.format_tanggal)).format(new Date()));
 //
-            String keyInput = databaseReference.child(getIntent().getStringExtra("keyIbu"))
-                    .child(selectedKeyBayi)
-                    .push()
-                    .getKey();
+//            String keyInput = databaseReference.child(getIntent().getStringExtra("keyIbu"))
+//                    .child(selectedKeyBayi)
+//                    .push()
+//                    .getKey();
+
+            final String bulanKey;
+            if(Integer.parseInt(et_bulanKe.getText().toString()) < 10){
+                bulanKey = "bulanKe-0" + Integer.parseInt(et_bulanKe.getText().toString());
+            } else {
+                bulanKey = "bulanKe-" + Integer.parseInt(et_bulanKe.getText().toString());
+            }
 
             databaseReference.child("dataInput")
                     .child(getIntent().getStringExtra("keyIbu"))
                     .child(selectedKeyBayi)
-                    .child(Objects.requireNonNull(keyInput))
+                    .child(bulanKey)
                     .setValue(data)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -196,8 +223,20 @@ public class IbuDetailActivity extends AppCompatActivity {
                                             double panjangBadan = Double.parseDouble(et_panjangBadan.getText().toString());
 
                                             if(panjangBadan < data){
+                                                databaseReference.child("dataInput")
+                                                        .child(getIntent().getStringExtra("keyIbu"))
+                                                        .child(selectedKeyBayi)
+                                                        .child(bulanKey)
+                                                        .child("hasil")
+                                                        .setValue("Beresiko Stunting");
                                                 new Bantuan(context).alertDialogPeringatan(getString(R.string.beresiko_stunting));
                                             } else {
+                                                databaseReference.child("dataInput")
+                                                        .child(getIntent().getStringExtra("keyIbu"))
+                                                        .child(selectedKeyBayi)
+                                                        .child(bulanKey)
+                                                        .child("hasil")
+                                                        .setValue("Normal");
                                                 new Bantuan(context).alertDialogInformasi(getString(R.string.anak_normal));
                                             }
 
@@ -312,12 +351,11 @@ public class IbuDetailActivity extends AppCompatActivity {
 
                         if (spinner_anak.getItems() != null) {
                             layout_input.setVisibility(View.VISIBLE);
+                            selectedKeyBayi = listDataBayi.get(spinner_anak.getSelectedIndex()).getKeyBayi();
+                            jenisKelamin = listDataBayi.get(spinner_anak.getSelectedIndex()).getJenisKelamin();
                         } else {
                             layout_input.setVisibility(View.GONE);
                         }
-
-                        selectedKeyBayi = listDataBayi.get(spinner_anak.getSelectedIndex()).getKeyBayi();
-                        jenisKelamin = listDataBayi.get(spinner_anak.getSelectedIndex()).getJenisKelamin();
                     }
 
                     @Override

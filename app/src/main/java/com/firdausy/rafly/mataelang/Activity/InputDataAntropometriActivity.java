@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import com.firdausy.rafly.mataelang.Adapter.IbuAdapter;
+import com.firdausy.rafly.mataelang.Adapter.IbuAdapterInput;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Model.IbuModel;
 import com.firdausy.rafly.mataelang.R;
@@ -45,7 +45,7 @@ public class InputDataAntropometriActivity extends AppCompatActivity
     private DatabaseReference databaseReference;
     private ListView lv_konten;
     private List<IbuModel> list = new ArrayList<>();
-    private IbuAdapter ibuAdapter;
+    private IbuAdapterInput ibuAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +96,7 @@ public class InputDataAntropometriActivity extends AppCompatActivity
                                 list.add(ibuModel);
                             }
 
-                            ibuAdapter = new IbuAdapter(InputDataAntropometriActivity.this , list);
+                            ibuAdapter = new IbuAdapterInput(InputDataAntropometriActivity.this , list);
                             lv_konten.setAdapter(ibuAdapter);
                             lv_konten.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override

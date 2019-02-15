@@ -6,107 +6,141 @@
     android:layout_height="match_parent"
     tools:context=".Activity.IbuDetailActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="150dp"
-                android:padding="20dp"
-                android:src="@drawable/ic_mother"
-                android:tint="@color/colorPrimary" />
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:padding="20dp"
+                    android:src="@drawable/ic_mother"
+                    android:tint="@color/colorPrimary" />
 
-                    <TextView
-                        android:id="@+id/tv_namaIbu"
-                        android:layout_width="match_parent"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="monospace"
-                        android:text="@string/nama_ibu"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical"
+                        android:padding="10dp">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="monospace"
-                        android:paddingTop="5dp"
-                        android:text="@string/pilih_anak"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        android:textStyle="normal" />
+                        <TextView
+                            android:id="@+id/tv_namaIbu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="@string/nama_ibu"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="23sp"
+                            android:textStyle="bold" />
 
-                    <Button
-                        android:id="@+id/btn_panggil"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/colorPrimaryDark"
-                        android:text="@string/panggil"
-                        android:textStyle="bold"
-                        android:drawableTint="@color/white"
-                        android:textColor="@color/white"
-                        android:fontFamily="monospace"
-                        android:drawableLeft="@drawable/ic_call_black_24dp"/>
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:paddingTop="5dp"
+                            android:text="@string/pilih_anak"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
 
-            </RelativeLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
 
-        </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="21dp"
-            android:fontFamily="monospace"
-            android:text="@string/pilih_data_bayi"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="normal" />
+                                <Button
+                                    android:id="@+id/btn_lihatData"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="@color/darkBlue"
+                                    android:drawableStart="@drawable/lihat"
+                                    android:drawableTint="@color/white"
+                                    android:fontFamily="monospace"
+                                    android:text="@string/lihat_data"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold"
+                                    tools:targetApi="m" />
+                            </LinearLayout>
 
-        <com.jaredrummler.materialspinner.MaterialSpinner
-            android:id="@+id/spinner_anak"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
-            app:ms_dropdown_height="wrap_content"
-            app:ms_dropdown_max_height="300dp" />
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                                <Button
+                                    android:id="@+id/btn_panggil"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="@color/colorPrimaryDark"
+                                    android:drawableStart="@drawable/ic_call_black_24dp"
+                                    android:drawableTint="@color/white"
+                                    android:fontFamily="monospace"
+                                    android:text="@string/panggil"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold"
+                                    tools:targetApi="m" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="21dp"
+                android:fontFamily="monospace"
+                android:text="@string/pilih_data_bayi"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/spinner_anak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                app:ms_dropdown_height="wrap_content"
+                app:ms_dropdown_max_height="300dp" />
 
             <LinearLayout
                 android:id="@+id/layout_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp">
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -119,7 +153,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/tanggal_input"
                         android:inputType="date"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:visibility="gone" />
                 </android.support.design.widget.TextInputLayout>
 
                 <LinearLayout
@@ -140,10 +175,10 @@
                             android:layout_height="match_parent">
 
                             <TextView
-                                android:gravity="center_vertical"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="monospace"
+                                android:gravity="center_vertical"
                                 android:paddingBottom="5dp"
                                 android:text="@string/umur_n_bulan"
                                 android:textColor="@color/black"
@@ -190,10 +225,10 @@
                             android:layout_height="match_parent">
 
                             <TextView
-                                android:gravity="center_vertical"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="monospace"
+                                android:gravity="center_vertical"
                                 android:paddingBottom="5dp"
                                 android:text="@string/panjang_badan"
                                 android:textColor="@color/black"
@@ -238,11 +273,12 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
+
                             <TextView
-                                android:gravity="center_vertical"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="monospace"
+                                android:gravity="center_vertical"
                                 android:paddingBottom="5dp"
                                 android:text="@string/berat_badan"
                                 android:textColor="@color/black"
@@ -274,6 +310,7 @@
                     android:id="@+id/btn_simpan"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:layout_marginBottom="10dp"
                     android:backgroundTint="@color/darkBlue"
                     android:fontFamily="monospace"
                     android:text="@string/simpan"
@@ -283,10 +320,8 @@
                     tools:targetApi="lollipop" />
             </LinearLayout>
 
-        </ScrollView>
-
-    </LinearLayout>
-
+        </LinearLayout>
+    </ScrollView>
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/fab_tambahDataAnak"

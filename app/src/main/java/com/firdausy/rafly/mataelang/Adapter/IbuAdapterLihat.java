@@ -14,16 +14,15 @@ import com.firdausy.rafly.mataelang.Model.IbuModel;
 import com.firdausy.rafly.mataelang.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class IbuAdapter extends BaseAdapter {
+public class IbuAdapterLihat extends BaseAdapter {
     private Activity activity;
     private List<IbuModel> data;
     private List<IbuModel> dataSementara;
 
-    public IbuAdapter(Activity activity, List<IbuModel> data) {
+    public IbuAdapterLihat(Activity activity, List<IbuModel> data) {
         this.activity = activity;
         this.data = data;
         this.dataSementara = new ArrayList<>();
@@ -47,9 +46,9 @@ public class IbuAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ibuHolder ibuHolder = null;
+        ibuHolderLihat ibuHolder = null;
         if (convertView == null) {
-            ibuHolder = new ibuHolder();
+            ibuHolder = new ibuHolderLihat();
             convertView = LayoutInflater.from(activity).inflate(
                     R.layout.item_ibu, parent, false);
 
@@ -58,20 +57,19 @@ public class IbuAdapter extends BaseAdapter {
             ibuHolder.iv_icon = convertView.findViewById(R.id.iv_icon);
             convertView.setTag(ibuHolder);
         } else {
-            ibuHolder = (ibuHolder) convertView.getTag();
+            ibuHolder = (ibuHolderLihat) convertView.getTag();
         }
 
-//        ibuHolder.tv_namaIbu.setId(position);
-//        ibuHolder.iv_icon.setId(position);
-//        ibuHolder.tv_emailIbu.setId(position);
+        ibuHolder.tv_namaIbu.setText(data.get(position).getNamaLengkap());
+        ibuHolder.tv_emailIbu.setText(data.get(position).getEmail());
 
         String firstLetter = String.valueOf(data.get(position).getNamaLengkap().charAt(0));
         ColorGenerator generator = ColorGenerator.MATERIAL;
         int color = generator.getColor(getItem(position));
         TextDrawable drawable = TextDrawable.builder().buildRound(firstLetter, color);
+
         ibuHolder.iv_icon.setImageDrawable(drawable);
-        ibuHolder.tv_namaIbu.setText(data.get(position).getNamaLengkap());
-        ibuHolder.tv_emailIbu.setText(data.get(position).getEmail());
+
         return convertView;
     }
 
@@ -91,7 +89,7 @@ public class IbuAdapter extends BaseAdapter {
     }
 }
 
-class ibuHolder{
-    TextView tv_namaIbu,tv_emailIbu;
+class ibuHolderLihat {
+    TextView tv_namaIbu, tv_emailIbu;
     ImageView iv_icon;
 }

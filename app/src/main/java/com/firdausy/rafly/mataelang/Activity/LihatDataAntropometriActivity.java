@@ -2,13 +2,13 @@ package com.firdausy.rafly.mataelang.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import com.firdausy.rafly.mataelang.Adapter.IbuAdapter;
+import com.firdausy.rafly.mataelang.Adapter.IbuAdapterLihat;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Model.IbuModel;
 import com.firdausy.rafly.mataelang.R;
@@ -45,7 +45,7 @@ public class LihatDataAntropometriActivity extends AppCompatActivity
     private DatabaseReference databaseReference;
     private ListView lv_konten;
     private List<IbuModel> list = new ArrayList<>();
-    private IbuAdapter ibuAdapter;
+    private IbuAdapterLihat ibuAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class LihatDataAntropometriActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.mata_elang);
-        toolbar.setSubtitle(R.string.lihat_data_antropometeri);
+        toolbar.setSubtitle(R.string.detail_data);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -88,19 +88,22 @@ public class LihatDataAntropometriActivity extends AppCompatActivity
                         IbuModel ibuModel = null;
                         list.clear();
 
-                        if(dataSnapshot.exists()){
-                            for(DataSnapshot ds : dataSnapshot.getChildren()){
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                 ibuModel = ds.getValue(IbuModel.class);
                                 ibuModel.setKeyIbu(ds.getKey());
                                 list.add(ibuModel);
                             }
 
-                            ibuAdapter = new IbuAdapter(LihatDataAntropometriActivity.this , list);
+                            ibuAdapter = new IbuAdapterLihat(LihatDataAntropometriActivity.this, list);
                             lv_konten.setAdapter(ibuAdapter);
                             lv_konten.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     //TODO : pindah ke activity isi data Antropometri
+                                    Intent intent = new Intent(context, LihatDetailDataAntropometryActivity.class);
+                                    intent.putExtra("keyIbu", list.get(position).getKeyIbu());
+                                    startActivity(intent);
                                 }
                             });
 

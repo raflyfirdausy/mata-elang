@@ -126,4 +126,8 @@
     <string name="bulan">(Bulan)</string>
     <string name="beresiko_stunting">Anak Anda Berisiko Stunting !</string>
     <string name="anak_normal">Anak Anda Normal !</string>
+    <string name="silahkan_pilih_nama_anak_di_bawah_ini_untuk_melihat_data_anak_tersebut">Silahkan pilih nama anak di bawah ini untuk melihat data anak tersebut</string>
+    <string name="format_tanggal">dd/MM/yyyy</string>
+    <string name="detail_data">Detail Data Antropometri Anak</string>
+    <string name="lihat_data">Lihat Data</string>
 </resources>
