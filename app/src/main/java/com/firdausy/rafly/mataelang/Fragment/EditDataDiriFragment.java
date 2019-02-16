@@ -104,7 +104,7 @@ public class EditDataDiriFragment extends Fragment {
     private void setData() {
         databaseReference.child("user")
                 .child("ibu")
-                .child(firebaseAuth.getCurrentUser().getUid())
+                .child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

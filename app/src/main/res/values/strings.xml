@@ -146,5 +146,11 @@
     <string name="data_diri">Data Diri</string>
     <string name="email_tidak_bisa_diubah">Email (Tidak bisa diubah)</string>
     <string name="batall">Batal</string>
+    <string name="password_saat_ini">Password saat ini</string>
+    <string name="password_baru">Password baru</string>
+    <string name="ulangi_password_baru">Ulangi password baru</string>
+    <string name="pass_lama_salah">Password lama yang anda inputkan salah !</string>
+    <string name="pass_berhasil_update">Password Berhasil Di Update !</string>
+    <string name="pass_lama_salahh">Password Lama yang anda masukan salah !</string>
 
 </resources>
