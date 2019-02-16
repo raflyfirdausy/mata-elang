@@ -153,24 +153,8 @@ public class MainActivity extends AppCompatActivity
                                 tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
                                 tv_tipePengguna.setText(getString(R.string.tipe_admin));
                             } else {
-                                databaseReference.child("user")
-                                        .child("ibu")
-                                        .child(firebaseAuth.getCurrentUser().getUid())
-                                        .child("namaLengkap")
-                                        .addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                if (dataSnapshot.exists()) {
-                                                    tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
-                                                    tv_tipePengguna.setText(getString(R.string.tipe_user_ibu));
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                                new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
-                                            }
-                                        });
+                                startActivity(new Intent(context, MainActivityIbuActivity.class));
+                                finish();
                             }
                         }
 
@@ -237,7 +221,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(context, LoginActivity.class));
             finish();
         } else if (id == R.id.action_about) {
-            new Bantuan(context).alertDialogDebugging("About Coming Soon !");
+            startActivity(new Intent(context, TentangAplikasiActivity.class));
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

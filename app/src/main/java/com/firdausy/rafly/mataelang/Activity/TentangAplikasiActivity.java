@@ -2,6 +2,7 @@ package com.firdausy.rafly.mataelang.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -12,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
@@ -26,25 +26,34 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-public class PengaturanActivity extends AppCompatActivity
+public class TentangAplikasiActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Context context = PengaturanActivity.this;
+    private Context context = TentangAplikasiActivity.this;
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
+
     private TextView tv_namaPengguna;
     private TextView tv_emailPengguna;
     private TextView tv_tipePengguna;
-    private DatabaseReference databaseReference;
-
+    private TextView pengembang1;
+    private TextView pengembang2;
+    private TextView pengembang3;
+    private TextView pengembang4;
+    private TextView jabatan1;
+    private TextView jabatan2;
+    private TextView jabatan3;
+    private TextView jabatan4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pengaturan);
+        setContentView(R.layout.activity_tentang_aplikasi);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.mata_elang);
-        toolbar.setSubtitle(R.string.pengaturan);
+        toolbar.setSubtitle(R.string.tentang_aplikasi);
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -52,37 +61,28 @@ public class PengaturanActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.getMenu().getItem(4).setChecked(true);
+        navigationView.getMenu().getItem(5).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
 
         tv_namaPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_namaPengguna);
         tv_emailPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_emailPengguna);
         tv_tipePengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_tipePengguna);
 
+        pengembang1 = findViewById(R.id.pengembang1);
+        pengembang2 = findViewById(R.id.pengembang2);
+        pengembang3 = findViewById(R.id.pengembang3);
+        pengembang4 = findViewById(R.id.pengembang4);
+        jabatan1 = findViewById(R.id.jabatan1);
+        jabatan2 = findViewById(R.id.jabatan2);
+        jabatan3 = findViewById(R.id.jabatan3);
+        jabatan4 = findViewById(R.id.jabatan4);
+
         //firebase
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.keepSynced(true);
 
-        LinearLayout action_posyandu = findViewById(R.id.action_posyandu);
-        LinearLayout action_antropometeri = findViewById(R.id.action_antropometeri);
-
-        action_posyandu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(context, PengaturanPosyanduActivity.class));
-                finish();
-            }
-        });
-
-        action_antropometeri.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(context, PengaturanAntrompometriActivity.class));
-                finish();
-            }
-        });
-
+        setData();
     }
 
     @Override
@@ -131,19 +131,112 @@ public class PengaturanActivity extends AppCompatActivity
         }
     }
 
+    private void setData() {
+        databaseReference.child("about")
+                .child("pengembang")
+                .child("pengembang1")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            pengembang1.setText(dataSnapshot.child("nama").getValue(String.class));
+                            jabatan1.setText(dataSnapshot.child("jabatan").getValue(String.class));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                    }
+                });
+
+        databaseReference.child("about")
+                .child("pengembang")
+                .child("pengembang2")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            pengembang2.setText(dataSnapshot.child("nama").getValue(String.class));
+                            jabatan2.setText(dataSnapshot.child("jabatan").getValue(String.class));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                    }
+                });
+
+        databaseReference.child("about")
+                .child("pengembang")
+                .child("pengembang3")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            pengembang3.setText(dataSnapshot.child("nama").getValue(String.class));
+                            jabatan3.setText(dataSnapshot.child("jabatan").getValue(String.class));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                    }
+                });
+
+        databaseReference.child("about")
+                .child("programmer")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            if(Objects.requireNonNull(dataSnapshot.child("status").getValue(String.class))
+                                    .equalsIgnoreCase("1")){
+
+                                pengembang4.setText(dataSnapshot.child("nama").getValue(String.class));
+                                jabatan4.setText(dataSnapshot.child("jabatan").getValue(String.class));
+
+                                pengembang4.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                                Uri.parse("http://instagram.com/rafly_firdausy")));
+                                    }
+                                });
+
+                                pengembang4.setVisibility(View.VISIBLE);
+                                jabatan4.setVisibility(View.VISIBLE);
+                            } else {
+                                pengembang4.setVisibility(View.GONE);
+                                jabatan4.setVisibility(View.GONE);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            startActivity(new Intent(context, MainActivity.class));
-            finish();
+            super.onBackPressed();
         }
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+
         int id = menuItem.getItemId();
 
         if (id == R.id.action_dashboard) {
@@ -172,7 +265,7 @@ public class PengaturanActivity extends AppCompatActivity
             finish();
         }
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

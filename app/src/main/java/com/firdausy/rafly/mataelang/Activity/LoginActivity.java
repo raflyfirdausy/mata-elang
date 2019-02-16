@@ -17,6 +17,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -27,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText et_emailLogin;
     private EditText et_passwordLogin;
     private ProgressDialog progressDialog;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +59,30 @@ public class LoginActivity extends AppCompatActivity {
 
         //firebase
         firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.keepSynced(true);
 
         if (firebaseAuth.getCurrentUser() != null) {
-            startActivity(new Intent(context, MainActivity.class));
-            finish();
+            databaseReference.child("user")
+                    .child("admin")
+                    .child(firebaseAuth.getCurrentUser().getUid())
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                startActivity(new Intent(context, MainActivity.class));
+                                finish();
+                            } else {
+                                startActivity(new Intent(context, MainActivityIbuActivity.class));
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                        }
+                    });
         }
 
     }
@@ -81,9 +107,26 @@ public class LoginActivity extends AppCompatActivity {
                             progressDialog.dismiss();
 
                             if(task.isSuccessful()){
-                                Intent i = new Intent(context, MainActivity.class);
-                                startActivity(i);
-                                finish();
+                                databaseReference.child("user")
+                                        .child("admin")
+                                        .child(firebaseAuth.getCurrentUser().getUid())
+                                        .addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                if(dataSnapshot.exists()){
+                                                    startActivity(new Intent(context, MainActivity.class));
+                                                    finish();
+                                                } else {
+                                                    startActivity(new Intent(context, MainActivityIbuActivity.class));
+                                                    finish();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                                            }
+                                        });
                             } else {
                                 new Bantuan(context).alertDialogPeringatan(Objects.requireNonNull(task.getException()).getMessage());
                             }

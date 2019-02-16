@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_dataAnak"
+            android:icon="@drawable/ic_baby_boy"
+            android:title="@string/data_anak" />
+        <item
+            android:id="@+id/action_posyandu"
+            android:icon="@drawable/ic_health"
+            android:title="@string/data_posyandu" />
+
+        <item
+            android:id="@+id/action_about"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="@string/tentang_aplikasi" />
+    </group>
+
+    <item android:title="@string/managemen_akun">
+        <menu>
+            <item
+                android:id="@+id/action_edit"
+                android:icon="@drawable/profile"
+                android:title="@string/edit_profile" />
+            <item
+                android:id="@+id/action_logout"
+                android:icon="@drawable/logout"
+                android:title="@string/logout" />
+        </menu>
+    </item>
+
+</menu>

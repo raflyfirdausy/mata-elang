@@ -295,7 +295,8 @@ public class TambahAdminUserActivity extends AppCompatActivity
             startActivity(new Intent(context, LoginActivity.class));
             finish();
         } else if (id == R.id.action_about) {
-            new Bantuan(context).alertDialogDebugging("About Coming Soon !");
+            startActivity(new Intent(context, TentangAplikasiActivity.class));
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

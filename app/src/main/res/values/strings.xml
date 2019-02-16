@@ -130,4 +130,17 @@
     <string name="format_tanggal">dd/MM/yyyy</string>
     <string name="detail_data">Detail Data Antropometri Anak</string>
     <string name="lihat_data">Lihat Data</string>
+    <string name="deskripsi_mata_elang_tentang">Mata Elang adalah aplikasi berbasis android sebagai inovasi dari pencatatan antropometri gizi pada anak usia 0-24 bulan berbasis kertas pada buku Kesehatan Ibu dan Anak (KIA).Aplikasi Mata Elang merupakan aplikasi  berbasis android merupakan aplikasi pemantauan antropometri status gizi pada anak usia 0-24 bulan untuk deteksi dini adanya stunting pada balita yang bersifat realtime.</string>
+    <string name="asset">Asset yang digunakan pada aplikasi ini didapat dari www.flaticon.com</string>
+    <string name="tentang_pengembang">Tentang Pengembang</string>
+    <string name="vivin_listya_putri">Vivin Listya Putri</string>
+    <string name="founder">Founder Mata Elang</string>
+    <string name="co_founder_1">Co-Founder 1</string>
+    <string name="co_founder_2">Co-Founder 2</string>
+    <string name="sapaya_kelalen">Sapaya Kelalen</string>
+    <string name="rafli_firdausy">Rafli Firdausy</string>
+    <string name="data_posyandu">Data Posyandu</string>
+    <string name="logout">Logout</string>
+    <string name="data_anak">Data Anak</string>
+
 </resources>
