@@ -350,7 +350,7 @@ public class MainActivityIbuActivity extends AppCompatActivity
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
                                 tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
-                                tv_tipePengguna.setText(getString(R.string.tipe_admin));
+                                tv_tipePengguna.setText(getString(R.string.tipe_user_ibu));
                             }
                         }
 
@@ -388,8 +388,8 @@ public class MainActivityIbuActivity extends AppCompatActivity
             startActivity(new Intent(context, TentangAplikasiIbuActivity.class));
             finish();
         } else if (id == R.id.action_edit) {
-//            startActivity(new Intent(context, LihatDataAntropometriActivity.class));
-//            finish();
+            startActivity(new Intent(context, IbuEditProfilActivity.class));
+            finish();
         } else if (id == R.id.action_logout) {
             firebaseAuth.signOut();
             startActivity(new Intent(context, LoginActivity.class));

@@ -17,6 +17,12 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".Activity.IbuEditProfilActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="InnerclassSeparator" />
+        <activity
             android:name=".Activity.TentangAplikasiIbuActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"

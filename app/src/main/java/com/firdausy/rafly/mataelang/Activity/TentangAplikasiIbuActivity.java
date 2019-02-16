@@ -36,6 +36,7 @@ public class TentangAplikasiIbuActivity extends AppCompatActivity
     private TextView tv_namaPengguna;
     private TextView tv_emailPengguna;
     private TextView tv_tipePengguna;
+
     private TextView pengembang1;
     private TextView pengembang2;
     private TextView pengembang3;
@@ -102,7 +103,7 @@ public class TentangAplikasiIbuActivity extends AppCompatActivity
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if(dataSnapshot.exists()){
                                 tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
-                                tv_tipePengguna.setText(getString(R.string.tipe_admin));
+                                tv_tipePengguna.setText(getString(R.string.tipe_user_ibu));
                             } else {
                                 databaseReference.child("user")
                                         .child("ibu")
@@ -251,8 +252,8 @@ public class TentangAplikasiIbuActivity extends AppCompatActivity
             startActivity(new Intent(context, TentangAplikasiIbuActivity.class));
             finish();
         } else if (id == R.id.action_edit) {
-//            startActivity(new Intent(context, LihatDataAntropometriActivity.class));
-//            finish();
+            startActivity(new Intent(context, IbuEditProfilActivity.class));
+            finish();
         } else if (id == R.id.action_logout) {
             firebaseAuth.signOut();
             startActivity(new Intent(context, LoginActivity.class));
