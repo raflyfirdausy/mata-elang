@@ -255,7 +255,8 @@ public class TentangAplikasiActivity extends AppCompatActivity
             startActivity(new Intent(context, PengaturanActivity.class));
             finish();
         } else if (id == R.id.action_edit) {
-
+            startActivity(new Intent(context, EditProfilActivity.class));
+            finish();
         } else if (id == R.id.action_logout) {
             firebaseAuth.signOut();
             startActivity(new Intent(context, LoginActivity.class));

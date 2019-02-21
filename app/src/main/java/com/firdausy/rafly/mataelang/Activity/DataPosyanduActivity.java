@@ -1,20 +1,23 @@
 package com.firdausy.rafly.mataelang.Activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
@@ -28,26 +31,31 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity
+public class DataPosyanduActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Context context = MainActivity.this;
+    private Context context = DataPosyanduActivity.this;
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
     private TextView tv_namaPengguna;
     private TextView tv_emailPengguna;
     private TextView tv_tipePengguna;
-    private TextView tv_totalIbu;
-    private TextView tv_totalBayi;
-    private DatabaseReference databaseReference;
+
+    private TextView tv_namaPosyandu;
+    private TextView tv_alamatPosyandu;
+    private TextView tv_kecamatan;
+    private TextView tv_nomerHpKantor;
+    private Button btn_hubungi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_data_posyandu);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.mata_elang);
-        toolbar.setSubtitle(R.string.dashboard);
+        toolbar.setSubtitle(R.string.data_posyandu);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -56,83 +64,66 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.getMenu().getItem(0).setChecked(true);
+        navigationView.getMenu().getItem(1).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
 
         tv_namaPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_namaPengguna);
         tv_emailPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_emailPengguna);
         tv_tipePengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_tipePengguna);
-        tv_totalIbu = findViewById(R.id.tv_totalIbu);
-        tv_totalBayi = findViewById(R.id.tv_totalBayi);
 
-        LinearLayout ll_ibu = findViewById(R.id.ll_ibu);
-        LinearLayout ll_bayi = findViewById(R.id.ll_bayi);
-
-        ll_ibu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(context, InputDataAntropometriActivity.class));
-                finish();
-            }
-        });
-
-        ll_bayi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(context, LihatDataAntropometriActivity.class));
-                finish();
-            }
-        });
+        tv_namaPosyandu = findViewById(R.id.tv_namaPosyandu);
+        tv_alamatPosyandu = findViewById(R.id.tv_alamatPosyandu);
+        tv_kecamatan = findViewById(R.id.tv_kecamatan);
+        tv_nomerHpKantor = findViewById(R.id.tv_nomerHpKantor);
+        btn_hubungi = findViewById(R.id.btn_hubungi);
 
         //firebase
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.keepSynced(true);
 
-        getAndSetData();
+        setData();
 
 
     }
 
-    private void getAndSetData() {
-        databaseReference.child("user")
-                .child("ibu")
+    private void setData() {
+        databaseReference.child("posyandu")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            int jumlahIbu = 0;
-                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                jumlahIbu++;
-                            }
-                            tv_totalIbu.setText(String.valueOf(jumlahIbu) + " ibu");
-                        }
-                    }
+                            tv_namaPosyandu.setText(dataSnapshot.child("namaPosyandu").getValue(String.class));
+                            tv_alamatPosyandu.setText(dataSnapshot.child("alamatPosyandu").getValue(String.class));
+                            tv_kecamatan.setText(dataSnapshot.child("kecamatan").getValue(String.class));
+                            tv_nomerHpKantor.setText(dataSnapshot.child("nomerHpKantor").getValue(String.class));
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-        databaseReference.child("bayi")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        int jumlahBayi = 0;
-                        if(dataSnapshot.exists()){
-                            for(DataSnapshot ds : dataSnapshot.getChildren()){
-                                for (DataSnapshot DS : ds.getChildren()){
-                                    jumlahBayi ++;
+                            btn_hubungi.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if (Build.VERSION.SDK_INT >= 23) {
+                                        if (checkSelfPermission(android.Manifest.permission.CALL_PHONE)
+                                                == PackageManager.PERMISSION_GRANTED) {
+                                            Intent intent = new Intent(Intent.ACTION_CALL);
+                                            intent.setData(Uri.parse("tel:" + dataSnapshot.child("nomerHpKantor")
+                                                    .getValue(String.class)));
+                                            startActivity(intent);
+                                        } else {
+                                            ActivityCompat.requestPermissions(DataPosyanduActivity.this,
+                                                    new String[]{Manifest.permission.CALL_PHONE}, 1);
+                                        }
+                                    }
                                 }
-                            }
+                            });
+
+                        } else {
+                            new Bantuan(context).alertDialogPeringatan(getString(R.string.data_tidak_ditemukann));
                         }
-                        tv_totalBayi.setText(String.valueOf(jumlahBayi) + " bayi");
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
                     }
                 });
     }
@@ -144,7 +135,7 @@ public class MainActivity extends AppCompatActivity
 
         if (firebaseAuth.getCurrentUser() != null) {
             databaseReference.child("user")
-                    .child("admin")
+                    .child("ibu")
                     .child(firebaseAuth.getCurrentUser().getUid())
                     .child("namaLengkap")
                     .addValueEventListener(new ValueEventListener() {
@@ -152,10 +143,7 @@ public class MainActivity extends AppCompatActivity
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
                                 tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
-                                tv_tipePengguna.setText(getString(R.string.tipe_admin));
-                            } else {
-                                startActivity(new Intent(context, MainActivityIbuActivity.class));
-                                finish();
+                                tv_tipePengguna.setText(getString(R.string.tipe_user_ibu));
                             }
                         }
 
@@ -179,56 +167,46 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if(id == R.id.action_about){
-//            new Bantuan(context).alertDialogDebugging("About Coming Soon !");
-//        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
 
         int id = menuItem.getItemId();
 
-        if (id == R.id.action_dashboard) {
-            startActivity(new Intent(context, MainActivity.class));
+        if (id == R.id.action_dataAnak) {
+            startActivity(new Intent(context, MainActivityIbuActivity.class));
             finish();
-        } else if (id == R.id.action_tambahUser) {
-            startActivity(new Intent(context, TambahAdminUserActivity.class));
+        } else if (id == R.id.action_posyandu) {
+            startActivity(new Intent(context, DataPosyanduActivity.class));
             finish();
-        } else if (id == R.id.action_input) {
-            startActivity(new Intent(context, InputDataAntropometriActivity.class));
-            finish();
-        } else if (id == R.id.action_lihat) {
-            startActivity(new Intent(context, LihatDataAntropometriActivity.class));
-            finish();
-        } else if (id == R.id.action_pengaturan) {
-            startActivity(new Intent(context, PengaturanActivity.class));
+        } else if (id == R.id.action_about) {
+            startActivity(new Intent(context, TentangAplikasiIbuActivity.class));
             finish();
         } else if (id == R.id.action_edit) {
-            startActivity(new Intent(context, EditProfilActivity.class));
+            startActivity(new Intent(context, IbuEditProfilActivity.class));
             finish();
         } else if (id == R.id.action_logout) {
             firebaseAuth.signOut();
             startActivity(new Intent(context, LoginActivity.class));
-            finish();
-        } else if (id == R.id.action_about) {
-            startActivity(new Intent(context, TentangAplikasiActivity.class));
             finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    new Bantuan(context).toastLong(getString(R.string.granted));
+                } else {
+                    new Bantuan(context).toastLong(getString(R.string.denied));
+                }
+                return ;
+            }
+        }
     }
 }

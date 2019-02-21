@@ -44,7 +44,7 @@
                     android:layout_width="100dp"
                     android:layout_height="150dp"
                     android:padding="20dp"
-                    android:src="@drawable/ic_mother"
+                    app:srcCompat="@drawable/ic_mother"
                     android:tint="@color/colorPrimary" />
 
                 <RelativeLayout
@@ -101,6 +101,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
+                    <com.app.feng.fixtablelayout.FixTableLayout
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:id="@+id/fixTableLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        app:fixtable_divider_color="@color/white"
+                        app:fixtable_column_1_color="@color/white"
+                        app:fixtable_column_2_color="@color/greyLight"
+                        app:fixtable_show_item_divider="false"
+                        app:fixtable_title_color="@color/grey"
+                        app:fixtable_item_gravity="CENTER"
+                        app:fixtable_item_top_bottom_padding="10dp"
+                        app:fixtable_item_width="100dp"
+                        app:fixtable_show_left_view_shadow="true"
+                        />
 
                     <RelativeLayout
                         android:layout_width="match_parent"

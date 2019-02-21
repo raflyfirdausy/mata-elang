@@ -27,11 +27,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EditDataDiriFragment extends Fragment {
+public class EditDataDiriAdminFragment extends Fragment {
 
     private EditText et_email;
     private EditText et_namaLengkap;
@@ -45,7 +44,7 @@ public class EditDataDiriFragment extends Fragment {
 
     private ProgressDialog progressDialog;
 
-    public EditDataDiriFragment() {
+    public EditDataDiriAdminFragment() {
         // Required empty public constructor
     }
 
@@ -54,7 +53,7 @@ public class EditDataDiriFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_edit_data_diri, container, false);
+        View v = inflater.inflate(R.layout.fragment_edit_data_diri_admin, container, false);
 
         et_email = v.findViewById(R.id.et_email);
         et_namaLengkap = v.findViewById(R.id.et_namaLengkap);
@@ -104,24 +103,24 @@ public class EditDataDiriFragment extends Fragment {
     private void setData() {
 
         databaseReference.child("user")
-                .child("ibu")
+                .child("admin")
                 .child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
                 .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    et_email.setText(dataSnapshot.child("email").getValue(String.class));
-                    et_namaLengkap.setText(dataSnapshot.child("namaLengkap").getValue(String.class));
-                    et_nomerHp.setText(dataSnapshot.child("nomerHp").getValue(String.class));
-                    et_alamatLengkap.setText(dataSnapshot.child("alamatLengkap").getValue(String.class));
-                } 
-            }
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            et_email.setText(dataSnapshot.child("email").getValue(String.class));
+                            et_namaLengkap.setText(dataSnapshot.child("namaLengkap").getValue(String.class));
+                            et_nomerHp.setText(dataSnapshot.child("nomerHp").getValue(String.class));
+                            et_alamatLengkap.setText(dataSnapshot.child("alamatLengkap").getValue(String.class));
+                        }
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                new Bantuan(getActivity()).alertDialogPeringatan(databaseError.getMessage());
-            }
-        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        new Bantuan(getActivity()).alertDialogPeringatan(databaseError.getMessage());
+                    }
+                });
     }
 
     private void prosesSimpan() {
@@ -144,7 +143,7 @@ public class EditDataDiriFragment extends Fragment {
             data.put("alamatLengkap", et_alamatLengkap.getText().toString());
 
             databaseReference.child("user")
-                    .child("ibu")
+                    .child("admin")
                     .child(firebaseAuth.getCurrentUser().getUid())
                     .setValue(data)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -164,4 +163,5 @@ public class EditDataDiriFragment extends Fragment {
 
         }
     }
+
 }

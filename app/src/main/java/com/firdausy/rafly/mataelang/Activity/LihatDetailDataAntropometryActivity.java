@@ -2,13 +2,17 @@ package com.firdausy.rafly.mataelang.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anychart.APIlib;
 import com.anychart.AnyChart;
@@ -22,9 +26,13 @@ import com.anychart.enums.Anchor;
 import com.anychart.enums.MarkerType;
 import com.anychart.enums.TooltipPositionMode;
 import com.anychart.graphics.vector.Stroke;
+import com.app.feng.fixtablelayout.FixTableLayout;
+import com.app.feng.fixtablelayout.inter.ILoadMoreListener;
+import com.firdausy.rafly.mataelang.Adapter.TableAdapter;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Model.BayiModel;
 import com.firdausy.rafly.mataelang.Model.DataGrafikLineModel;
+import com.firdausy.rafly.mataelang.Model.TableModelAntropometri;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,6 +45,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import de.codecrafters.tableview.TableView;
+import de.codecrafters.tableview.listeners.TableDataClickListener;
+import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
+import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
+
 public class LihatDetailDataAntropometryActivity extends AppCompatActivity {
 
     private Context context = LihatDetailDataAntropometryActivity.this;
@@ -47,10 +60,15 @@ public class LihatDetailDataAntropometryActivity extends AppCompatActivity {
     private List<String> listDataBayiSpinner = new ArrayList<>();
     private String selectedKeyBayi = null, jenisKelamin = null;
     private LinearLayout layout_grafik;
+    private FixTableLayout fixTableLayout;
+    private TableAdapter tableAdapter;
 
     private TextView tv_namaIbu;
     private MaterialSpinner spinner_anak;
     private DatabaseReference databaseReference;
+
+    public String[] title = {"Bulan ke","Tanggal Input","Berat Badan","Panjang Badan","Keterangan"};
+    public List<TableModelAntropometri> data = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +84,8 @@ public class LihatDetailDataAntropometryActivity extends AppCompatActivity {
         tv_namaIbu = findViewById(R.id.tv_namaIbu);
         spinner_anak = findViewById(R.id.spinner_anak);
         layout_grafik = findViewById(R.id.layout_grafik);
+
+        fixTableLayout = findViewById(R.id.fixTableLayout);
 
         chartPanjang.setProgressBar(findViewById(R.id.progress_bar));
         chartBerat.setProgressBar(findViewById(R.id.progress_bar2));
@@ -108,8 +128,6 @@ public class LihatDetailDataAntropometryActivity extends AppCompatActivity {
         });
 
         getData();
-
-
     }
 
 
@@ -126,22 +144,35 @@ public class LihatDetailDataAntropometryActivity extends AppCompatActivity {
                                 layout_grafik.setVisibility(View.VISIBLE);
                                 listPanjang.clear();
                                 listBerat.clear();
+                                data.clear();
 
-                                int bulanKe = 0;
                                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                    //listPanjang.add(new DataGrafikLineModel(i, (Math.random())));
-                                    listPanjang.add(new DataGrafikLineModel(bulanKe,
+                                    listPanjang.add(new DataGrafikLineModel(
+                                            String.valueOf(Objects.requireNonNull(ds.getKey()).charAt(8)) +
+                                                    String.valueOf(Objects.requireNonNull(ds.getKey()).charAt(9)),
                                             Double.parseDouble(Objects.requireNonNull(
                                                     ds.child("panjangBadan")
                                                             .getValue(String.class)))));
-                                    listBerat.add(new DataGrafikLineModel(bulanKe,
+                                    listBerat.add(new DataGrafikLineModel(
+                                            String.valueOf(Objects.requireNonNull(ds.getKey()).charAt(8)) +
+                                            String.valueOf(Objects.requireNonNull(ds.getKey()).charAt(9)),
                                             Double.parseDouble(Objects.requireNonNull(
                                                     ds.child("beratBadan")
                                                             .getValue(String.class)))));
-                                    bulanKe++;
+
+                                    data.add(new TableModelAntropometri(
+                                            String.valueOf(Objects.requireNonNull(ds.getKey()).charAt(8)) +
+                                                    String.valueOf(Objects.requireNonNull(ds.getKey()).charAt(9)),
+                                            ds.child("tanggalInput").getValue(String.class),
+                                            ds.child("beratBadan").getValue(String.class) + " Kg",
+                                            ds.child("panjangBadan").getValue(String.class) + " Cm",
+                                            ds.child("hasil").getValue(String.class)
+                                    ));
                                 }
 
-//                                new Bantuan(context).alertDialogPeringatan("Panjang = " + String.valueOf(listPanjang.size()));
+                                tableAdapter = new TableAdapter(title,data);
+                                fixTableLayout.setAdapter(tableAdapter);
+
                                 getGrafikPanjang(listPanjang);
                                 getGrafikBerat(listBerat);
                             } else {

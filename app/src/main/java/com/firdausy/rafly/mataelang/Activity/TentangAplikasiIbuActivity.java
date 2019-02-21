@@ -246,8 +246,8 @@ public class TentangAplikasiIbuActivity extends AppCompatActivity
             startActivity(new Intent(context, MainActivityIbuActivity.class));
             finish();
         } else if (id == R.id.action_posyandu) {
-//            startActivity(new Intent(context, TambahAdminUserActivity.class));
-//            finish();
+            startActivity(new Intent(context, DataPosyanduActivity.class));
+            finish();
         } else if (id == R.id.action_about) {
             startActivity(new Intent(context, TentangAplikasiIbuActivity.class));
             finish();

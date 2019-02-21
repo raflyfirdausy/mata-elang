@@ -26,9 +26,12 @@ import com.anychart.data.Set;
 import com.anychart.enums.Anchor;
 import com.anychart.enums.MarkerType;
 import com.anychart.enums.TooltipPositionMode;
+import com.app.feng.fixtablelayout.FixTableLayout;
+import com.firdausy.rafly.mataelang.Adapter.TableAdapter;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Model.BayiModel;
 import com.firdausy.rafly.mataelang.Model.DataGrafikLineModel;
+import com.firdausy.rafly.mataelang.Model.TableModelAntropometri;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -62,6 +65,11 @@ public class MainActivityIbuActivity extends AppCompatActivity
     private TextView tv_namaIbu;
     private MaterialSpinner spinner_anak;
 
+    private FixTableLayout fixTableLayout;
+    private TableAdapter tableAdapter;
+    public String[] title = {"Bulan ke","Tanggal Input","Berat Badan","Panjang Badan","Keterangan"};
+    public List<TableModelAntropometri> data = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +99,8 @@ public class MainActivityIbuActivity extends AppCompatActivity
         tv_namaIbu = findViewById(R.id.tv_namaIbu);
         spinner_anak = findViewById(R.id.spinner_anak);
         layout_grafik = findViewById(R.id.layout_grafik);
+
+        fixTableLayout = findViewById(R.id.fixTableLayout);
 
         chartPanjang.setProgressBar(findViewById(R.id.progress_bar));
         chartBerat.setProgressBar(findViewById(R.id.progress_bar2));
@@ -220,22 +230,35 @@ public class MainActivityIbuActivity extends AppCompatActivity
                                 layout_grafik.setVisibility(View.VISIBLE);
                                 listPanjang.clear();
                                 listBerat.clear();
+                                data.clear();
 
-                                int bulanKe = 0;
                                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                    //listPanjang.add(new DataGrafikLineModel(i, (Math.random())));
-                                    listPanjang.add(new DataGrafikLineModel(bulanKe,
+                                    listPanjang.add(new DataGrafikLineModel(
+                                            String.valueOf(Objects.requireNonNull(ds.getKey()).charAt(8)) +
+                                                    String.valueOf(Objects.requireNonNull(ds.getKey()).charAt(9)),
                                             Double.parseDouble(Objects.requireNonNull(
                                                     ds.child("panjangBadan")
                                                             .getValue(String.class)))));
-                                    listBerat.add(new DataGrafikLineModel(bulanKe,
+                                    listBerat.add(new DataGrafikLineModel(
+                                            String.valueOf(Objects.requireNonNull(ds.getKey()).charAt(8)) +
+                                                    String.valueOf(Objects.requireNonNull(ds.getKey()).charAt(9)),
                                             Double.parseDouble(Objects.requireNonNull(
                                                     ds.child("beratBadan")
                                                             .getValue(String.class)))));
-                                    bulanKe++;
+
+                                    data.add(new TableModelAntropometri(
+                                            String.valueOf(Objects.requireNonNull(ds.getKey()).charAt(8)) +
+                                                    String.valueOf(Objects.requireNonNull(ds.getKey()).charAt(9)),
+                                            ds.child("tanggalInput").getValue(String.class),
+                                            ds.child("beratBadan").getValue(String.class) + " Kg",
+                                            ds.child("panjangBadan").getValue(String.class) + " Cm",
+                                            ds.child("hasil").getValue(String.class)
+                                    ));
                                 }
 
-//                                new Bantuan(context).alertDialogPeringatan("Panjang = " + String.valueOf(listPanjang.size()));
+                                tableAdapter = new TableAdapter(title,data);
+                                fixTableLayout.setAdapter(tableAdapter);
+
                                 getGrafikPanjang(listPanjang);
                                 getGrafikBerat(listBerat);
                             } else {
@@ -382,8 +405,8 @@ public class MainActivityIbuActivity extends AppCompatActivity
             startActivity(new Intent(context, MainActivityIbuActivity.class));
             finish();
         } else if (id == R.id.action_posyandu) {
-//            startActivity(new Intent(context, TambahAdminUserActivity.class));
-//            finish();
+            startActivity(new Intent(context, DataPosyanduActivity.class));
+            finish();
         } else if (id == R.id.action_about) {
             startActivity(new Intent(context, TentangAplikasiIbuActivity.class));
             finish();

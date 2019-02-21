@@ -152,5 +152,7 @@
     <string name="pass_lama_salah">Password lama yang anda inputkan salah !</string>
     <string name="pass_berhasil_update">Password Berhasil Di Update !</string>
     <string name="pass_lama_salahh">Password Lama yang anda masukan salah !</string>
+    <string name="hubungi_kantor_posyandu">Hubungi Kantor Posyandu</string>
+    <string name="data_tidak_ditemukann">Data tidak Ditemukan !</string>
 
 </resources>

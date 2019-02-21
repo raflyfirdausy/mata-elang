@@ -125,5 +125,4 @@ public class EditPasswordFragment extends Fragment {
                     });
         }
     }
-
 }
