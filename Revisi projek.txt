@@ -1,0 +1,6 @@
+- Tambah pengetahuan tentang stunting
+- cara mencegah stunting (dinamis)
+- admob
+- hapus data 
+- registrasi
+- login dengan nomer hp 
