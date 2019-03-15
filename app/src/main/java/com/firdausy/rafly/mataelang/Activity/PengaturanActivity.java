@@ -66,6 +66,8 @@ public class PengaturanActivity extends AppCompatActivity
 
         LinearLayout action_posyandu = findViewById(R.id.action_posyandu);
         LinearLayout action_antropometeri = findViewById(R.id.action_antropometeri);
+        LinearLayout action_pencegahan = findViewById(R.id.action_pencegahan);
+        LinearLayout action_tindakan = findViewById(R.id.action_tindakan);
 
         action_posyandu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +81,22 @@ public class PengaturanActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(context, PengaturanAntrompometriActivity.class));
+                finish();
+            }
+        });
+
+        action_pencegahan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, PengaturanPencegahanActivity.class));
+                finish();
+            }
+        });
+
+        action_tindakan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, PengaturanTindakanActivity.class));
                 finish();
             }
         });

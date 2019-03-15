@@ -96,6 +96,7 @@ public class PerempuanFragment extends Fragment {
 
         databaseReference = FirebaseDatabase.getInstance()
                 .getReference()
+                .child("pengaturan")
                 .child("antropometri")
                 .child("perempuan");
 

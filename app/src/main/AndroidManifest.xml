@@ -16,6 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Activity.PengaturanTindakanActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            tools:ignore="InnerclassSeparator"/>
+        <activity android:name=".Activity.PengaturanPencegahanActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            tools:ignore="InnerclassSeparator"/>
         <activity
             android:name=".Activity.EditProfilActivity"
             android:configChanges="orientation"

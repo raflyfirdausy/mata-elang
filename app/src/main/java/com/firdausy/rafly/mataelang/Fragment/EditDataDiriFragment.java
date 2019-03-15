@@ -62,6 +62,7 @@ public class EditDataDiriFragment extends Fragment {
         et_alamatLengkap = v.findViewById(R.id.et_alamatLengkap);
         btn_edit = v.findViewById(R.id.btn_edit);
         btn_simpan = v.findViewById(R.id.btn_simpan);
+        btn_simpan.setEnabled(false);
 
         et_namaLengkap.setEnabled(false);
         et_nomerHp.setEnabled(false);
@@ -80,11 +81,13 @@ public class EditDataDiriFragment extends Fragment {
                     et_namaLengkap.setEnabled(true);
                     et_nomerHp.setEnabled(true);
                     et_alamatLengkap.setEnabled(true);
+                    btn_simpan.setEnabled(true);
                 } else {
                     btn_edit.setText(getString(R.string.edit));
                     et_namaLengkap.setEnabled(false);
                     et_nomerHp.setEnabled(false);
                     et_alamatLengkap.setEnabled(false);
+                    btn_simpan.setEnabled(false);
                 }
             }
         });

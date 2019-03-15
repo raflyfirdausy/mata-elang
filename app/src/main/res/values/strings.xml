@@ -154,5 +154,19 @@
     <string name="pass_lama_salahh">Password Lama yang anda masukan salah !</string>
     <string name="hubungi_kantor_posyandu">Hubungi Kantor Posyandu</string>
     <string name="data_tidak_ditemukann">Data tidak Ditemukan !</string>
+    <string name="cara_pencegahan">Cara Pencegahan Stunting</string>
+    <string name="tindakan_untuk_anak">Tindakan Untuk Anak</string>
+    <string name="pencegahan_stunting">Pencegahan Stunting</string>
+    <string name="beberapa_cara_yang_dapat_dilakukan_oleh_ibu_untuk_mencegah_stunting">Beberapa cara yang dapat dilakukan oleh ibu untuk mencegah stunting.</string>
+    <string name="cara_pencegahan_stunting">Cara Pencegahan Stunting</string>
+    <string name="beberapa_cara_yang_dapat_dilakukan_jika_anak_keadaan_normal">Beberapa cara yang dapat dilakukan jika anak keadaan normal.</string>
+    <string name="beberapa_cara_yang_dapat_dilakukan_jika_anak_keadaan_stunting">Beberapa cara yang dapat dilakukan jika anak keadaan stunting.</string>
+    <string name="tindakan_normal">Tindakan Normal</string>
+    <string name="tindakan_yang_harus_dilakukan_jika_anak_normal">Tindakan yang harus dilakukan jika anak normal</string>
+    <string name="tindakan_yang_harus_dilakukan_jika_anak_stunting">Tindakan yang harus dilakukan jika anak beresiko stunting</string>
+    <string name="normal">Normal</string>
+    <string name="stunting">Stunting</string>
+    <string name="cara_pencegahan_tidak_boleh_kosong">Cara pencegahan stunting tidak boleh kosong !</string>
+    <string name="tindakan_tidak_boleh_kosong">Tindakan tidak boleh kosong !</string>
 
 </resources>

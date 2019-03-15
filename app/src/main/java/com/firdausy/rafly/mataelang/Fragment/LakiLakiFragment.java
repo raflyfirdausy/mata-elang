@@ -102,6 +102,7 @@ public class LakiLakiFragment extends Fragment {
 
         databaseReference = FirebaseDatabase.getInstance()
                 .getReference()
+                .child("pengaturan")
                 .child("antropometri")
                 .child("lakilaki");
 

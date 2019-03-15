@@ -79,58 +79,62 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/greyLight" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/action_posyandu"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:padding="15dp"
-                        android:src="@drawable/ic_health"
-                        android:tint="@color/colorPrimary" />
-
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/greyLight" />
 
-                        <TextView
+                    <LinearLayout
+                        android:id="@+id/action_posyandu"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:padding="15dp"
+                            app:srcCompat="@drawable/ic_health"
+                            android:tint="@color/colorPrimary" />
+
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:fontFamily="monospace"
-                            android:text="@string/posyandu"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            android:textStyle="normal" />
-                    </RelativeLayout>
+                            android:layout_height="match_parent"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp">
 
-                </LinearLayout>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="monospace"
+                                android:text="@string/posyandu"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:textStyle="normal" />
+                        </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/greyLight" />
+                    </LinearLayout>
 
-                <LinearLayout
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/greyLight" />
+
+                    <LinearLayout
 
                     android:id="@+id/action_antropometeri"
                     android:layout_width="match_parent"
@@ -144,7 +148,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:padding="15dp"
-                        android:src="@drawable/ic_baby_boy"
+                        app:srcCompat="@drawable/ic_baby_boy"
                         android:tint="@color/colorPrimary" />
 
                     <RelativeLayout
@@ -166,12 +170,96 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/greyLight" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/greyLight" />
 
-            </LinearLayout>
+                    <LinearLayout
+
+                        android:id="@+id/action_pencegahan"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:padding="15dp"
+                            android:tint="@color/colorPrimary"
+                            app:srcCompat="@drawable/ic_baby_pencegahan" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="monospace"
+                                android:text="@string/cara_pencegahan"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:textStyle="normal" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/greyLight" />
+
+                    <LinearLayout
+
+                        android:id="@+id/action_tindakan"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:padding="15dp"
+                            app:srcCompat="@drawable/ic_feeding_bottle"
+                            android:tint="@color/colorPrimary" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="monospace"
+                                android:text="@string/tindakan_untuk_anak"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:textStyle="normal" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/greyLight" />
+
+                </LinearLayout>
+
+            </ScrollView>
 
             <com.scwang.wave.MultiWaveHeader
                 android:id="@+id/waveHeader"
