@@ -2,9 +2,11 @@ package com.firdausy.rafly.mataelang.Activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -15,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -62,6 +65,9 @@ public class IbuDetailActivity extends AppCompatActivity {
     private LinearLayout layout_input;
     private int tanggal, bulan, tahun;
 
+    private boolean adaBulanKosong = false;
+    private int bulanKeBerapa = -1;
+
     private DatabaseReference databaseReference, databaseCek;
     private ProgressDialog progressDialog;
 
@@ -88,7 +94,7 @@ public class IbuDetailActivity extends AppCompatActivity {
         et_panjangBadan = findViewById(R.id.et_panjangBadan);
         et_beratBadan = findViewById(R.id.et_beratBadan);
         et_bulanKe = findViewById(R.id.et_bulanKe);
-        et_bulanKe.setFilters(new InputFilter[]{ new InputFilterMinMax(0, 24)});
+        et_bulanKe.setFilters(new InputFilter[]{new InputFilterMinMax(0, 24)});
 
         et_tanggalInput.setFocusable(false);
         layout_input = findViewById(R.id.layout_input);
@@ -165,7 +171,7 @@ public class IbuDetailActivity extends AppCompatActivity {
                     "Proses Menyimpan data ...",
                     true);
 
-            Map data = new HashMap();
+            final Map data = new HashMap();
 //            data.put("tanggalInput", et_tanggalInput.getText().toString());
             data.put("panjangBadan", et_panjangBadan.getText().toString());
             data.put("beratBadan", et_beratBadan.getText().toString());
@@ -177,7 +183,7 @@ public class IbuDetailActivity extends AppCompatActivity {
 //                    .getKey();
 
             final String bulanKey;
-            if(Integer.parseInt(et_bulanKe.getText().toString()) < 10){
+            if (Integer.parseInt(et_bulanKe.getText().toString()) < 10) {
                 bulanKey = "bulanKe-0" + Integer.parseInt(et_bulanKe.getText().toString());
             } else {
                 bulanKey = "bulanKe-" + Integer.parseInt(et_bulanKe.getText().toString());
@@ -187,85 +193,149 @@ public class IbuDetailActivity extends AppCompatActivity {
                     .child(getIntent().getStringExtra("keyIbu"))
                     .child(selectedKeyBayi)
                     .child(bulanKey)
-                    .setValue(data)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onComplete(@NonNull final Task<Void> task) {
-                            if(task.isSuccessful()){
-                                int parseBulanKe = Integer.parseInt(et_bulanKe.getText().toString());
-                                String bulanKe;
-                                if(parseBulanKe < 10){
-                                    bulanKe = String.valueOf("0" + parseBulanKe);
-                                } else {
-                                    bulanKe = String.valueOf(parseBulanKe);
-                                }
-
-                                if(jenisKelamin.equalsIgnoreCase("perempuan")){
-                                    databaseCek = FirebaseDatabase.getInstance().getReference()
-                                            .child("antropometri")
-                                            .child("perempuan")
-                                            .child("bulan" + bulanKe);
-                                } else {
-                                    databaseCek = FirebaseDatabase.getInstance().getReference()
-                                            .child("antropometri")
-                                            .child("lakilaki")
-                                            .child("bulan" + bulanKe);
-                                }
-
-                                databaseCek.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        progressDialog.dismiss();
-                                        if(dataSnapshot.exists()){
-                                            double data = Double.parseDouble(Objects.requireNonNull(
-                                                    dataSnapshot.getValue(String.class)));
-
-                                            double panjangBadan = Double.parseDouble(et_panjangBadan.getText().toString());
-
-                                            if(panjangBadan < data){
-                                                databaseReference.child("dataInput")
-                                                        .child(getIntent().getStringExtra("keyIbu"))
-                                                        .child(selectedKeyBayi)
-                                                        .child(bulanKey)
-                                                        .child("hasil")
-                                                        .setValue("Beresiko Stunting");
-                                                new Bantuan(context).alertDialogPeringatan(getString(R.string.beresiko_stunting));
-                                            } else {
-                                                databaseReference.child("dataInput")
-                                                        .child(getIntent().getStringExtra("keyIbu"))
-                                                        .child(selectedKeyBayi)
-                                                        .child(bulanKey)
-                                                        .child("hasil")
-                                                        .setValue("Normal");
-                                                new Bantuan(context).alertDialogInformasi(getString(R.string.anak_normal));
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                AlertDialog.Builder builder;
+                                builder = new AlertDialog.Builder(context);
+                                builder.setTitle("Peringatan")
+                                        .setMessage("Data pada bulan ke " + et_bulanKe.getText().toString() + " sudah diinputkan. Apakah anda ingin mengganti data pada bulan tersebut ?")
+                                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                simpan(bulanKey, data);
+                                            }
+                                        })
+                                        .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                progressDialog.dismiss();
+                                            }
+                                        })
+                                        .setCancelable(false)
+                                        .show();
+                            } else {
+                                databaseReference.child("dataInput")
+                                        .child(getIntent().getStringExtra("keyIbu"))
+                                        .child(selectedKeyBayi)
+                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                if(dataSnapshot.getChildrenCount() - Integer.parseInt(et_bulanKe.getText().toString()) != 0){
+                                                    progressDialog.dismiss();
+                                                    AlertDialog.Builder builder;
+                                                    builder = new AlertDialog.Builder(context);
+                                                    builder.setTitle("Input Error")
+                                                            .setMessage("Silahkan inputkan data pada bulan ke-" +
+                                                                    dataSnapshot.getChildrenCount() + " terlebih dahulu, sebelum menginputkan data pada bulan ke-" +
+                                                                    et_bulanKe.getText().toString())
+                                                            .setPositiveButton("OK", null)
+                                                            .setCancelable(false)
+                                                            .show();
+                                                } else {
+                                                    simpan(bulanKey, data);
+                                                }
                                             }
 
-                                            et_tanggalInput.setText("");
-                                            et_bulanKe.setText("");
-                                            et_panjangBadan.setText("");
-                                            et_beratBadan.setText("");
-
-                                        } else {
-                                            progressDialog.dismiss();
-                                            new Bantuan(context).alertDialogPeringatan(Objects.requireNonNull(task.getException()).getMessage());
-
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
-                                    }
-                                });
-
-                            } else {
-                                progressDialog.dismiss();
-                                new Bantuan(context).alertDialogPeringatan(Objects.requireNonNull(task.getException()).getMessage());
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                                            }
+                                        });
                             }
                         }
-                    });
 
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                        }
+                    });
         }
+    }
+
+    private void simpan(final String bulanKey, Map data) {
+        databaseReference.child("dataInput")
+                .child(getIntent().getStringExtra("keyIbu"))
+                .child(selectedKeyBayi)
+                .child(bulanKey)
+                .setValue(data)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull final Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            int parseBulanKe = Integer.parseInt(et_bulanKe.getText().toString());
+                            String bulanKe;
+                            if (parseBulanKe < 10) {
+                                bulanKe = String.valueOf("0" + parseBulanKe);
+                            } else {
+                                bulanKe = String.valueOf(parseBulanKe);
+                            }
+
+                            if (jenisKelamin.equalsIgnoreCase("perempuan")) {
+                                databaseCek = FirebaseDatabase.getInstance().getReference()
+                                        .child("antropometri")
+                                        .child("perempuan")
+                                        .child("bulan" + bulanKe);
+                            } else {
+                                databaseCek = FirebaseDatabase.getInstance().getReference()
+                                        .child("antropometri")
+                                        .child("lakilaki")
+                                        .child("bulan" + bulanKe);
+                            }
+
+                            databaseCek.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    progressDialog.dismiss();
+                                    if (dataSnapshot.exists()) {
+                                        double data = Double.parseDouble(Objects.requireNonNull(
+                                                dataSnapshot.getValue(String.class)));
+
+                                        double panjangBadan = Double.parseDouble(et_panjangBadan.getText().toString());
+
+                                        if (panjangBadan < data) {
+                                            databaseReference.child("dataInput")
+                                                    .child(getIntent().getStringExtra("keyIbu"))
+                                                    .child(selectedKeyBayi)
+                                                    .child(bulanKey)
+                                                    .child("hasil")
+                                                    .setValue("Beresiko Stunting");
+                                            new Bantuan(context).alertDialogPeringatan(getString(R.string.beresiko_stunting));
+                                        } else {
+                                            databaseReference.child("dataInput")
+                                                    .child(getIntent().getStringExtra("keyIbu"))
+                                                    .child(selectedKeyBayi)
+                                                    .child(bulanKey)
+                                                    .child("hasil")
+                                                    .setValue("Normal");
+                                            new Bantuan(context).alertDialogInformasi(getString(R.string.anak_normal));
+                                        }
+
+                                        et_tanggalInput.setText("");
+                                        et_bulanKe.setText("");
+                                        et_panjangBadan.setText("");
+                                        et_beratBadan.setText("");
+
+                                    } else {
+                                        progressDialog.dismiss();
+                                        new Bantuan(context).alertDialogPeringatan(Objects.requireNonNull(task.getException()).getMessage());
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                                }
+                            });
+
+                        } else {
+                            progressDialog.dismiss();
+                            new Bantuan(context).alertDialogPeringatan(Objects.requireNonNull(task.getException()).getMessage());
+                        }
+                    }
+                });
     }
 
     private void setTanggal() {

@@ -38,7 +38,9 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/mataelang" />
+                app:srcCompat="@drawable/ic_menu_manage"
+                android:tint="@color/colorPrimary"
+                android:padding="20dp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -55,7 +57,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="monospace"
-                        android:text="@string/app_name"
+                        android:text="@string/pengaturan"
                         android:textColor="@color/colorPrimary"
                         android:textSize="23sp"
                         android:textStyle="bold" />

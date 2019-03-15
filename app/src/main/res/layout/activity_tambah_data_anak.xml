@@ -19,7 +19,7 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="120dp"
-                android:src="@drawable/ic_baby_boy"
+                app:srcCompat="@drawable/ic_baby_boy"
                 android:padding="20dp"
                 android:tint="@color/colorPrimary"/>
 

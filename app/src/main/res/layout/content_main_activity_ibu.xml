@@ -115,9 +115,8 @@
                         app:fixtable_title_color="@color/grey"
                         app:fixtable_item_gravity="CENTER"
                         app:fixtable_item_top_bottom_padding="10dp"
-                        app:fixtable_item_width="100dp"
-                        app:fixtable_show_left_view_shadow="true"
-                        />
+                        app:fixtable_item_width="96dp"
+                        app:fixtable_show_left_view_shadow="true" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"

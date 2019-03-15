@@ -1,5 +1,6 @@
 package com.firdausy.rafly.mataelang.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -44,6 +45,7 @@ public class TentangAplikasiActivity extends AppCompatActivity
     private TextView jabatan2;
     private TextView jabatan3;
     private TextView jabatan4;
+    private TextView tv_tentangApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,11 +78,32 @@ public class TentangAplikasiActivity extends AppCompatActivity
         jabatan2 = findViewById(R.id.jabatan2);
         jabatan3 = findViewById(R.id.jabatan3);
         jabatan4 = findViewById(R.id.jabatan4);
+        tv_tentangApp = findViewById(R.id.tv_tentangApp);
 
         //firebase
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.keepSynced(true);
+
+        databaseReference.child("build_config").addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    tv_tentangApp.setText(getString(R.string.versi_aplikasi) +
+                            dataSnapshot.child("VERSION_NAME").getValue(String.class) +
+                            "\n" +
+                            getString(R.string.terakhir_update) +
+                            dataSnapshot.child("TERAKHIR_UPDATE").getValue(String.class)
+                    );
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                new  Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+            }
+        });
 
         setData();
     }

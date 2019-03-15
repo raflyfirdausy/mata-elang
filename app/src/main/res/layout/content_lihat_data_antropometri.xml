@@ -39,7 +39,7 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/ic_bar_chart"
+                app:srcCompat="@drawable/ic_bar_chart"
                 android:padding="20dp"
                 android:tint="@color/colorPrimary"/>
 
