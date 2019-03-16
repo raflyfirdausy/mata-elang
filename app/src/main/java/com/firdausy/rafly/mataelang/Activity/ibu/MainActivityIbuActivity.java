@@ -409,6 +409,12 @@ public class MainActivityIbuActivity extends AppCompatActivity
         } else if (id == R.id.action_posyandu) {
             startActivity(new Intent(context, DataPosyanduActivity.class));
             finish();
+        } else if (id == R.id.action_pencegahan) {
+            startActivity(new Intent(context, IbuCaraPencegahanStuntingActivity.class));
+            finish();
+        } else if (id == R.id.action_tindakan) {
+            startActivity(new Intent(context, IbuTindakanUntukAnak.class));
+            finish();
         } else if (id == R.id.action_about) {
             startActivity(new Intent(context, TentangAplikasiIbuActivity.class));
             finish();

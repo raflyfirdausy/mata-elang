@@ -67,7 +67,7 @@ public class TentangAplikasiIbuActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.getMenu().getItem(2).setChecked(true);
+        navigationView.getMenu().getItem(4).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
 
         tv_namaPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_namaPengguna);
@@ -272,6 +272,12 @@ public class TentangAplikasiIbuActivity extends AppCompatActivity
             finish();
         } else if (id == R.id.action_posyandu) {
             startActivity(new Intent(context, DataPosyanduActivity.class));
+            finish();
+        } else if (id == R.id.action_pencegahan) {
+            startActivity(new Intent(context, IbuCaraPencegahanStuntingActivity.class));
+            finish();
+        } else if (id == R.id.action_tindakan) {
+            startActivity(new Intent(context, IbuTindakanUntukAnak.class));
             finish();
         } else if (id == R.id.action_about) {
             startActivity(new Intent(context, TentangAplikasiIbuActivity.class));

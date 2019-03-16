@@ -16,14 +16,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.admin.PengaturanTindakanActivity"
+        <activity android:name=".Activity.ibu.IbuCaraPencegahanStuntingActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator"/>
-        <activity android:name=".Activity.admin.PengaturanPencegahanActivity"
+        <activity android:name=".Activity.ibu.IbuTindakanUntukAnak"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator"/>
+        <activity
+            android:name=".Activity.admin.PengaturanTindakanActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            tools:ignore="InnerclassSeparator" />
+        <activity
+            android:name=".Activity.admin.PengaturanPencegahanActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".Activity.admin.EditProfilActivity"
             android:configChanges="orientation"
