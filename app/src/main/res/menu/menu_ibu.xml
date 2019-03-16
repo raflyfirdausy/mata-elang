@@ -14,6 +14,16 @@
             android:title="@string/data_posyandu" />
 
         <item
+            android:id="@+id/action_pencegahan"
+            android:icon="@drawable/ic_baby_pencegahan"
+            android:title="@string/cara_pencegahan" />
+
+        <item
+            android:id="@+id/action_tindakan"
+            android:icon="@drawable/ic_feeding_bottle"
+            android:title="@string/tindakan_untuk_anak" />
+
+        <item
             android:id="@+id/action_about"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/tentang_aplikasi" />

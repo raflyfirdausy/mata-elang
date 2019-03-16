@@ -1,4 +1,4 @@
-package com.firdausy.rafly.mataelang.Activity;
+package com.firdausy.rafly.mataelang.Activity.admin;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +19,10 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import com.firdausy.rafly.mataelang.Adapter.IbuAdapterLihat;
+import com.firdausy.rafly.mataelang.Activity.IbuDetailActivity;
+import com.firdausy.rafly.mataelang.Activity.LoginActivity;
+import com.firdausy.rafly.mataelang.Activity.MainActivity;
+import com.firdausy.rafly.mataelang.Adapter.IbuAdapterInput;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Model.IbuModel;
 import com.firdausy.rafly.mataelang.R;
@@ -34,10 +37,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class LihatDataAntropometriActivity extends AppCompatActivity
+public class InputDataAntropometriActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Context context = LihatDataAntropometriActivity.this;
+    private Context context = InputDataAntropometriActivity.this;
     private FirebaseAuth firebaseAuth;
     private TextView tv_namaPengguna;
     private TextView tv_emailPengguna;
@@ -45,16 +48,16 @@ public class LihatDataAntropometriActivity extends AppCompatActivity
     private DatabaseReference databaseReference;
     private ListView lv_konten;
     private List<IbuModel> list = new ArrayList<>();
-    private IbuAdapterLihat ibuAdapter;
+    private IbuAdapterInput ibuAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lihat_data_antropometri);
+        setContentView(R.layout.activity_input_data_antropometri);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.mata_elang);
-        toolbar.setSubtitle(R.string.detail_data);
+        toolbar.setSubtitle(R.string.input_data_antropometri);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -62,7 +65,7 @@ public class LihatDataAntropometriActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.getMenu().getItem(3).setChecked(true);
+        navigationView.getMenu().getItem(2).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
 
         tv_namaPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_namaPengguna);
@@ -77,6 +80,7 @@ public class LihatDataAntropometriActivity extends AppCompatActivity
         databaseReference.keepSynced(true);
 
         getAndSetData();
+
     }
 
     private void getAndSetData() {
@@ -88,20 +92,20 @@ public class LihatDataAntropometriActivity extends AppCompatActivity
                         IbuModel ibuModel = null;
                         list.clear();
 
-                        if (dataSnapshot.exists()) {
-                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        if(dataSnapshot.exists()){
+                            for(DataSnapshot ds : dataSnapshot.getChildren()){
                                 ibuModel = ds.getValue(IbuModel.class);
                                 ibuModel.setKeyIbu(ds.getKey());
                                 list.add(ibuModel);
                             }
 
-                            ibuAdapter = new IbuAdapterLihat(LihatDataAntropometriActivity.this, list);
+                            ibuAdapter = new IbuAdapterInput(InputDataAntropometriActivity.this , list);
                             lv_konten.setAdapter(ibuAdapter);
                             lv_konten.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    //TODO : pindah ke activity isi data Antropometri
-                                    Intent intent = new Intent(context, LihatDetailDataAntropometryActivity.class);
+                                    //TODO : pindah ke activity isi data Antropometri\
+                                    Intent intent = new Intent(context, IbuDetailActivity.class);
                                     intent.putExtra("keyIbu", list.get(position).getKeyIbu());
                                     startActivity(intent);
                                 }
@@ -177,43 +181,6 @@ public class LihatDataAntropometriActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_antropometri, menu);
-
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //TODO : Action ketika tombol submit :v
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //TODO : Action ketika textnya berubah seperti dia yang sekarang bukan lagi yang dulu :(
-                if (TextUtils.isEmpty(newText)) {
-                    ibuAdapter.cariPesan("");
-                    lv_konten.clearTextFilter();
-                } else {
-                    ibuAdapter.cariPesan(newText);
-                }
-                return true;
-            }
-        });
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
 
@@ -249,4 +216,40 @@ public class LihatDataAntropometriActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_antropometri, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //TODO : Action ketika tombol submit :v
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //TODO : Action ketika textnya berubah seperti dia yang sekarang bukan lagi yang dulu :(
+                if (TextUtils.isEmpty(newText)) {
+                    ibuAdapter.cariPesan("");
+                    lv_konten.clearTextFilter();
+                } else {
+                    ibuAdapter.cariPesan(newText);
+                }
+                return true;
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

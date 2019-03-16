@@ -1,4 +1,4 @@
-package com.firdausy.rafly.mataelang.Activity;
+package com.firdausy.rafly.mataelang.Activity.admin;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,6 +20,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.firdausy.rafly.mataelang.Activity.LoginActivity;
+import com.firdausy.rafly.mataelang.Activity.MainActivity;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
 import com.google.android.gms.tasks.OnCompleteListener;

@@ -1,4 +1,4 @@
-package com.firdausy.rafly.mataelang.Activity;
+package com.firdausy.rafly.mataelang.Activity.ibu;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,11 +15,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.firdausy.rafly.mataelang.Activity.DataPosyanduActivity;
+import com.firdausy.rafly.mataelang.Activity.LoginActivity;
 import com.firdausy.rafly.mataelang.Adapter.TabFragmentAdapter;
 import com.firdausy.rafly.mataelang.Fragment.EditDataDiriFragment;
 import com.firdausy.rafly.mataelang.Fragment.EditPasswordFragment;
-import com.firdausy.rafly.mataelang.Fragment.LakiLakiFragment;
-import com.firdausy.rafly.mataelang.Fragment.PerempuanFragment;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;

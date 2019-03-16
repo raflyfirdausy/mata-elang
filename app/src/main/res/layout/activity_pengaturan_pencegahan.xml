@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.PengaturanPencegahanActivity"
+    tools:context=".Activity.admin.PengaturanPencegahanActivity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -73,8 +73,22 @@
                 android:hint="@string/cara_pencegahan_stunting"
                 android:inputType="text|textMultiLine"/>
 
+            <TextView
+                android:id="@+id/tv_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reset_default"
+                android:background="?attr/selectableItemBackground"
+                android:padding="5dp"
+                android:layout_gravity="end"
+                android:clickable="true"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:focusable="true" />
+
             <LinearLayout
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/tombol"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

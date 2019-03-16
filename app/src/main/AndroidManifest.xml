@@ -16,16 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.PengaturanTindakanActivity"
+        <activity android:name=".Activity.admin.PengaturanTindakanActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator"/>
-        <activity android:name=".Activity.PengaturanPencegahanActivity"
+        <activity android:name=".Activity.admin.PengaturanPencegahanActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator"/>
         <activity
-            android:name=".Activity.EditProfilActivity"
+            android:name=".Activity.admin.EditProfilActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -37,37 +37,37 @@
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
         <activity
-            android:name=".Activity.IbuEditProfilActivity"
+            android:name=".Activity.ibu.IbuEditProfilActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
         <activity
-            android:name=".Activity.TentangAplikasiIbuActivity"
+            android:name=".Activity.ibu.TentangAplikasiIbuActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
         <activity
-            android:name=".Activity.MainActivityIbuActivity"
+            android:name=".Activity.ibu.MainActivityIbuActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
         <activity
-            android:name=".Activity.TentangAplikasiActivity"
+            android:name=".Activity.admin.TentangAplikasiActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
         <activity
-            android:name=".Activity.LihatDetailDataAntropometryActivity"
+            android:name=".Activity.admin.LihatDetailDataAntropometryActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator" />
         <activity
-            android:name=".Activity.TambahDataAnakActivity"
+            android:name=".Activity.admin.TambahDataAnakActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator" />
@@ -77,29 +77,29 @@
             android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator" />
         <activity
-            android:name=".Activity.LihatDataAntropometriActivity"
+            android:name=".Activity.admin.LihatDataAntropometriActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
         <activity
-            android:name=".Activity.InputDataAntropometriActivity"
+            android:name=".Activity.admin.InputDataAntropometriActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
         <activity
-            android:name=".Activity.PengaturanAntrompometriActivity"
+            android:name=".Activity.admin.PengaturanAntrompometriActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator" />
         <activity
-            android:name=".Activity.PengaturanPosyanduActivity"
+            android:name=".Activity.admin.PengaturanPosyanduActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator" />
         <activity
-            android:name=".Activity.PengaturanActivity"
+            android:name=".Activity.admin.PengaturanActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -111,7 +111,7 @@
             android:theme="@style/AppTheme.NoActionBarTransparent"
             tools:ignore="InnerclassSeparator" />
         <activity
-            android:name=".Activity.TambahAdminUserActivity"
+            android:name=".Activity.admin.TambahAdminUserActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

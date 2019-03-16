@@ -94,7 +94,7 @@
     <string name="databae_url">https://mata-elang-8c8a7.firebaseio.com/</string>
     <string name="web_api">AIzaSyDCbTEo1D55Gpr7MeN-Dqz3MZ9ekw_bBZo</string>
     <string name="project_idku">com.firdausy.rafly.mataelang</string>
-    <string name="berhasil_membuat_akun">Berhasil Membuat akun </string>
+    <string name="berhasil_membuat_akun">Berhasil Membuat akun  </string>
     <string name="data_berhasil_di_simpan">Data Berhasil Di Simpan !</string>
     <string name="batal">Batal</string>
     <string name="orang">Orang</string>
@@ -174,5 +174,6 @@
     <string name="default_pencegahan">1.\tRutin melakukan Imunisasi.\n\nJADWAL IMUNISASI REKOMENDASI KEMENKES RI\n\n– Umur 0 Bulan jenis imunisasi Hepatitis B (HB) O\n– Umur 1 Bulan jenis imunisasi BCG, Polio 1\n– Umur 2 Bulan jenis imunisasi DPT–HB – Hib 1, Polio 2\n– Umur 3 Bulan jenis imunisasi DPT–HB – Hib 2, Polio 3\n– Umur 4 Bulan jenis imunisasi DPT–HB – Hib 3, Polio 4\n– Umur 9 Bulan jenis imunisasi Campak\n– Umur 18 Bulan jenis imunisasi DPT–HB – Hib 3\n– Umur 24 Bulan jenis imunisasi Campak\n\n2.\tMemberikan ASI Eksklusif pada anak usia 0–6 bulan.\n\n3.\tMemberikan MP-ASI yang bergizi seimbang, suplementasi vitamin dan mineral serta tetap memberikan ASI hingga usia 2 tahun. \n\n- Suplementasi Vitamin dan Mineral, misalnya  pemberian kapsul vitamin A pada bulan Februari dan Agustus, mengkonsumsi bahan makanan yang banyak mengandung vitamin dan mineral, dsb.\n\n- Memberikan MP ASI sesuai kebutuhan gizi seimbang yang banyak mengandung protein, vitamin A, Fe dan Z, misalnya sayur wortel, ubi, sayur bayam, brokoli, kacang-kacangan, ikan, telur, tahu, ayam, dsb.\n\n4.\tRutin melakukan pemeriksaan balita ke posyandu dan melakukan konsultasi ke tenaga kesehatan.\n\n5.\tMemantau pertumbuhan dan perkembangan anak.\n\n6.\tMenjaga hygiene sanitasi perorangan, lingkungan dan menerapkan PHBS (Perilaku Hidup Bersih dan Sehat).</string>
     <string name="default_tindakan_normal">1.\tTetap lakukan upaya pencegahan stunting untuk menjaga status kesehatan anak agar tetap baik.\n\n2.\tMelakukan pemantauan pertumbuhan dan perkembangan anak sebagai upaya deteksi dini.\n\n3.\tDapat memanfaatkan fitur panggilan jika diperlukan untuk konsultasi dengan kader.</string>
     <string name="default_tindakan_stunting">1.\tLakukan upaya pencegahan stunting.\n\n2.\tKonsultasi kepada tenaga kesehatan, misalnya kader posyandu atau bidan desa. Dapat melakukan panggilan kepada kader posyandu jika sewaktu-waktu diperlukan.\n\n3.\tMembawa anak yang beresiko stunting ke puskesmas atau tempat pelayanan kesehatan lainnya untuk mendapatkan intervensi lebih lanjut. \n\n4.\tMendapatkan upaya penanganan atau intervensi dari puskesmas.</string>
+    <string name="reset_default">Reset Default</string>
 
 </resources>

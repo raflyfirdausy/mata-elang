@@ -17,7 +17,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +25,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.firdausy.rafly.mataelang.Activity.admin.InputDataAntropometriActivity;
+import com.firdausy.rafly.mataelang.Activity.admin.LihatDetailDataAntropometryActivity;
+import com.firdausy.rafly.mataelang.Activity.admin.TambahDataAnakActivity;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Helper.InputFilterMinMax;
 import com.firdausy.rafly.mataelang.Model.BayiModel;

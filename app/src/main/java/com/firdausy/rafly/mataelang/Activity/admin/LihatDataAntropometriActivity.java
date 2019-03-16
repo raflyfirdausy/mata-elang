@@ -1,4 +1,4 @@
-package com.firdausy.rafly.mataelang.Activity;
+package com.firdausy.rafly.mataelang.Activity.admin;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +10,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.firdausy.rafly.mataelang.Activity.LoginActivity;
+import com.firdausy.rafly.mataelang.Activity.MainActivity;
+import com.firdausy.rafly.mataelang.Adapter.IbuAdapterLihat;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Model.IbuModel;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,27 +32,31 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class PengaturanActivity extends AppCompatActivity
+public class LihatDataAntropometriActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Context context = PengaturanActivity.this;
+    private Context context = LihatDataAntropometriActivity.this;
     private FirebaseAuth firebaseAuth;
     private TextView tv_namaPengguna;
     private TextView tv_emailPengguna;
     private TextView tv_tipePengguna;
     private DatabaseReference databaseReference;
-
+    private ListView lv_konten;
+    private List<IbuModel> list = new ArrayList<>();
+    private IbuAdapterLihat ibuAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pengaturan);
+        setContentView(R.layout.activity_lihat_data_antropometri);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.mata_elang);
-        toolbar.setSubtitle(R.string.pengaturan);
+        toolbar.setSubtitle(R.string.detail_data);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -52,55 +64,61 @@ public class PengaturanActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.getMenu().getItem(4).setChecked(true);
+        navigationView.getMenu().getItem(3).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
 
         tv_namaPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_namaPengguna);
         tv_emailPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_emailPengguna);
         tv_tipePengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_tipePengguna);
 
+        lv_konten = findViewById(R.id.lv_konten);
+
         //firebase
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.keepSynced(true);
 
-        LinearLayout action_posyandu = findViewById(R.id.action_posyandu);
-        LinearLayout action_antropometeri = findViewById(R.id.action_antropometeri);
-        LinearLayout action_pencegahan = findViewById(R.id.action_pencegahan);
-        LinearLayout action_tindakan = findViewById(R.id.action_tindakan);
+        getAndSetData();
+    }
 
-        action_posyandu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(context, PengaturanPosyanduActivity.class));
-                finish();
-            }
-        });
+    private void getAndSetData() {
+        databaseReference.child("user")
+                .child("ibu")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        IbuModel ibuModel = null;
+                        list.clear();
 
-        action_antropometeri.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(context, PengaturanAntrompometriActivity.class));
-                finish();
-            }
-        });
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                ibuModel = ds.getValue(IbuModel.class);
+                                ibuModel.setKeyIbu(ds.getKey());
+                                list.add(ibuModel);
+                            }
 
-        action_pencegahan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(context, PengaturanPencegahanActivity.class));
-                finish();
-            }
-        });
+                            ibuAdapter = new IbuAdapterLihat(LihatDataAntropometriActivity.this, list);
+                            lv_konten.setAdapter(ibuAdapter);
+                            lv_konten.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    //TODO : pindah ke activity isi data Antropometri
+                                    Intent intent = new Intent(context, LihatDetailDataAntropometryActivity.class);
+                                    intent.putExtra("keyIbu", list.get(position).getKeyIbu());
+                                    startActivity(intent);
+                                }
+                            });
 
-        action_tindakan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(context, PengaturanTindakanActivity.class));
-                finish();
-            }
-        });
+                        } else {
+                            new Bantuan(context).alertDialogPeringatan(getString(R.string.tidak_ditemukan));
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                    }
+                });
     }
 
     @Override
@@ -108,7 +126,7 @@ public class PengaturanActivity extends AppCompatActivity
         super.onPostResume();
         tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
 
-        if(firebaseAuth.getCurrentUser() != null){
+        if (firebaseAuth.getCurrentUser() != null) {
             databaseReference.child("user")
                     .child("admin")
                     .child(firebaseAuth.getCurrentUser().getUid())
@@ -116,7 +134,7 @@ public class PengaturanActivity extends AppCompatActivity
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.exists()){
+                            if (dataSnapshot.exists()) {
                                 tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
                                 tv_tipePengguna.setText(getString(R.string.tipe_admin));
                             } else {
@@ -127,7 +145,7 @@ public class PengaturanActivity extends AppCompatActivity
                                         .addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                if(dataSnapshot.exists()) {
+                                                if (dataSnapshot.exists()) {
                                                     tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
                                                     tv_tipePengguna.setText(getString(R.string.tipe_user_ibu));
                                                 }
@@ -157,6 +175,43 @@ public class PengaturanActivity extends AppCompatActivity
         } else {
             startActivity(new Intent(context, MainActivity.class));
             finish();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_antropometri, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //TODO : Action ketika tombol submit :v
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //TODO : Action ketika textnya berubah seperti dia yang sekarang bukan lagi yang dulu :(
+                if (TextUtils.isEmpty(newText)) {
+                    ibuAdapter.cariPesan("");
+                    lv_konten.clearTextFilter();
+                } else {
+                    ibuAdapter.cariPesan(newText);
+                }
+                return true;
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -195,4 +250,5 @@ public class PengaturanActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

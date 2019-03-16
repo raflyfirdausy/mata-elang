@@ -13,11 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.firdausy.rafly.mataelang.BuildConfig;
+import com.firdausy.rafly.mataelang.Activity.admin.EditProfilActivity;
+import com.firdausy.rafly.mataelang.Activity.admin.InputDataAntropometriActivity;
+import com.firdausy.rafly.mataelang.Activity.admin.LihatDataAntropometriActivity;
+import com.firdausy.rafly.mataelang.Activity.admin.PengaturanActivity;
+import com.firdausy.rafly.mataelang.Activity.admin.TambahAdminUserActivity;
+import com.firdausy.rafly.mataelang.Activity.admin.TentangAplikasiActivity;
+import com.firdausy.rafly.mataelang.Activity.ibu.MainActivityIbuActivity;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;

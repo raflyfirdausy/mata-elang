@@ -1,4 +1,4 @@
-package com.firdausy.rafly.mataelang.Activity;
+package com.firdausy.rafly.mataelang.Activity.admin;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -17,6 +17,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.firdausy.rafly.mataelang.Activity.IbuDetailActivity;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
 import com.google.android.gms.tasks.OnCompleteListener;

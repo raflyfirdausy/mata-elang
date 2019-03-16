@@ -1,6 +1,5 @@
-package com.firdausy.rafly.mataelang.Activity;
+package com.firdausy.rafly.mataelang.Activity.admin;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -8,14 +7,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import com.firdausy.rafly.mataelang.Adapter.TabFragmentAdapter;
-import com.firdausy.rafly.mataelang.Fragment.LakiLakiFragment;
-import com.firdausy.rafly.mataelang.Fragment.PerempuanFragment;
 import com.firdausy.rafly.mataelang.Fragment.TindakanAnakNormalFragment;
 import com.firdausy.rafly.mataelang.Fragment.TindakanAnakStuntingFragment;
 import com.firdausy.rafly.mataelang.R;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.Objects;
 
@@ -25,9 +22,6 @@ public class PengaturanTindakanActivity extends AppCompatActivity {
     private TabFragmentAdapter tabFragmentAdapter;
     private TabLayout tabLayout;
 
-    private DatabaseReference databaseReference;
-    private ProgressDialog progressDialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +30,8 @@ public class PengaturanTindakanActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.pengaturan);
         getSupportActionBar().setSubtitle(R.string.tindakan_untuk_anak);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         viewPager = findViewById(R.id.vp_konten);
         tabLayout = findViewById(R.id.tab_layout);
