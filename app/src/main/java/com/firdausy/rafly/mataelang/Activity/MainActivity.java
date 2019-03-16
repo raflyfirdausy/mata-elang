@@ -23,8 +23,12 @@ import com.firdausy.rafly.mataelang.Activity.admin.PengaturanActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.TambahAdminUserActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.TentangAplikasiActivity;
 import com.firdausy.rafly.mataelang.Activity.ibu.MainActivityIbuActivity;
+import com.firdausy.rafly.mataelang.Helper.AdManager;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity
     private TextView tv_totalIbu;
     private TextView tv_totalBayi;
     private DatabaseReference databaseReference;
+
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +103,11 @@ public class MainActivity extends AppCompatActivity
         databaseReference.keepSynced(true);
 
         getAndSetData();
+
+//        InterstitialAd interstitialAd = AdManager.getAd();
+//        if (interstitialAd != null) {
+//            interstitialAd.show();
+//        }
 
 
     }

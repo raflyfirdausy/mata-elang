@@ -16,9 +16,11 @@ import android.view.Window;
 
 import com.firdausy.rafly.mataelang.Activity.ibu.MainActivityIbuActivity;
 import com.firdausy.rafly.mataelang.BuildConfig;
+import com.firdausy.rafly.mataelang.Helper.AdManager;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Helper.Internet;
 import com.firdausy.rafly.mataelang.R;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,6 +56,11 @@ public class SplashScreenActivity extends AppCompatActivity {
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
         boolean cekKoneksi = new Internet().CekKoneksi(context);
         if (cekKoneksi) {
+
+//            MobileAds.initialize(this,getString(R.string.app_id_admob));
+//            AdManager adManager = new AdManager(this, getString(R.string.inter_id_admob));
+//            adManager.createAd();
+
             databaseReference.child("build_config").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

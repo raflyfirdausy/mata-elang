@@ -23,6 +23,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:design:28.0.0'
@@ -33,8 +34,8 @@ dependencies {
 
     //firebase
     implementation 'com.google.firebase:firebase-core:16.0.7'
-    implementation 'com.google.firebase:firebase-database:16.0.6'
-    implementation 'com.google.firebase:firebase-auth:16.1.0'
+    implementation 'com.google.firebase:firebase-database:16.1.0'
+    implementation 'com.google.firebase:firebase-auth:16.2.0'
 
     //wave
     implementation 'com.scwang.wave:MultiWaveHeader:1.0.0-alpha-1'
@@ -48,5 +49,6 @@ dependencies {
     implementation 'de.codecrafters.tableview:tableview:2.8.0'
     implementation 'com.github.HYY-yu:TableRecyclerView:v1.0.0'
 
+    implementation 'com.google.android.gms:play-services-ads:17.2.0'
 }
 apply plugin: 'com.google.gms.google-services'
