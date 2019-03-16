@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,11 @@ import android.widget.TextView;
 
 import com.firdausy.rafly.mataelang.Activity.DataPosyanduActivity;
 import com.firdausy.rafly.mataelang.Activity.LoginActivity;
+import com.firdausy.rafly.mataelang.Adapter.TabFragmentAdapter;
+import com.firdausy.rafly.mataelang.Fragment.admin.TindakanAnakNormalFragment;
+import com.firdausy.rafly.mataelang.Fragment.admin.TindakanAnakStuntingFragment;
+import com.firdausy.rafly.mataelang.Fragment.ibu.IbuTindakanAnakNormalFragment;
+import com.firdausy.rafly.mataelang.Fragment.ibu.IbuTindakanAnakStuntingFragment;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +42,10 @@ public class IbuTindakanUntukAnak extends AppCompatActivity
     private TextView tv_namaPengguna;
     private TextView tv_emailPengguna;
     private TextView tv_tipePengguna;
+
+    private ViewPager viewPager;
+    private TabFragmentAdapter tabFragmentAdapter;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +75,18 @@ public class IbuTindakanUntukAnak extends AppCompatActivity
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.keepSynced(true);
+
+        viewPager = findViewById(R.id.vp_konten);
+        tabLayout = findViewById(R.id.tab_layout);
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        tabFragmentAdapter = new TabFragmentAdapter(getSupportFragmentManager());
+        tabFragmentAdapter.addFragment(new IbuTindakanAnakNormalFragment(), getString(R.string.normal));
+        tabFragmentAdapter.addFragment(new IbuTindakanAnakStuntingFragment(), getString(R.string.stunting));
+        viewPager.setAdapter(tabFragmentAdapter);
     }
 
     @Override

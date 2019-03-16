@@ -36,6 +36,8 @@ public class IbuCaraPencegahanStuntingActivity extends AppCompatActivity
     private TextView tv_emailPengguna;
     private TextView tv_tipePengguna;
 
+    private TextView tv_pencegahan;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +64,31 @@ public class IbuCaraPencegahanStuntingActivity extends AppCompatActivity
 
         //firebase
         firebaseAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("pengaturan").child("pencegahan");
         databaseReference.keepSynced(true);
 
+        tv_pencegahan = findViewById(R.id.tv_pencegahan);
+
+        setData();
+
+    }
+
+    private void setData() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    tv_pencegahan.setText(dataSnapshot.getValue(String.class));
+                } else {
+                    tv_pencegahan.setText(getString(R.string.oopss_pencegahan_stunting_belum_tersedia));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+            }
+        });
     }
 
     @Override
