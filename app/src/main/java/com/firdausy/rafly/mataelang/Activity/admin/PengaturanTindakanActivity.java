@@ -10,8 +10,8 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.firdausy.rafly.mataelang.Adapter.TabFragmentAdapter;
-import com.firdausy.rafly.mataelang.Fragment.TindakanAnakNormalFragment;
-import com.firdausy.rafly.mataelang.Fragment.TindakanAnakStuntingFragment;
+import com.firdausy.rafly.mataelang.Fragment.admin.TindakanAnakNormalFragment;
+import com.firdausy.rafly.mataelang.Fragment.admin.TindakanAnakStuntingFragment;
 import com.firdausy.rafly.mataelang.R;
 
 import java.util.Objects;

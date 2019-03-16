@@ -1,4 +1,4 @@
-package com.firdausy.rafly.mataelang.Fragment;
+package com.firdausy.rafly.mataelang.Fragment.admin;
 
 
 import android.app.ProgressDialog;
@@ -26,35 +26,35 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class LakiLakiFragment extends Fragment {
+public class PerempuanFragment extends Fragment {
 
-    private double[] PB_defaultLakiLaki = {
-            46.1,
-            50.8,
-            54.4,
-            57.3,
-            59.7,
-            61.7,
-            63.3,
-            64.8,
-            66.2,
-            67.6,
-            68.7,
-            69.9,
+
+    private double[] PB_defaultPerempuan = {
+            45.4,
+            49.8,
+            53.0,
+            55.6,
+            57.8,
+            59.8,
+            61.2,
+            62.7,
+            64.0,
+            65.3,
+            66.5,
+            67.7,
+            68.9,
+            70.0,
             71.0,
-            72.1,
-            73.1,
-            74.1,
-            75.0,
-            76.0,
-            76.9,
-            77.7,
-            78.6,
-            79.4,
-            80.2,
-            81.0,
-            81.7
-
+            72.0,
+            73.0,
+            74.0,
+            74.9,
+            75.8,
+            76.7,
+            77.5,
+            78.4,
+            79.2,
+            80.0
     };
 
     private EditText[] editTexts;
@@ -64,8 +64,7 @@ public class LakiLakiFragment extends Fragment {
     private DatabaseReference databaseReference;
     private ProgressDialog progressDialog;
 
-
-    public LakiLakiFragment() {
+    public PerempuanFragment() {
         // Required empty public constructor
     }
 
@@ -74,12 +73,10 @@ public class LakiLakiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_laki_laki, container, false);
+        View v = inflater.inflate(R.layout.fragment_perempuan, container, false);
 
         btn_reset = v.findViewById(R.id.btn_reset);
         btn_simpan = v.findViewById(R.id.btn_simpan);
-
-
 
         editTexts = new EditText[25];
         for(int i = 0; i < 25 ; i++){
@@ -92,7 +89,7 @@ public class LakiLakiFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 for(int i = 0; i < 25 ; i++){
-                    editTexts[i].setText(String.valueOf(PB_defaultLakiLaki[i]));
+                    editTexts[i].setText(String.valueOf(PB_defaultPerempuan[i]));
                 }
             }
         });
@@ -101,7 +98,7 @@ public class LakiLakiFragment extends Fragment {
                 .getReference()
                 .child("pengaturan")
                 .child("antropometri")
-                .child("lakilaki");
+                .child("perempuan");
 
         btn_simpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,7 +164,7 @@ public class LakiLakiFragment extends Fragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     progressDialog.dismiss();
                     if(task.isSuccessful()){
-                            new Bantuan(getActivity()).alertDialogInformasi("Data Berhasil Di Simpan !");
+                        new Bantuan(getActivity()).alertDialogInformasi("Data Berhasil Di Simpan !");
                     } else {
                         new Bantuan(getActivity()).alertDialogInformasi(Objects.requireNonNull(task.getException()).getMessage());
                     }
@@ -175,6 +172,5 @@ public class LakiLakiFragment extends Fragment {
             });
         }
     }
-
 
 }

@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.firdausy.rafly.mataelang.Adapter.TabFragmentAdapter;
-import com.firdausy.rafly.mataelang.Fragment.LakiLakiFragment;
-import com.firdausy.rafly.mataelang.Fragment.PerempuanFragment;
+import com.firdausy.rafly.mataelang.Fragment.admin.LakiLakiFragment;
+import com.firdausy.rafly.mataelang.Fragment.admin.PerempuanFragment;
 import com.firdausy.rafly.mataelang.R;
 
 import java.util.Objects;

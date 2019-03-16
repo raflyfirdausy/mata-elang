@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.firdausy.rafly.mataelang.Activity.LoginActivity;
 import com.firdausy.rafly.mataelang.Activity.MainActivity;
 import com.firdausy.rafly.mataelang.Adapter.TabFragmentAdapter;
-import com.firdausy.rafly.mataelang.Fragment.EditDataDiriAdminFragment;
+import com.firdausy.rafly.mataelang.Fragment.admin.EditDataDiriAdminFragment;
 import com.firdausy.rafly.mataelang.Fragment.EditPasswordFragment;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
