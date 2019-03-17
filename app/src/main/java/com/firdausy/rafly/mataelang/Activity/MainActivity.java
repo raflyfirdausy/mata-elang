@@ -23,6 +23,7 @@ import com.firdausy.rafly.mataelang.Activity.admin.PengaturanActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.TambahAdminUserActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.TentangAplikasiActivity;
 import com.firdausy.rafly.mataelang.Activity.ibu.MainActivityIbuActivity;
+import com.firdausy.rafly.mataelang.BroadcastReceiver.NotificationEventReceiver;
 import com.firdausy.rafly.mataelang.Helper.AdManager;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.mata_elang);
         toolbar.setSubtitle(R.string.dashboard);
-
+        NotificationEventReceiver.setupAlarm(getApplicationContext());
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -111,6 +112,21 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+    //
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
+    // To prevent crash on resuming activity  : interaction with fragments allowed only after Fragments Resumed or in OnCreate
+    // http://www.androiddesignpatterns.com/2013/08/fragment-transaction-commit-state-loss.html
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        // handleIntent();
+    }
+    //
 
     private void getAndSetData() {
         databaseReference.child("user")
