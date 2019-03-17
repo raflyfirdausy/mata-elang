@@ -104,10 +104,10 @@ public class MainActivity extends AppCompatActivity
 
         getAndSetData();
 
-//        InterstitialAd interstitialAd = AdManager.getAd();
-//        if (interstitialAd != null) {
-//            interstitialAd.show();
-//        }
+        InterstitialAd interstitialAd = AdManager.getAd();
+        if (interstitialAd != null) {
+            interstitialAd.show();
+        }
 
 
     }

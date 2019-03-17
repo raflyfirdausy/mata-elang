@@ -57,9 +57,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         boolean cekKoneksi = new Internet().CekKoneksi(context);
         if (cekKoneksi) {
 
-//            MobileAds.initialize(this,getString(R.string.app_id_admob));
-//            AdManager adManager = new AdManager(this, getString(R.string.inter_id_admob));
-//            adManager.createAd();
+            MobileAds.initialize(this,getString(R.string.app_id_admob));
+            AdManager adManager = new AdManager(this, getString(R.string.inter_id_admob));
+            adManager.createAd();
 
             databaseReference.child("build_config").addValueEventListener(new ValueEventListener() {
                 @Override
