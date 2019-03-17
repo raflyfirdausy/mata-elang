@@ -33,9 +33,12 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     //firebase
-    implementation 'com.google.firebase:firebase-core:16.0.7'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
     implementation 'com.google.firebase:firebase-database:16.1.0'
     implementation 'com.google.firebase:firebase-auth:16.2.0'
+    implementation 'com.google.firebase:firebase-messaging:17.4.0'
+    implementation 'com.google.firebase:firebase-messaging:17.4.0'
+    implementation 'com.google.android.gms:play-services-places:16.0.0'
 
     //wave
     implementation 'com.scwang.wave:MultiWaveHeader:1.0.0-alpha-1'
