@@ -10,15 +10,35 @@
     android:weightSum="100"
     tools:context=".Activity.LoginActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="82"
-        android:padding="30dp">
+        android:layout_weight="85"
+        android:padding="30dp"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"
+        android:focusable="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_help"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="0dp"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/ic_help_outline_black_24dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,27 +60,28 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/login_mata_elang"
-                    android:gravity="center_horizontal"
-                    android:textColor="@color/white"
-                    android:fontFamily="monospace"
-                    android:textSize="25sp"
                     android:layout_marginBottom="10dp"
-                    android:textStyle="bold"/>
+                    android:fontFamily="monospace"
+                    android:gravity="center_horizontal"
+                    android:text="@string/login_mata_elang"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:theme="@style/login">
+
                     <EditText
                         android:id="@+id/et_emailLogin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/email"
-                        android:textColorHint="@color/white"
                         android:inputType="textEmailAddress"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -68,14 +89,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:theme="@style/login">
+
                     <EditText
                         android:id="@+id/et_passwordLogin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/password"
-                        android:textColorHint="@color/white"
                         android:inputType="textPassword"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
@@ -84,12 +106,40 @@
                     android:layout_height="?attr/actionBarSize"
                     android:layout_marginTop="20dp"
                     android:backgroundTint="@color/white"
+                    android:fontFamily="monospace"
                     android:text="@string/login"
                     android:textColor="@color/colorPrimary"
-                    android:fontFamily="monospace"
-                    android:textStyle="bold"
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     tools:targetApi="lollipop" />
+
+                <LinearLayout
+                    android:id="@+id/ll_daftar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mau_mendaftarkan_posyandu"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/tv_klikDisini"
+                        android:clickable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:text="@string/klik_disini"
+                        android:textColor="@color/white"
+                        tools:ignore="RtlSymmetry"
+                        android:focusable="true" />
+                </LinearLayout>
+
+
 
             </LinearLayout>
 
@@ -100,7 +150,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="18">
+        android:layout_weight="15">
 
         <com.scwang.wave.MultiWaveHeader
             android:id="@+id/waveHeader"

@@ -10,6 +10,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.firdausy.rafly.mataelang.Activity.ibu.MainActivityIbuActivity;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
@@ -35,6 +38,10 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private DatabaseReference databaseReference;
 
+    private ImageView iv_help;
+    private LinearLayout ll_daftar;
+    private TextView tv_klikDisini;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +56,9 @@ public class LoginActivity extends AppCompatActivity {
         btn_login = findViewById(R.id.btn_login);
         et_emailLogin = findViewById(R.id.et_emailLogin);
         et_passwordLogin = findViewById(R.id.et_passwordLogin);
+        iv_help = findViewById(R.id.iv_help);
+        ll_daftar = findViewById(R.id.ll_daftar);
+        tv_klikDisini = findViewById(R.id.tv_klikDisini);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.exists()){
+                            if (dataSnapshot.exists()) {
                                 startActivity(new Intent(context, MainActivity.class));
                                 finish();
                             } else {
@@ -107,14 +117,14 @@ public class LoginActivity extends AppCompatActivity {
 
                             progressDialog.dismiss();
 
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 databaseReference.child("user")
                                         .child("admin")
                                         .child(firebaseAuth.getCurrentUser().getUid())
                                         .addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                if(dataSnapshot.exists()){
+                                                if (dataSnapshot.exists()) {
                                                     startActivity(new Intent(context, MainActivity.class));
                                                     finish();
                                                 } else {

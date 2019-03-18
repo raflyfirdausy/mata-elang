@@ -189,5 +189,7 @@
     <string name="oopss_tindakan_anak_normal">Oopss, Tindakan untuk anak normal belum tersedia !</string>
     <string name="oopss_tindakan_anak_stunting">Oopss, Tindakan untuk anak stunting belum tersedia !</string>
     <string name="tindakan_stunting">Tindakan Stunting</string>
+    <string name="mau_mendaftarkan_posyandu">Mau mendaftarkan posyandu ?</string>
+    <string name="klik_disini">Klik disini !</string>
 
 </resources>
