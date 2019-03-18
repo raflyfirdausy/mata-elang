@@ -135,32 +135,18 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/white_grey" />
 
-            <LinearLayout
-                android:id="@+id/tombol"
+            <Button
+                android:id="@+id/btn_simpan"
+                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:weightSum="100">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="100">
-
-                    <Button
-                        android:id="@+id/btn_simpan"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:backgroundTint="@color/white"
-                        android:fontFamily="monospace"
-                        android:text="@string/daftar"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        tools:targetApi="lollipop" />
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_height="?attr/actionBarSize"
+                android:backgroundTint="@color/white"
+                android:fontFamily="monospace"
+                android:text="@string/daftar"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:targetApi="lollipop" />
 
         </LinearLayout>
 

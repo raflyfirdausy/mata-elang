@@ -195,5 +195,7 @@
     <string name="daftar_posyandu">Daftar Posyandu</string>
     <string name="silahkan_isi_form_di_bawah_ini">Silahkan isi form di bawah ini.</string>
     <string name="daftar_disini">Daftar disini</string>
+    <string name="pendaftaran_berhasil">Pendaftaran Berhasil, silahkan cek email anda !</string>
+    <string name="belum_verif">Akun anda belum terverifikasi, Silahkan verifikasi email terlebih dahulu !</string>
 
 </resources>

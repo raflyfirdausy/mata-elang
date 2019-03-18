@@ -207,7 +207,7 @@ public class TambahAdminUserActivity extends AppCompatActivity
                 firebaseAuth2 = FirebaseAuth.getInstance(FirebaseApp.getInstance(getString(R.string.app_name)));
             }
 
-            firebaseAuth2.createUserWithEmailAndPassword(et_emailAdmin.getText().toString(),
+            firebaseAuth.createUserWithEmailAndPassword(et_emailAdmin.getText().toString(),
                     et_passwordAdmin.getText().toString())
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override

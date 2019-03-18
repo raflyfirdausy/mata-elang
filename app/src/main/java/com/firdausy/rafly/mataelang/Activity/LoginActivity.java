@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void AnimateBell() {
-        Animation shaje = AnimationUtils.loadAnimation(context,R.anim.shakeanimation);
+        Animation shaje = AnimationUtils.loadAnimation(context, R.anim.shakeanimation);
         iv_help.setImageResource(R.drawable.ic_help_outline_black_24dp);
 
         iv_help.setAnimation(shaje);
@@ -141,9 +141,7 @@ public class LoginActivity extends AppCompatActivity {
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-
                             progressDialog.dismiss();
-
                             if (task.isSuccessful()) {
                                 databaseReference.child("user")
                                         .child("admin")
@@ -152,9 +150,11 @@ public class LoginActivity extends AppCompatActivity {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                 if (dataSnapshot.exists()) {
+                                                    new Bantuan(context).toastShort("2222222222");
                                                     startActivity(new Intent(context, MainActivity.class));
                                                     finish();
                                                 } else {
+                                                    new Bantuan(context).toastShort("333333333333");
                                                     startActivity(new Intent(context, MainActivityIbuActivity.class));
                                                     finish();
                                                 }
