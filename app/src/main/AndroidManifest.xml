@@ -17,20 +17,28 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <activity android:name=".Activity.DaftarPosyanduActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarTransparent"
+            tools:ignore="InnerclassSeparator"/>
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/app_id_admob"/>
+            android:value="@string/app_id_admob" />
 
-        <activity android:name=".Activity.ibu.IbuCaraPencegahanStuntingActivity"
+        <activity
+            android:name=".Activity.ibu.IbuCaraPencegahanStuntingActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="InnerclassSeparator"/>
-        <activity android:name=".Activity.ibu.IbuTindakanUntukAnak"
+            tools:ignore="InnerclassSeparator" />
+        <activity
+            android:name=".Activity.ibu.IbuTindakanUntukAnak"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="InnerclassSeparator"/>
+            tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".Activity.admin.PengaturanTindakanActivity"
             android:configChanges="orientation"
@@ -155,7 +163,7 @@
 
         <service android:name=".Service.FMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
     </application>

@@ -16,4 +16,5 @@
     <color name="orange">#f39c12</color>
 
     <color name="black_overlay">#66000000</color>
+    <color name="white_grey">#85FFFFFF</color>
 </resources>
