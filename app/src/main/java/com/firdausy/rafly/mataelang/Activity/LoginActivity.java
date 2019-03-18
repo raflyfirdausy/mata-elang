@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -95,7 +97,25 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
         }
+        AnimateBell();
+        iv_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tampilbantuan();
+            }
+        });
 
+    }
+
+    private void tampilbantuan() {
+        new Bantuan(context).alertDialogInformasi(getString(R.string.bantuan));
+    }
+
+    private void AnimateBell() {
+        Animation shaje = AnimationUtils.loadAnimation(context,R.anim.shakeanimation);
+        iv_help.setImageResource(R.drawable.ic_help_outline_black_24dp);
+
+        iv_help.setAnimation(shaje);
     }
 
     private void prosesLogin() {

@@ -191,5 +191,6 @@
     <string name="tindakan_stunting">Tindakan Stunting</string>
     <string name="mau_mendaftarkan_posyandu">Mau mendaftarkan posyandu ?</string>
     <string name="klik_disini">Klik disini !</string>
+    <string name="bantuan">Login Posyandu \n\n\t <li>Masukkan email</li> \n\t <li>Masukkan password</li> \n\t <li>Klik Login</li> \n Panduan Mendaftarkan Posyandu</string>
 
 </resources>
