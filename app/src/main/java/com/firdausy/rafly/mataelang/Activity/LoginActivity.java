@@ -19,8 +19,8 @@ import android.widget.TextView;
 import com.firdausy.rafly.mataelang.Activity.ibu.MainActivityIbuActivity;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -138,25 +138,39 @@ public class LoginActivity extends AppCompatActivity {
 
             firebaseAuth.signInWithEmailAndPassword(et_emailLogin.getText().toString(),
                     et_passwordLogin.getText().toString())
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
+                        public void onSuccess(AuthResult authResult) {
                             progressDialog.dismiss();
-                            if (task.isSuccessful()) {
-                                databaseReference.child("user")
-                                        .child("admin")
-                                        .child(firebaseAuth.getCurrentUser().getUid())
+                            if (Objects.requireNonNull(firebaseAuth.getCurrentUser()).isEmailVerified()) {
+                                databaseReference.child("user_posyandu").child(firebaseAuth.getCurrentUser().getUid())
                                         .addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                 if (dataSnapshot.exists()) {
-                                                    new Bantuan(context).toastShort("2222222222");
                                                     startActivity(new Intent(context, MainActivity.class));
                                                     finish();
                                                 } else {
-                                                    new Bantuan(context).toastShort("333333333333");
-                                                    startActivity(new Intent(context, MainActivityIbuActivity.class));
-                                                    finish();
+                                                    databaseReference.child("user")
+                                                            .child("admin")
+                                                            .child(firebaseAuth.getCurrentUser().getUid())
+                                                            .addValueEventListener(new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                    if (dataSnapshot.exists()) {
+                                                                        startActivity(new Intent(context, MainActivity.class));
+                                                                        finish();
+                                                                    } else {
+                                                                        startActivity(new Intent(context, MainActivityIbuActivity.class));
+                                                                        finish();
+                                                                    }
+                                                                }
+
+                                                                @Override
+                                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                                    new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                                                                }
+                                                            });
                                                 }
                                             }
 
@@ -166,8 +180,15 @@ public class LoginActivity extends AppCompatActivity {
                                             }
                                         });
                             } else {
-                                new Bantuan(context).alertDialogPeringatan(Objects.requireNonNull(task.getException()).getMessage());
+                                new Bantuan(context).alertDialogPeringatan(getString(R.string.belum_verif));
                             }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            new Bantuan(context).alertDialogPeringatan(e.getMessage());
                         }
                     });
         }

@@ -22,14 +22,11 @@ import com.firdausy.rafly.mataelang.Activity.admin.LihatDataAntropometriActivity
 import com.firdausy.rafly.mataelang.Activity.admin.PengaturanActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.TambahAdminUserActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.TentangAplikasiActivity;
-import com.firdausy.rafly.mataelang.Activity.ibu.MainActivityIbuActivity;
 import com.firdausy.rafly.mataelang.BroadcastReceiver.NotificationEventReceiver;
 import com.firdausy.rafly.mataelang.Helper.AdManager;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     private DatabaseReference databaseReference;
 
     private InterstitialAd mInterstitialAd;
+    private boolean isSuperUser = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +110,7 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+
     //
     @Override
     protected void onNewIntent(Intent intent) {
@@ -154,10 +153,10 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         int jumlahBayi = 0;
-                        if(dataSnapshot.exists()){
-                            for(DataSnapshot ds : dataSnapshot.getChildren()){
-                                for (DataSnapshot DS : ds.getChildren()){
-                                    jumlahBayi ++;
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                for (DataSnapshot DS : ds.getChildren()) {
+                                    jumlahBayi++;
                                 }
                             }
                         }
@@ -177,19 +176,33 @@ public class MainActivity extends AppCompatActivity
         tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
 
         if (firebaseAuth.getCurrentUser() != null) {
-            databaseReference.child("user")
-                    .child("admin")
-                    .child(firebaseAuth.getCurrentUser().getUid())
-                    .child("namaLengkap")
+            databaseReference.child("user_posyandu").child(firebaseAuth.getCurrentUser().getUid())
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
-                                tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
-                                tv_tipePengguna.setText(getString(R.string.tipe_admin));
+                                isSuperUser = true;
+                                tv_namaPengguna.setText(dataSnapshot.child("detailPosyandu").child("namaPosyandu").getValue(String.class));
+                                tv_tipePengguna.setText("Jenis Akun : " + getString(R.string.kepala));
                             } else {
-                                startActivity(new Intent(context, MainActivityIbuActivity.class));
-                                finish();
+                                databaseReference.child("user")
+                                        .child("admin")
+                                        .child(firebaseAuth.getCurrentUser().getUid())
+                                        .child("namaLengkap")
+                                        .addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                if (dataSnapshot.exists()) {
+                                                    tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
+                                                    tv_tipePengguna.setText(getString(R.string.tipe_admin));
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                                            }
+                                        });
                             }
                         }
 

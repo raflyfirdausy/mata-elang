@@ -31,31 +31,31 @@ public class AdManager {
             @Override
             public void onAdLoaded() {
                 // Code to be executed when an ad finishes loading.
-                new Bantuan(activity).toastShort("onAdLoaded");
+//                new Bantuan(activity).toastShort("onAdLoaded");
             }
 
             @Override
             public void onAdFailedToLoad(int errorCode) {
                 // Code to be executed when an ad request fails.
-                new Bantuan(activity).toastShort("onAdFailedToLoad");
+//                new Bantuan(activity).toastShort("onAdFailedToLoad");
             }
 
             @Override
             public void onAdOpened() {
                 // Code to be executed when the ad is displayed.
-                new Bantuan(activity).toastShort("onAdOpened");
+//                new Bantuan(activity).toastShort("onAdOpened");
             }
 
             @Override
             public void onAdLeftApplication() {
                 // Code to be executed when the user has left the app.
-                new Bantuan(activity).toastShort("onAdLeftApplication");
+//                new Bantuan(activity).toastShort("onAdLeftApplication");
             }
 
             @Override
             public void onAdClosed() {
                 // Code to be executed when the interstitial ad is closed.
-                new Bantuan(activity).toastShort("onAdClosed");
+//                new Bantuan(activity).toastShort("onAdClosed");
                 createAd();
             }
         });

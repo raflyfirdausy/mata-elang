@@ -197,5 +197,6 @@
     <string name="daftar_disini">Daftar disini</string>
     <string name="pendaftaran_berhasil">Pendaftaran Berhasil, silahkan cek email anda !</string>
     <string name="belum_verif">Akun anda belum terverifikasi, Silahkan verifikasi email terlebih dahulu !</string>
+    <string name="kepala">Kepala</string>
 
 </resources>
