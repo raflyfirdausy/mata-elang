@@ -200,5 +200,6 @@
     <string name="kepala">Kepala</string>
     <string name="cek_email">Silahkan Cek email untuk verifikasi.</string>
     <string name="informasi">Informasi</string>
+    <string name="sudah_diinputkan">sudah diinputkan. Apakah anda ingin mengganti data pada bulan tersebut ?</string>
 
 </resources>

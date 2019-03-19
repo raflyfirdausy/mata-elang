@@ -29,6 +29,7 @@ import com.firdausy.rafly.mataelang.Activity.admin.InputDataAntropometriActivity
 import com.firdausy.rafly.mataelang.Activity.admin.LihatDetailDataAntropometryActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.TambahDataAnakActivity;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.Helper.InputFilterMinMax;
 import com.firdausy.rafly.mataelang.Model.BayiModel;
 import com.firdausy.rafly.mataelang.R;
@@ -202,7 +203,7 @@ public class IbuDetailActivity extends AppCompatActivity {
                                 AlertDialog.Builder builder;
                                 builder = new AlertDialog.Builder(context);
                                 builder.setTitle("Peringatan")
-                                        .setMessage("Data pada bulan ke " + et_bulanKe.getText().toString() + " sudah diinputkan. Apakah anda ingin mengganti data pada bulan tersebut ?")
+                                        .setMessage("Data pada bulan ke " + et_bulanKe.getText().toString() + getString(R.string.sudah_diinputkan))
                                         .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
@@ -276,11 +277,17 @@ public class IbuDetailActivity extends AppCompatActivity {
 
                             if (jenisKelamin.equalsIgnoreCase("perempuan")) {
                                 databaseCek = FirebaseDatabase.getInstance().getReference()
+                                        .child("user_posyandu")
+                                        .child(InformasiPosyandu.ID_POSYANDU)
+                                        .child("pengaturan")
                                         .child("antropometri")
                                         .child("perempuan")
                                         .child("bulan" + bulanKe);
                             } else {
                                 databaseCek = FirebaseDatabase.getInstance().getReference()
+                                        .child("user_posyandu")
+                                        .child(InformasiPosyandu.ID_POSYANDU)
+                                        .child("pengaturan")
                                         .child("antropometri")
                                         .child("lakilaki")
                                         .child("bulan" + bulanKe);
