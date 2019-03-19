@@ -191,15 +191,42 @@
     <string name="tindakan_stunting">Tindakan Stunting</string>
     <string name="mau_mendaftarkan_posyandu">Mau mendaftarkan posyandu ?</string>
     <string name="klik_disini">Klik disini !</string>
-    <string name="bantuan">Login Posyandu \n\n\t <li>Masukkan email</li> \n\t <li>Masukkan password</li> \n\t <li>Klik Login</li> \n Panduan Mendaftarkan Posyandu</string>
-    <string name="daftar_posyandu">Daftar Posyandu</string>
+
+    <string name="bantuan">Login \n\n\t
+        Masukkan email\n\t
+        Masukkan password\n\t
+        Klik Logins\nMendaftarkan Posyandu\n\t
+        Klik pada mendaftar posyandu\n\t
+        Isi form sesuai dengan ketentuan</string>
+
+
+    <string name="placeholder">Placeholder</string>
+    <string name="empty_view_home">Hmmm ! Kayanya Baru kamu sendirian deh</string>
+    <string name="button_invite">Invite</string>
+    <string name="hint_message">Ketik Pesanmu..</string>
+    <string name="error_loading_user">Oops tidak dapat membuaka user</string>
+    <string name="today">Hari ini</string>
+    <string name="yesterday">Kemarin</string>
+    <string name="empty_view_thread">Kirim pesan pertamamu !</string>
+    <string name="error_sending_messages">Gagal.., Coba deh diulang</string>
+    <string name="message_message_copied">Di copy</string>
+    <string name="clipboard_title_copied_message">Copied message</string>
+
+     <string name="daftar_posyandu">Daftar Posyandu</string>
     <string name="silahkan_isi_form_di_bawah_ini">Silahkan isi form di bawah ini.</string>
     <string name="daftar_disini">Daftar disini</string>
     <string name="pendaftaran_berhasil">Pendaftaran Berhasil, silahkan cek email anda !</string>
     <string name="belum_verif">Akun anda belum terverifikasi, Silahkan verifikasi email terlebih dahulu !</string>
     <string name="kepala">Kepala</string>
-    <string name="cek_email">Silahkan Cek email untuk verifikasi.</string>
-    <string name="informasi">Informasi</string>
-    <string name="sudah_diinputkan">sudah diinputkan. Apakah anda ingin mengganti data pada bulan tersebut ?</string>
 
+
+    <string name="child_waktu">time</string>
+    <string name="child_neg_waktu">neg_time</string>
+    <string name="child_day_waktu">day_time</string>
+    <string name="child_isi">isi</string>
+    <string name="child_dari">dari</string>
+    <string name="child_ke">ke</string>
+    <string name="informasi">shshhshshsh</string>
+    <string name="cek_email">ajhbsjbsaj</string>
+    <string name="sudah_diinputkan">rtyui</string>
 </resources>

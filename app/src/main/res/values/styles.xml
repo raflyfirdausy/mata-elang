@@ -52,4 +52,9 @@
     </style>
     <dimen name="maxSize">1000dp</dimen>
 
+
+    <style name="SendFabTheme" parent="AppTheme">
+        <item name="colorAccent">@color/colorForeground</item>
+    </style>
+
 </resources>
