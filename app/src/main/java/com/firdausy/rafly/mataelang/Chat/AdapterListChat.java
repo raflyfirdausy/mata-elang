@@ -82,7 +82,11 @@ public class AdapterListChat extends RecyclerView.Adapter<AdapterListChat.MyView
         myViewHolder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, Chat.class).putExtra("uid", position));
+                Intent intent = new Intent(context, Chat.class);
+                intent.putExtra("uid", position);
+                intent.putExtra("nama",  myViewHolder.tvNama.getText());
+                intent.putExtra("email",  myViewHolder.tvIsi.getText());
+                context.startActivity(intent);
 //                context.startActivity(new Intent(context, Chat.class).putExtra("uid", userlist2.get(i).getKey()));
             }
         });

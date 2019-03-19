@@ -49,8 +49,8 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.mata_elang);
-        getSupportActionBar().setSubtitle("Chat Kader dan Ibu");
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getIntent().getStringExtra("nama"));
+        getSupportActionBar().setSubtitle(getIntent().getStringExtra("email"));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         context = Chat.this;
