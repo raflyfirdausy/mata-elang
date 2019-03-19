@@ -120,7 +120,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="monospace"
                                     android:paddingStart="10dp"
-                                    android:text="@string/loading"
+                                    android:text="0 ibu"
                                     android:textColor="@color/black"
                                     android:textSize="30sp"
                                     android:textStyle="bold"
@@ -148,9 +148,9 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     app:cardCornerRadius="5dp"
-
                     android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp">
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="10dp">
 
                     <LinearLayout
                         android:id="@+id/ll_bayi"
@@ -194,7 +194,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="monospace"
                                     android:paddingStart="10dp"
-                                    android:text="@string/loading"
+                                    android:text="0 bayi"
                                     android:textColor="@color/black"
                                     android:textSize="30sp"
                                     android:textStyle="bold"

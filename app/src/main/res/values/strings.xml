@@ -191,7 +191,7 @@
     <string name="tindakan_stunting">Tindakan Stunting</string>
     <string name="mau_mendaftarkan_posyandu">Mau mendaftarkan posyandu ?</string>
     <string name="klik_disini">Klik disini !</string>
-    <string name="bantuan">Login Posyandu \n\n\t <li>Masukkan email</li> \n\t <li>Masukkan password</li> \n\t <li>Klik Login</li> \n Panduan Mendaftarkan Posyandu</string>
+    <string name="bantuan">Jika anda sudah mempunyai akun, silahkan login dengan email dan password akun anda. Pastikan akun sudah terverifikasi.\n\nJika anda seorang kepala posyandu dan belum mempunyai akun Mata Elang, silahkan mendaftar terlebih dahulu dengan cara klik tombol daftar disini di bawah tombol login.\n\nKemudian isi data posyandu anda dan klik tombol daftar. kemudian verifikasi email anda.\n\nJika anda petugas posyandu dan belum mempunyai akun, silahkan hubungi kepala posyandu anda.\nJika anda seorang ibu, silahkan mendaftarkan diri terlebih dahulu pada posyandu yang sudah menggunakan aplikasi ini.\n\njika ada pertanyaan silahkan Contact developer Mata Elang rafly.firdausy@gmail.com\nTerimakasih.</string>
     <string name="daftar_posyandu">Daftar Posyandu</string>
     <string name="silahkan_isi_form_di_bawah_ini">Silahkan isi form di bawah ini.</string>
     <string name="daftar_disini">Daftar disini</string>
@@ -201,5 +201,6 @@
     <string name="cek_email">Silahkan Cek email untuk verifikasi.</string>
     <string name="informasi">Informasi</string>
     <string name="sudah_diinputkan">sudah diinputkan. Apakah anda ingin mengganti data pada bulan tersebut ?</string>
+    <string name="belum_ada_ibu">Belum Ada Ibu</string>
 
 </resources>

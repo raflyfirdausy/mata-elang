@@ -110,7 +110,24 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void tampilbantuan() {
-        new Bantuan(context).alertDialogInformasi(getString(R.string.bantuan));
+        databaseReference.child("build_config")
+                .child("BANTUAN")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            new Bantuan(context).alertDialogInformasi(dataSnapshot.getValue(String.class));
+                        } else {
+                            new Bantuan(context).alertDialogInformasi(getString(R.string.bantuan));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                    }
+                });
+
     }
 
     private void AnimateBell() {

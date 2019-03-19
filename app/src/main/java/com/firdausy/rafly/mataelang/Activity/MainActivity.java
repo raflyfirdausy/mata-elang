@@ -130,6 +130,8 @@ public class MainActivity extends AppCompatActivity
 
 
     private void getAndSetData(final String id_posyandu) {
+        jumlahIbu = 0;
+        jumlahBayi = 0;
         databaseReference.child("user")
                 .child("ibu")
                 .addValueEventListener(new ValueEventListener() {
@@ -142,6 +144,7 @@ public class MainActivity extends AppCompatActivity
                                     String KEY = ds.getKey();
                                     jumlahIbu++;
                                     tv_totalIbu.setText(String.valueOf(jumlahIbu) + " ibu");
+
                                     FirebaseDatabase.getInstance().getReference().child("bayi")
                                             .child(KEY)
                                             .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -158,6 +161,8 @@ public class MainActivity extends AppCompatActivity
                                             });
                                 }
                             }
+                        } else {
+                            tv_totalIbu.setText(getString(R.string.belum_ada_ibu));
                         }
                     }
 
