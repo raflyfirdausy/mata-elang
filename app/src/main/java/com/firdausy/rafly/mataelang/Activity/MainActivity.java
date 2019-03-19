@@ -182,6 +182,7 @@ public class MainActivity extends AppCompatActivity
                             if (dataSnapshot.exists()) {
                                 InformasiPosyandu.IS_SUPER_USER = true;
                                 InformasiPosyandu.ID_POSYANDU = firebaseAuth.getCurrentUser().getUid();
+                                getAndSetData(firebaseAuth.getCurrentUser().getUid());
                                 tv_namaPengguna.setText(dataSnapshot.child("detailPosyandu").child("namaPosyandu").getValue(String.class));
                                 tv_tipePengguna.setText("Jenis Akun : " + getString(R.string.kepala));
                             } else {
