@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity
     private TextView tv_totalBayi;
     private DatabaseReference databaseReference;
 
+    private int jumlahIbu = 0;
+    private int jumlahBayi = 0;
     private InterstitialAd mInterstitialAd;
 
     @Override
@@ -102,7 +104,6 @@ public class MainActivity extends AppCompatActivity
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.keepSynced(true);
 
-        getAndSetData();
 
         InterstitialAd interstitialAd = AdManager.getAd();
         if (interstitialAd != null) {
@@ -126,42 +127,38 @@ public class MainActivity extends AppCompatActivity
         super.onResumeFragments();
         // handleIntent();
     }
-    //
 
-    private void getAndSetData() {
+
+    private void getAndSetData(final String id_posyandu) {
         databaseReference.child("user")
                 .child("ibu")
                 .addValueEventListener(new ValueEventListener() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            int jumlahIbu = 0;
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                jumlahIbu++;
-                            }
-                            tv_totalIbu.setText(String.valueOf(jumlahIbu) + " ibu");
-                        }
-                    }
+                                if (ds.child("id_posyandu").getValue(String.class).equals(id_posyandu)) {
+                                    String KEY = ds.getKey();
+                                    jumlahIbu++;
+                                    tv_totalIbu.setText(String.valueOf(jumlahIbu) + " ibu");
+                                    FirebaseDatabase.getInstance().getReference().child("bayi")
+                                            .child(KEY)
+                                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    jumlahBayi += dataSnapshot.getChildrenCount();
+                                                    tv_totalBayi.setText(String.valueOf(jumlahBayi) + " bayi");
+                                                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
-
-        databaseReference.child("bayi")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        int jumlahBayi = 0;
-                        if (dataSnapshot.exists()) {
-                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                for (DataSnapshot DS : ds.getChildren()) {
-                                    jumlahBayi++;
+                                                }
+                                            });
                                 }
                             }
                         }
-                        tv_totalBayi.setText(String.valueOf(jumlahBayi) + " bayi");
                     }
 
                     @Override
@@ -169,14 +166,35 @@ public class MainActivity extends AppCompatActivity
 
                     }
                 });
+
+//        databaseReference.child("bayi")
+//                .addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        int jumlahBayi = 0;
+//                        if (dataSnapshot.exists()) {
+//                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                                for (DataSnapshot DS : ds.getChildren()) {
+//                                    jumlahBayi++;
+//                                }
+//                            }
+//                        }
+//                        tv_totalBayi.setText(String.valueOf(jumlahBayi) + " bayi");
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
 
         if (firebaseAuth.getCurrentUser() != null) {
+            tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
             databaseReference.child("user_posyandu").child(firebaseAuth.getCurrentUser().getUid())
                     .addValueEventListener(new ValueEventListener() {
                         @SuppressLint("SetTextI18n")
@@ -197,6 +215,7 @@ public class MainActivity extends AppCompatActivity
                                                 if (dataSnapshot.exists()) {
                                                     InformasiPosyandu.IS_SUPER_USER = false;
                                                     InformasiPosyandu.ID_POSYANDU = dataSnapshot.child("id_posyandu").getValue(String.class);
+                                                    getAndSetData(dataSnapshot.child("id_posyandu").getValue(String.class));
                                                     tv_namaPengguna.setText(dataSnapshot.child("namaLengkap").getValue(String.class));
                                                     tv_tipePengguna.setText(getString(R.string.tipe_admin));
                                                 }
@@ -216,7 +235,6 @@ public class MainActivity extends AppCompatActivity
                         }
                     });
         }
-
     }
 
     @Override
