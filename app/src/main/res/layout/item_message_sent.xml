@@ -9,6 +9,7 @@
     tools:ignore="RtlHardcoded">
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/item_message_date_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +17,7 @@
         android:layout_marginTop="@dimen/simple_padding_large"
         android:gravity="center"
         android:text="@string/placeholder"
-        android:textColor="@color/colorForeground"
+        android:textColor="@color/black"
         android:textSize="@dimen/text_size_small" />
 
     <TextView
@@ -35,6 +36,7 @@
         android:paddingStart="@dimen/simple_padding_large"
         android:text="@string/placeholder"
         android:textColor="@color/colorWhite"
-        android:textSize="@dimen/text_size_secondary" />
+        android:textSize="@dimen/text_size_secondary"
+        android:textIsSelectable="true"/>
 
 </LinearLayout>

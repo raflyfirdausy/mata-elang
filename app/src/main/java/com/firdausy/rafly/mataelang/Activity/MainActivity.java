@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity
             finish();
         } else if(id == R.id.action_chat) {
             startActivity(new Intent(context, ListUser.class).putExtra("level","admin"));
-
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

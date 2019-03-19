@@ -213,5 +213,11 @@
     <string name="informasi">Informasi</string>
     <string name="sudah_diinputkan">sudah diinputkan. Apakah anda ingin mengganti data pada bulan tersebut ?</string>
     <string name="belum_ada_ibu">Belum Ada Ibu</string>
+    <string name="emailll">Email</string>
+    <string name="nama_user">Nama User</string>
+    <string name="oops_kamu_belum_pernah_chat_siapapun">Oops, Kamu Belum pernah chat siapapun!</string>
+    <string name="tidak_ada_data_admin">Tidak Ada Data Admin !</string>
+    <string name="tidak_ada_data_bu">Tidak ada data ibu !</string>
+    <string name="data_tidak_ditemukan">Data Tidak Di temukan !</string>
 
 </resources>

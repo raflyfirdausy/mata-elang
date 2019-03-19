@@ -10,8 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 
+import com.firdausy.rafly.mataelang.Activity.MainActivity;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class Chat extends AppCompatActivity {
 
@@ -45,6 +48,11 @@ public class Chat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.mata_elang);
+        getSupportActionBar().setSubtitle("Chat Kader dan Ibu");
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         context = Chat.this;
         recyclerView = findViewById(R.id.activity_thread_messages_recycler);
         send = findViewById(R.id.activity_thread_send_fab);
@@ -54,6 +62,7 @@ public class Chat extends AppCompatActivity {
         Intent intent = getIntent();
         owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Useruid = intent.getStringExtra("uid");
+
         inputEditText.requestFocus();
         inisiasi_chat();
 
@@ -158,5 +167,23 @@ public class Chat extends AppCompatActivity {
         adapterChat = new AdapterChat(context,owner,messages);
         recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,true));
         recyclerView.setAdapter(adapterChat);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(context, ListUser.class));
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                startActivity(new Intent(context, ListUser.class));
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

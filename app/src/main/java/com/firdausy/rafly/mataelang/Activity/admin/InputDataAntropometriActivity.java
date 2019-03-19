@@ -24,6 +24,7 @@ import com.firdausy.rafly.mataelang.Activity.IbuDetailActivity;
 import com.firdausy.rafly.mataelang.Activity.LoginActivity;
 import com.firdausy.rafly.mataelang.Activity.MainActivity;
 import com.firdausy.rafly.mataelang.Adapter.IbuAdapterInput;
+import com.firdausy.rafly.mataelang.Chat.ListUser;
 import com.firdausy.rafly.mataelang.Helper.AdManager;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
@@ -215,6 +216,9 @@ public class InputDataAntropometriActivity extends AppCompatActivity
             finish();
         } else if (id == R.id.action_about) {
             startActivity(new Intent(context, TentangAplikasiActivity.class));
+            finish();
+        } else if(id == R.id.action_chat) {
+            startActivity(new Intent(context, ListUser.class).putExtra("level","admin"));
             finish();
         }
 

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,18 +23,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterListChat extends RecyclerView.Adapter<AdapterListChat.MyViewHolder> {
+    private Context context;
     private List<String> userlist;
-    Context context;
+    private List<ListModel> userlist2;
     private String owner;
-    private DatabaseReference databaseReference;
     private String position;
+    private DatabaseReference databaseReference;
 
-    public AdapterListChat(Context context, String owner, ArrayList<String> userlist){
+    AdapterListChat(Context context, String owner, ArrayList<String> userlist) {
         this.context = context;
         this.owner = owner;
         this.userlist = userlist;
     }
 
+    AdapterListChat(Context context, String owner, ArrayList<String> userlist, ArrayList<ListModel> userlist2) {
+        this.context = context;
+        this.owner = owner;
+        this.userlist = userlist;
+        this.userlist2 = userlist2;
+    }
+
+
+    @NonNull
     @Override
     public AdapterListChat.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_list_chat, viewGroup, false);
@@ -42,32 +53,37 @@ public class AdapterListChat extends RecyclerView.Adapter<AdapterListChat.MyView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final AdapterListChat.MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final AdapterListChat.MyViewHolder myViewHolder, final int i) {
         position = userlist.get(i);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("user")
-        .child("ibu")
-        .child(position)
-        .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    myViewHolder.tvNama.setText(dataSnapshot.child("namaLengkap").getValue(String.class));
-                    myViewHolder.tvIsi.setText(dataSnapshot.child("email").getValue(String.class));
-                }else {
+                .child("ibu")
+                .child(position)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            myViewHolder.tvNama.setText(dataSnapshot.child("namaLengkap").getValue(String.class));
+                            myViewHolder.tvIsi.setText(dataSnapshot.child("email").getValue(String.class));
+                        } else {
+                            new Bantuan(context).alertDialogPeringatan(context.getString(R.string.tidak_ditemukan));
+                        }
+                    }
 
-                }
-            }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                    }
+                });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+//        myViewHolder.tvNama.setText(userlist2.get(i).getNama());
+//        myViewHolder.tvNama.setText(userlist2.get(i).getEmail());
 
-            }
-        });
         myViewHolder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context,Chat.class).putExtra("uid",position));
+                context.startActivity(new Intent(context, Chat.class).putExtra("uid", position));
+//                context.startActivity(new Intent(context, Chat.class).putExtra("uid", userlist2.get(i).getKey()));
             }
         });
 
@@ -77,11 +93,11 @@ public class AdapterListChat extends RecyclerView.Adapter<AdapterListChat.MyView
     public int getItemCount() {
         return userlist.size();
     }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView ivUser;
-        TextView tvNama,tvIsi;
+        TextView tvNama, tvIsi;
         LinearLayout parent;
-
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -27,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/activity_thread_editor_parent"
+            android:layout_marginBottom="0dp"
             android:clipToPadding="false"
             android:paddingBottom="@dimen/simple_padding_medium"
             tools:listitem="@layout/item_message_sent" />
@@ -69,7 +70,7 @@
                 android:layout_toStartOf="@id/activity_thread_send_fab"
                 android:background="@drawable/chip_chat"
                 android:hint="@string/hint_message"
-                android:inputType="textCapSentences|textAutoComplete|textAutoCorrect"
+                android:inputType="textCapSentences|textAutoComplete|textAutoCorrect|textMultiLine"
                 android:padding="@dimen/simple_padding_largish"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/text_size_secondary" />

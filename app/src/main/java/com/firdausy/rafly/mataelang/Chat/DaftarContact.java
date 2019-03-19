@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,11 +20,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DaftarContact extends AppCompatActivity {
-    private RecyclerView recyclerView;
-
     Context context;
+    private RecyclerView recyclerView;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -39,25 +40,20 @@ public class DaftarContact extends AppCompatActivity {
 
         context = DaftarContact.this;
         recyclerView = findViewById(R.id.rv);
-        owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        owner = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         Intent intent = getIntent();
 
-        if (intent.getStringExtra("level").equals("admin")){
+        if (intent.getStringExtra("level").equals("admin")) {
             //jika dia admin maka ambil data di root ibu
             ambilid_posyannduadmin();
             dataUserIbu();
-        }else {
+        } else {
             //jika dia admin maka ambil data di root admin
             ambilid_posyannduibu();
             dataUseradmin();
-
         }
-
-
-
-
     }
 
     private void dataUseradmin() {
@@ -66,19 +62,21 @@ public class DaftarContact extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()){
-                            for (DataSnapshot data : dataSnapshot.getChildren()){
-
-                                    listchat.add(data.getKey().toString());
-
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot data : dataSnapshot.getChildren()) {
+                                if (Objects.equals(data.child("id_posyandu").getValue(String.class),
+                                        InformasiPosyandu.ID_POSYANDU)) {
+                                    listchat.add(data.getKey());
+                                }
                             }
-                        }else {
-
+                        } else {
+                            new Bantuan(context).alertDialogPeringatan(getString(R.string.tidak_ada_data_admin));
                         }
+
                         RecyclerView.LayoutManager layoutManager =
                                 new LinearLayoutManager(context);
                         recyclerView.setLayoutManager(layoutManager);
-                        adapter = new AdapterUser(context,owner,listchat);
+                        adapter = new AdapterUser(context, owner, listchat);
                         recyclerView.setAdapter(adapter);
                     }
 
@@ -88,56 +86,56 @@ public class DaftarContact extends AppCompatActivity {
                     }
                 });
     }
-    private void dataUserIbu() {
 
+    private void dataUserIbu() {
         databaseReference
                 .child("user")
                 .child("ibu")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        if (dataSnapshot.exists()){
-                            for (DataSnapshot data : dataSnapshot.getChildren()){
-
-                                    listchat.add(data.getKey().toString());
-
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot data : dataSnapshot.getChildren()) {
+                                if (Objects.equals(data.child("id_posyandu").getValue(String.class),
+                                        InformasiPosyandu.ID_POSYANDU)) {
+                                    listchat.add(data.getKey());
+                                }
                             }
-                        }else {
-
+                        } else {
+                            new Bantuan(context).alertDialogPeringatan(getString(R.string.tidak_ada_data_bu));
                         }
                         RecyclerView.LayoutManager layoutManager =
                                 new LinearLayoutManager(context);
                         recyclerView.setLayoutManager(layoutManager);
-                        adapter = new AdapterUser(context,owner,listchat);
+                        adapter = new AdapterUser(context, owner, listchat);
                         recyclerView.setAdapter(adapter);
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
                     }
                 });
     }
 
     private void ambilid_posyannduadmin() {
-        
+
         databaseReference.child("user")
                 .child("admin")
                 .child(owner)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()){
-                           id_posyandu = dataSnapshot.child("id_posyandu").getValue(String.class);
-                        }else {
-
+                        if (dataSnapshot.exists()) {
+                            id_posyandu = dataSnapshot.child("id_posyandu").getValue(String.class);
+                        } else {
+                            new Bantuan(context).alertDialogPeringatan(getString(R.string.data_tidak_ditemukan));
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
                     }
                 });
     }
@@ -150,9 +148,9 @@ public class DaftarContact extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()){
+                        if (dataSnapshot.exists()) {
                             id_posyandu = dataSnapshot.child("id_posyandu").getValue(String.class);
-                        }else {
+                        } else {
 
                         }
 
@@ -160,10 +158,12 @@ public class DaftarContact extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
                     }
                 });
     }
+
+
 
 
 }
