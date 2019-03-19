@@ -24,6 +24,7 @@ import com.firdausy.rafly.mataelang.Activity.admin.PengaturanActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.TambahAdminUserActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.TentangAplikasiActivity;
 import com.firdausy.rafly.mataelang.BroadcastReceiver.NotificationEventReceiver;
+import com.firdausy.rafly.mataelang.Chat.ListUser;
 import com.firdausy.rafly.mataelang.Helper.AdManager;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
@@ -279,6 +280,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.action_about) {
             startActivity(new Intent(context, TentangAplikasiActivity.class));
             finish();
+        } else if(id == R.id.action_chat) {
+            startActivity(new Intent(context, ListUser.class).putExtra("level","admin"));
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
