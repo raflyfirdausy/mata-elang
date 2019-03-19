@@ -166,27 +166,6 @@ public class MainActivity extends AppCompatActivity
 
                     }
                 });
-
-//        databaseReference.child("bayi")
-//                .addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        int jumlahBayi = 0;
-//                        if (dataSnapshot.exists()) {
-//                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                                for (DataSnapshot DS : ds.getChildren()) {
-//                                    jumlahBayi++;
-//                                }
-//                            }
-//                        }
-//                        tv_totalBayi.setText(String.valueOf(jumlahBayi) + " bayi");
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
     }
 
     @Override
