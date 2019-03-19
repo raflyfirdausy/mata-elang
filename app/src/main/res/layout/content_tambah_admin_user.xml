@@ -55,6 +55,7 @@
                     android:padding="10dp">
 
                     <TextView
+                        android:id="@+id/tv_user"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="monospace"
@@ -78,42 +79,50 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_marginTop="10dp"
+        <LinearLayout
+            android:id="@+id/ll_pilihTipeAkun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:text="@string/pilih_tipe_akun"
-            android:textColor="@color/colorPrimary"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <RadioGroup
-            android:id="@+id/rb_tipeAkun"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/rb_admin"
+            <TextView
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                android:text="@string/admin"
-                android:textColor="#000" />
+                android:fontFamily="monospace"
+                android:text="@string/pilih_tipe_akun"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-            <RadioButton
-                android:id="@+id/rb_userIbu"
+            <RadioGroup
+                android:id="@+id/rb_tipeAkun"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/user_ibu"
-                android:textColor="#000" />
-        </RadioGroup>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_admin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/admin"
+                    android:textColor="#000" />
+
+                <RadioButton
+                    android:id="@+id/rb_userIbu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/user_ibu"
+                    android:textColor="#000" />
+            </RadioGroup>
+
+        </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"

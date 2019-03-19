@@ -26,6 +26,7 @@ import com.firdausy.rafly.mataelang.Activity.ibu.IbuTindakanUntukAnak;
 import com.firdausy.rafly.mataelang.Activity.ibu.MainActivityIbuActivity;
 import com.firdausy.rafly.mataelang.Activity.ibu.TentangAplikasiIbuActivity;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -84,7 +85,11 @@ public class DataPosyanduActivity extends AppCompatActivity
 
         //firebase
         firebaseAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("user_posyandu")
+                .child(InformasiPosyandu.ID_POSYANDU)
+                .child("detailPosyandu");
         databaseReference.keepSynced(true);
 
         setData();
@@ -93,8 +98,7 @@ public class DataPosyanduActivity extends AppCompatActivity
     }
 
     private void setData() {
-        databaseReference.child("posyandu")
-                .addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {

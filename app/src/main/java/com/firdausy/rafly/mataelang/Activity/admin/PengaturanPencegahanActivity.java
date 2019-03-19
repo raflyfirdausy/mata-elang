@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -60,7 +61,12 @@ public class PengaturanPencegahanActivity extends AppCompatActivity {
                 et_caraPencegahanStunting.setText(getString(R.string.default_pencegahan));
             }
         });
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("pengaturan").child("pencegahan");
+        databaseReference = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("user_posyandu")
+                .child(InformasiPosyandu.ID_POSYANDU)
+                .child("pengaturan")
+                .child("pencegahan");
 
         setData();
         btn_edit.setOnClickListener(new View.OnClickListener() {

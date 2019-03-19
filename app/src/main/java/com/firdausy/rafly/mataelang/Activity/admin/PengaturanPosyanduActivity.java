@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -56,7 +57,7 @@ public class PengaturanPosyanduActivity extends AppCompatActivity {
         btn_simpan = findViewById(R.id.btn_simpan);
         btn_simpan.setEnabled(false);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("pengaturan").child("posyandu");
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         setData();
 
@@ -84,13 +85,24 @@ public class PengaturanPosyanduActivity extends AppCompatActivity {
     }
 
     private void setData() {
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.child("user_posyandu")
+                .child(InformasiPosyandu.ID_POSYANDU)
+                .child("detailPosyandu").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
+                if (dataSnapshot.child("namaPosyandu").exists()) {
                     et_namaPosyandu.setText(dataSnapshot.child("namaPosyandu").getValue(String.class));
+                }
+
+                if(dataSnapshot.child("namaPosyandu").exists()){
                     et_alamatPosyandu.setText(dataSnapshot.child("alamatPosyandu").getValue(String.class));
+                }
+
+                if(dataSnapshot.child("kecamatan").exists()){
                     et_kecamatan.setText(dataSnapshot.child("kecamatan").getValue(String.class));
+                }
+
+                if(dataSnapshot.child("nomerHpKantor").exists()){
                     et_nomerHpKantor.setText(dataSnapshot.child("nomerHpKantor").getValue(String.class));
                 }
             }
@@ -121,7 +133,10 @@ public class PengaturanPosyanduActivity extends AppCompatActivity {
             data.put("kecamatan", et_kecamatan.getText().toString());
             data.put("nomerHpKantor", et_nomerHpKantor.getText().toString());
 
-            databaseReference.setValue(data)
+            databaseReference.child("user_posyandu")
+                    .child(InformasiPosyandu.ID_POSYANDU)
+                    .child("detailPosyandu")
+                    .setValue(data)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -150,7 +165,7 @@ public class PengaturanPosyanduActivity extends AppCompatActivity {
         et_alamatPosyandu.setEnabled(true);
         et_kecamatan.setEnabled(true);
         et_nomerHpKantor.setEnabled(true);
-        btn_simpan.setEnabled(false);
+        btn_simpan.setEnabled(true);
     }
 
     @Override

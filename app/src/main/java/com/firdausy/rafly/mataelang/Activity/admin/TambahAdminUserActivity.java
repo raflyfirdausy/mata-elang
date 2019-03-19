@@ -1,7 +1,10 @@
 package com.firdausy.rafly.mataelang.Activity.admin;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -23,9 +27,10 @@ import android.widget.TextView;
 import com.firdausy.rafly.mataelang.Activity.LoginActivity;
 import com.firdausy.rafly.mataelang.Activity.MainActivity;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
@@ -58,6 +63,9 @@ public class TambahAdminUserActivity extends AppCompatActivity
     private EditText et_passwordAdmin;
     private EditText et_UlangPasswordAdmin;
     private Button btn_daftar;
+
+    private TextView tv_user;
+    private LinearLayout ll_pilihTipeAkun;
 
     private FirebaseAuth firebaseAuth, firebaseAuth2;
     private DatabaseReference databaseReference, current_db;
@@ -100,6 +108,9 @@ public class TambahAdminUserActivity extends AppCompatActivity
         et_UlangPasswordAdmin = findViewById(R.id.et_UlangPasswordAdmin);
         btn_daftar = findViewById(R.id.btn_daftar);
 
+        tv_user = findViewById(R.id.tv_user);
+        ll_pilihTipeAkun = findViewById(R.id.ll_pilihTipeAkun);
+
         //firebase
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -118,28 +129,36 @@ public class TambahAdminUserActivity extends AppCompatActivity
         super.onPostResume();
         tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
 
-        if(firebaseAuth.getCurrentUser() != null){
-            databaseReference.child("user")
-                    .child("admin")
-                    .child(firebaseAuth.getCurrentUser().getUid())
-                    .child("namaLengkap")
+        if (firebaseAuth.getCurrentUser() != null) {
+            databaseReference.child("user_posyandu").child(firebaseAuth.getCurrentUser().getUid())
                     .addValueEventListener(new ValueEventListener() {
+                        @SuppressLint("SetTextI18n")
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.exists()){
-                                tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
-                                tv_tipePengguna.setText(getString(R.string.tipe_admin));
+                            if (dataSnapshot.exists()) {
+
+                                tv_user.setText("Tambah User");
+                                ll_pilihTipeAkun.setVisibility(View.VISIBLE);
+
+                                InformasiPosyandu.IS_SUPER_USER = true;
+                                InformasiPosyandu.ID_POSYANDU = firebaseAuth.getCurrentUser().getUid();
+                                tv_namaPengguna.setText(dataSnapshot.child("detailPosyandu").child("namaPosyandu").getValue(String.class));
+                                tv_tipePengguna.setText("Jenis Akun : " + getString(R.string.kepala));
                             } else {
+                                tv_user.setText("Tambah User Ibu");
+                                ll_pilihTipeAkun.setVisibility(View.GONE);
+                                rb_userIbu.setChecked(true);
+                                rb_admin.setChecked(false);
                                 databaseReference.child("user")
-                                        .child("ibu")
+                                        .child("admin")
                                         .child(firebaseAuth.getCurrentUser().getUid())
                                         .child("namaLengkap")
                                         .addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                if(dataSnapshot.exists()) {
+                                                if (dataSnapshot.exists()) {
                                                     tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
-                                                    tv_tipePengguna.setText(getString(R.string.tipe_user_ibu));
+                                                    tv_tipePengguna.setText(getString(R.string.tipe_admin));
                                                 }
                                             }
 
@@ -157,6 +176,7 @@ public class TambahAdminUserActivity extends AppCompatActivity
                         }
                     });
         }
+
     }
 
     private void prosesDaftar() {
@@ -207,45 +227,67 @@ public class TambahAdminUserActivity extends AppCompatActivity
                 firebaseAuth2 = FirebaseAuth.getInstance(FirebaseApp.getInstance(getString(R.string.app_name)));
             }
 
-            firebaseAuth.createUserWithEmailAndPassword(et_emailAdmin.getText().toString(),
+            firebaseAuth2.createUserWithEmailAndPassword(et_emailAdmin.getText().toString(),
                     et_passwordAdmin.getText().toString())
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
+                        public void onSuccess(AuthResult authResult) {
+                            firebaseAuth2.getCurrentUser().sendEmailVerification()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            //save into realtime
+                                            String user_id = Objects.requireNonNull(firebaseAuth2.getCurrentUser()).getUid();
+                                            Map data = new HashMap();
+                                            data.put("alamatLengkap", et_alamatLengkapAdmin.getText().toString());
+                                            data.put("email", et_emailAdmin.getText().toString());
+                                            data.put("namaLengkap", et_namaLengkapAdmin.getText().toString());
+                                            data.put("nomerHp", et_noHpAdmin.getText().toString());
+                                            data.put("id_posyandu", InformasiPosyandu.ID_POSYANDU);
 
-                                //save into realtime cuk
-                                String user_id = Objects.requireNonNull(firebaseAuth2.getCurrentUser()).getUid();
-                                Map data = new HashMap();
-                                data.put("alamatLengkap", et_alamatLengkapAdmin.getText().toString());
-                                data.put("email", et_emailAdmin.getText().toString());
-                                data.put("namaLengkap", et_namaLengkapAdmin.getText().toString());
-                                data.put("nomerHp", et_noHpAdmin.getText().toString());
+                                            current_db.child(user_id)
+                                                    .setValue(data)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            progressDialog.dismiss();
+                                                            AlertDialog.Builder builder;
+                                                            builder = new AlertDialog.Builder(context);
+                                                            builder.setTitle(getString(R.string.informasi))
+                                                                    .setMessage(getString(R.string.berhasil_membuat_akun)
+                                                                            + " " + jenis + "\n" + getString(R.string.cek_email))
+                                                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                            startActivity(new Intent(context, MainActivity.class));
+                                                                            finish();
+                                                                        }
+                                                                    })
+                                                                    .setCancelable(false)
+                                                                    .show();
+                                                            firebaseAuth2.signOut();
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            new Bantuan(context).alertDialogPeringatan(Objects.requireNonNull(e.getMessage()));
+                                                        }
+                                                    });
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
 
-                                current_db.child(user_id)
-                                        .setValue(data)
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                progressDialog.dismiss();
-                                                if(task.isSuccessful()){
-                                                    new Bantuan(context)
-                                                            .toastLong(getString(R.string.berhasil_membuat_akun)
-                                                                    + jenis);
-                                                    firebaseAuth2.signOut();
-                                                    startActivity(new Intent(context, MainActivity.class));
-                                                    finish();
-                                                } else {
-                                                    new Bantuan(context).alertDialogPeringatan(Objects.requireNonNull(task.getException()).getMessage());
-                                                }
-                                            }
-                                        });
-
-
-                            } else {
-                                progressDialog.dismiss();
-                                new Bantuan(context).alertDialogPeringatan(Objects.requireNonNull(task.getException()).getMessage());
-                            }
+                                        }
+                                    });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            new Bantuan(context).alertDialogPeringatan(e.getMessage());
                         }
                     });
 

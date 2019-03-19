@@ -1,5 +1,6 @@
 package com.firdausy.rafly.mataelang.Activity.admin;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.firdausy.rafly.mataelang.Activity.LoginActivity;
 import com.firdausy.rafly.mataelang.Activity.MainActivity;
 import com.firdausy.rafly.mataelang.Adapter.IbuAdapterLihat;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.Model.IbuModel;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -92,9 +94,11 @@ public class LihatDataAntropometriActivity extends AppCompatActivity
 
                         if (dataSnapshot.exists()) {
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                ibuModel = ds.getValue(IbuModel.class);
-                                ibuModel.setKeyIbu(ds.getKey());
-                                list.add(ibuModel);
+                                if(ds.child("id_posyandu").getValue(String.class).equals(InformasiPosyandu.ID_POSYANDU)){
+                                    ibuModel = ds.getValue(IbuModel.class);
+                                    ibuModel.setKeyIbu(ds.getKey());
+                                    list.add(ibuModel);
+                                }
                             }
 
                             ibuAdapter = new IbuAdapterLihat(LihatDataAntropometriActivity.this, list);
@@ -127,19 +131,19 @@ public class LihatDataAntropometriActivity extends AppCompatActivity
         tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
 
         if (firebaseAuth.getCurrentUser() != null) {
-            databaseReference.child("user")
-                    .child("admin")
-                    .child(firebaseAuth.getCurrentUser().getUid())
-                    .child("namaLengkap")
+            databaseReference.child("user_posyandu").child(firebaseAuth.getCurrentUser().getUid())
                     .addValueEventListener(new ValueEventListener() {
+                        @SuppressLint("SetTextI18n")
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
-                                tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
-                                tv_tipePengguna.setText(getString(R.string.tipe_admin));
+                                InformasiPosyandu.IS_SUPER_USER = true;
+                                InformasiPosyandu.ID_POSYANDU = firebaseAuth.getCurrentUser().getUid();
+                                tv_namaPengguna.setText(dataSnapshot.child("detailPosyandu").child("namaPosyandu").getValue(String.class));
+                                tv_tipePengguna.setText("Jenis Akun : " + getString(R.string.kepala));
                             } else {
                                 databaseReference.child("user")
-                                        .child("ibu")
+                                        .child("admin")
                                         .child(firebaseAuth.getCurrentUser().getUid())
                                         .child("namaLengkap")
                                         .addValueEventListener(new ValueEventListener() {
@@ -147,7 +151,7 @@ public class LihatDataAntropometriActivity extends AppCompatActivity
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                 if (dataSnapshot.exists()) {
                                                     tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
-                                                    tv_tipePengguna.setText(getString(R.string.tipe_user_ibu));
+                                                    tv_tipePengguna.setText(getString(R.string.tipe_admin));
                                                 }
                                             }
 
@@ -165,6 +169,7 @@ public class LihatDataAntropometriActivity extends AppCompatActivity
                         }
                     });
         }
+
     }
 
     @Override

@@ -31,6 +31,7 @@ import com.firdausy.rafly.mataelang.Activity.DataPosyanduActivity;
 import com.firdausy.rafly.mataelang.Activity.LoginActivity;
 import com.firdausy.rafly.mataelang.Adapter.TableAdapter;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.Model.BayiModel;
 import com.firdausy.rafly.mataelang.Model.DataGrafikLineModel;
 import com.firdausy.rafly.mataelang.Model.TableModelAntropometri;
@@ -369,12 +370,12 @@ public class MainActivityIbuActivity extends AppCompatActivity
             databaseReference.child("user")
                     .child("ibu")
                     .child(firebaseAuth.getCurrentUser().getUid())
-                    .child("namaLengkap")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
-                                tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
+                                InformasiPosyandu.ID_POSYANDU = dataSnapshot.child("id_posyandu").getValue(String.class);
+                                tv_namaPengguna.setText(dataSnapshot.child("namaLengkap").getValue(String.class));
                                 tv_tipePengguna.setText(getString(R.string.tipe_user_ibu));
                             }
                         }

@@ -1,5 +1,6 @@
 package com.firdausy.rafly.mataelang.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.firdausy.rafly.mataelang.Activity.admin.TentangAplikasiActivity;
 import com.firdausy.rafly.mataelang.BroadcastReceiver.NotificationEventReceiver;
 import com.firdausy.rafly.mataelang.Helper.AdManager;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,7 +51,6 @@ public class MainActivity extends AppCompatActivity
     private DatabaseReference databaseReference;
 
     private InterstitialAd mInterstitialAd;
-    private boolean isSuperUser = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,22 +179,25 @@ public class MainActivity extends AppCompatActivity
         if (firebaseAuth.getCurrentUser() != null) {
             databaseReference.child("user_posyandu").child(firebaseAuth.getCurrentUser().getUid())
                     .addValueEventListener(new ValueEventListener() {
+                        @SuppressLint("SetTextI18n")
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
-                                isSuperUser = true;
+                                InformasiPosyandu.IS_SUPER_USER = true;
+                                InformasiPosyandu.ID_POSYANDU = firebaseAuth.getCurrentUser().getUid();
                                 tv_namaPengguna.setText(dataSnapshot.child("detailPosyandu").child("namaPosyandu").getValue(String.class));
                                 tv_tipePengguna.setText("Jenis Akun : " + getString(R.string.kepala));
                             } else {
                                 databaseReference.child("user")
                                         .child("admin")
                                         .child(firebaseAuth.getCurrentUser().getUid())
-                                        .child("namaLengkap")
                                         .addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                 if (dataSnapshot.exists()) {
-                                                    tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
+                                                    InformasiPosyandu.IS_SUPER_USER = false;
+                                                    InformasiPosyandu.ID_POSYANDU = dataSnapshot.child("id_posyandu").getValue(String.class);
+                                                    tv_namaPengguna.setText(dataSnapshot.child("namaLengkap").getValue(String.class));
                                                     tv_tipePengguna.setText(getString(R.string.tipe_admin));
                                                 }
                                             }

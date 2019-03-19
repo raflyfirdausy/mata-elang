@@ -44,7 +44,7 @@
     <string name="nama_lengkap">Nama Lengkap</string>
     <string name="alamat_lengkap">Alamat Lengkap</string>
     <string name="nomer_hp">Nomer Hp</string>
-    <string name="email">Email</string>
+    <string name="email">Email (harus email aktif)</string>
     <string name="password">Password</string>
     <string name="ulangi_password">Ulangi Password</string>
     <string name="daftar">Daftar</string>
@@ -121,7 +121,7 @@
     <string name="nama_lengkap_bayi">Nama Lengkap Bayi</string>
     <string name="tanggal_lahir">Tanggal Lahir</string>
     <string name="tempat_lahir">Tempat Lahir</string>
-    <string name="input_data_anak">IInput Data Anak</string>
+    <string name="input_data_anak">Input Data Anak</string>
     <string name="berhasil_menambah_data_bayi">Berhasil Menambah Data Bayi !</string>
     <string name="belum_ada_data_anak">Belum Ada Data Anak</string>
     <string name="pilih_data_bayi">Pilih Nama Anak</string>
@@ -198,5 +198,7 @@
     <string name="pendaftaran_berhasil">Pendaftaran Berhasil, silahkan cek email anda !</string>
     <string name="belum_verif">Akun anda belum terverifikasi, Silahkan verifikasi email terlebih dahulu !</string>
     <string name="kepala">Kepala</string>
+    <string name="cek_email">Silahkan Cek email untuk verifikasi.</string>
+    <string name="informasi">Informasi</string>
 
 </resources>

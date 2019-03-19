@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.firdausy.rafly.mataelang.Activity.ibu.MainActivityIbuActivity;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,12 +49,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            Window w = getWindow();
-//            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-//        }
-
 
         btn_login = findViewById(R.id.btn_login);
         et_emailLogin = findViewById(R.id.et_emailLogin);
@@ -111,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
+        InformasiPosyandu.ID_POSYANDU = "";
     }
 
     private void tampilbantuan() {

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -99,6 +100,8 @@ public class LakiLakiFragment extends Fragment {
 
         databaseReference = FirebaseDatabase.getInstance()
                 .getReference()
+                .child("user_posyandu")
+                .child(InformasiPosyandu.ID_POSYANDU)
                 .child("pengaturan")
                 .child("antropometri")
                 .child("lakilaki");
@@ -119,11 +122,13 @@ public class LakiLakiFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (int i = 0; i < 25; i++) {
-                    if(i < 10){
-                        editTexts[i].setText(dataSnapshot.child("bulan0" + i).getValue(String.class));
-                    } else {
-                        editTexts[i].setText(dataSnapshot.child("bulan" + i).getValue(String.class));
+                if(dataSnapshot.exists()){
+                    for (int i = 0; i < 25; i++) {
+                        if(i < 10){
+                            editTexts[i].setText(dataSnapshot.child("bulan0" + i).getValue(String.class));
+                        } else {
+                            editTexts[i].setText(dataSnapshot.child("bulan" + i).getValue(String.class));
+                        }
                     }
                 }
             }

@@ -1,5 +1,6 @@
 package com.firdausy.rafly.mataelang.Activity.admin;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.firdausy.rafly.mataelang.Adapter.TabFragmentAdapter;
 import com.firdausy.rafly.mataelang.Fragment.admin.EditDataDiriAdminFragment;
 import com.firdausy.rafly.mataelang.Fragment.EditPasswordFragment;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -81,8 +83,11 @@ public class EditProfilActivity extends AppCompatActivity
     }
 
     private void setupViewPager(ViewPager viewPager) {
+
         tabFragmentAdapter = new TabFragmentAdapter(getSupportFragmentManager());
-        tabFragmentAdapter.addFragment(new EditDataDiriAdminFragment(), getString(R.string.data_diri));
+        if(!firebaseAuth.getCurrentUser().getUid().equals(InformasiPosyandu.ID_POSYANDU)){
+            tabFragmentAdapter.addFragment(new EditDataDiriAdminFragment(), getString(R.string.data_diri));
+        }
         tabFragmentAdapter.addFragment(new EditPasswordFragment(), getString(R.string.password));
         viewPager.setAdapter(tabFragmentAdapter);
     }
@@ -93,16 +98,35 @@ public class EditProfilActivity extends AppCompatActivity
         tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
 
         if (firebaseAuth.getCurrentUser() != null) {
-            databaseReference.child("user")
-                    .child("ibu")
-                    .child(firebaseAuth.getCurrentUser().getUid())
-                    .child("namaLengkap")
+            databaseReference.child("user_posyandu").child(firebaseAuth.getCurrentUser().getUid())
                     .addValueEventListener(new ValueEventListener() {
+                        @SuppressLint("SetTextI18n")
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
-                                tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
-                                tv_tipePengguna.setText(getString(R.string.tipe_user_ibu));
+                                InformasiPosyandu.IS_SUPER_USER = true;
+                                InformasiPosyandu.ID_POSYANDU = firebaseAuth.getCurrentUser().getUid();
+                                tv_namaPengguna.setText(dataSnapshot.child("detailPosyandu").child("namaPosyandu").getValue(String.class));
+                                tv_tipePengguna.setText("Jenis Akun : " + getString(R.string.kepala));
+                            } else {
+                                databaseReference.child("user")
+                                        .child("admin")
+                                        .child(firebaseAuth.getCurrentUser().getUid())
+                                        .child("namaLengkap")
+                                        .addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                if (dataSnapshot.exists()) {
+                                                    tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
+                                                    tv_tipePengguna.setText(getString(R.string.tipe_admin));
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                                            }
+                                        });
                             }
                         }
 

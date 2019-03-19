@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -67,6 +68,8 @@ public class TindakanAnakNormalFragment extends Fragment {
 
         databaseReference = FirebaseDatabase.getInstance()
                 .getReference()
+                .child("user_posyandu")
+                .child(InformasiPosyandu.ID_POSYANDU)
                 .child("pengaturan")
                 .child("tindakan")
                 .child("normal");

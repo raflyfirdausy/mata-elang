@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.firdausy.rafly.mataelang.Activity.DataPosyanduActivity;
 import com.firdausy.rafly.mataelang.Activity.LoginActivity;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -64,7 +65,11 @@ public class IbuCaraPencegahanStuntingActivity extends AppCompatActivity
 
         //firebase
         firebaseAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("pengaturan").child("pencegahan");
+        databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("user_posyandu")
+                .child(InformasiPosyandu.ID_POSYANDU)
+                .child("pengaturan")
+                .child("pencegahan");
         databaseReference.keepSynced(true);
 
         tv_pencegahan = findViewById(R.id.tv_pencegahan);

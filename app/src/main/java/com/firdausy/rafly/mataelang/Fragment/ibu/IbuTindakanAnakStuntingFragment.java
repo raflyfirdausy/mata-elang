@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,6 +42,8 @@ public class IbuTindakanAnakStuntingFragment extends Fragment {
 
         databaseReference = FirebaseDatabase.getInstance()
                 .getReference()
+                .child("user_posyandu")
+                .child(InformasiPosyandu.ID_POSYANDU)
                 .child("pengaturan")
                 .child("tindakan")
                 .child("stunting");
