@@ -5,15 +5,33 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.firdausy.rafly.mataelang.Activity.DataPosyanduActivity;
+import com.firdausy.rafly.mataelang.Activity.LoginActivity;
 import com.firdausy.rafly.mataelang.Activity.MainActivity;
+import com.firdausy.rafly.mataelang.Activity.admin.EditProfilActivity;
+import com.firdausy.rafly.mataelang.Activity.admin.InputDataAntropometriActivity;
+import com.firdausy.rafly.mataelang.Activity.admin.LihatDataAntropometriActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.PengaturanActivity;
+import com.firdausy.rafly.mataelang.Activity.admin.TambahAdminUserActivity;
+import com.firdausy.rafly.mataelang.Activity.admin.TentangAplikasiActivity;
+import com.firdausy.rafly.mataelang.Activity.ibu.IbuCaraPencegahanStuntingActivity;
+import com.firdausy.rafly.mataelang.Activity.ibu.IbuEditProfilActivity;
+import com.firdausy.rafly.mataelang.Activity.ibu.IbuTindakanUntukAnak;
+import com.firdausy.rafly.mataelang.Activity.ibu.MainActivityIbuActivity;
+import com.firdausy.rafly.mataelang.Activity.ibu.TentangAplikasiIbuActivity;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +45,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ListUser extends AppCompatActivity {
+public class ListUser extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
     Context context;
     private RecyclerView recyclerView;
     private FloatingActionButton fabnewchat;
@@ -40,14 +59,42 @@ public class ListUser extends AppCompatActivity {
     private String owner;
     private RelativeLayout rl_belumChatSiapapun;
 
+    private TextView tv_namaPengguna;
+    private TextView tv_emailPengguna;
+    private TextView tv_tipePengguna;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_user);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.mata_elang);
-        getSupportActionBar().setSubtitle("Chat Kader dan Ibu");
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        if(getIntent().getStringExtra("level").equalsIgnoreCase("admin")){
+            setContentView(R.layout.list_user_baru_lagi_hehehe);
+        } else {
+            setContentView(R.layout.list_user_new);
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle(R.string.mata_elang);
+        toolbar.setSubtitle(R.string.chat_kader_dan_ibu);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        if(getIntent().getStringExtra("level").equalsIgnoreCase("admin")){
+            navigationView.getMenu().getItem(5).setChecked(true);
+        } else {
+            navigationView.getMenu().getItem(4).setChecked(true);
+        }
+        navigationView.setNavigationItemSelectedListener(this);
+
+        tv_namaPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_namaPengguna);
+        tv_emailPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_emailPengguna);
+        tv_tipePengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_tipePengguna);
 
         context = ListUser.this;
         recyclerView = findViewById(R.id.rv);
@@ -102,19 +149,93 @@ public class ListUser extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(context, MainActivity.class));
-        finish();
+        if (getIntent().getStringExtra("level").equalsIgnoreCase("admin")) {
+            startActivity(new Intent(context, MainActivity.class));
+            finish();
+        } else {
+            startActivity(new Intent(context, MainActivityIbuActivity.class));
+            finish();
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(context, MainActivity.class));
-                finish();
+                if (getIntent().getStringExtra("level").equalsIgnoreCase("admin")) {
+                    startActivity(new Intent(context, MainActivity.class));
+                    finish();
+                } else {
+                    startActivity(new Intent(context, MainActivityIbuActivity.class));
+                    finish();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int id = menuItem.getItemId();
+
+        if (id == R.id.action_dataAnak) {
+            startActivity(new Intent(context, MainActivityIbuActivity.class));
+            finish();
+        } else if (id == R.id.action_posyandu) {
+            startActivity(new Intent(context, DataPosyanduActivity.class));
+            finish();
+        } else if (id == R.id.action_pencegahan) {
+            startActivity(new Intent(context, IbuCaraPencegahanStuntingActivity.class));
+            finish();
+        } else if (id == R.id.action_tindakan) {
+            startActivity(new Intent(context, IbuTindakanUntukAnak.class));
+            finish();
+        } else if (id == R.id.action_about) {
+            if(getIntent().getStringExtra("level").equalsIgnoreCase("admin")){
+                startActivity(new Intent(context, TentangAplikasiActivity.class));
+                finish();
+            } else {
+                startActivity(new Intent(context, TentangAplikasiIbuActivity.class));
+                finish();
+            }
+        } else if (id == R.id.action_edit) {
+            if(getIntent().getStringExtra("level").equalsIgnoreCase("admin")){
+                startActivity(new Intent(context, EditProfilActivity.class));
+                finish();
+            } else {
+                startActivity(new Intent(context, IbuEditProfilActivity.class));
+                finish();
+            }
+        } else if (id == R.id.action_logout) {
+            firebaseAuth.signOut();
+            startActivity(new Intent(context, LoginActivity.class));
+            finish();
+        }else if(id== R.id.action_chat){
+            if(getIntent().getStringExtra("level").equalsIgnoreCase("admin")){
+                startActivity(new Intent(context, ListUser.class).putExtra("level","admin"));
+            } else {
+                startActivity(new Intent(context, ListUser.class).putExtra("level","ibu"));
+            }
+        } else if (id == R.id.action_dashboard) {
+            startActivity(new Intent(context, MainActivity.class));
+            finish();
+        } else if (id == R.id.action_tambahUser) {
+            startActivity(new Intent(context, TambahAdminUserActivity.class));
+            finish();
+        } else if (id == R.id.action_input) {
+            startActivity(new Intent(context, InputDataAntropometriActivity.class));
+            finish();
+        } else if (id == R.id.action_lihat) {
+            startActivity(new Intent(context, LihatDataAntropometriActivity.class));
+            finish();
+        } else if (id == R.id.action_pengaturan) {
+            startActivity(new Intent(context, PengaturanActivity.class));
+            finish();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

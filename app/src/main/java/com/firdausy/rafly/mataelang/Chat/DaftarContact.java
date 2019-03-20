@@ -31,6 +31,7 @@ public class DaftarContact extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private ArrayList<String> listchat = new ArrayList<>();
+    private ArrayList<ListModel> listchat2 = new ArrayList<>();
     private AdapterUser adapter;
     private String owner;
     private String id_posyandu;
@@ -70,6 +71,7 @@ public class DaftarContact extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        listchat.clear();
                         if (dataSnapshot.exists()) {
                             for (DataSnapshot data : dataSnapshot.getChildren()) {
                                 if (Objects.equals(data.child("id_posyandu").getValue(String.class),
@@ -84,7 +86,7 @@ public class DaftarContact extends AppCompatActivity {
                         RecyclerView.LayoutManager layoutManager =
                                 new LinearLayoutManager(context);
                         recyclerView.setLayoutManager(layoutManager);
-                        adapter = new AdapterUser(context, owner, listchat);
+                        adapter = new AdapterUser(context, owner, listchat, getIntent().getStringExtra("level"));
                         recyclerView.setAdapter(adapter);
                     }
 
@@ -93,6 +95,7 @@ public class DaftarContact extends AppCompatActivity {
 
                     }
                 });
+
     }
 
     private void dataUserIbu() {
@@ -115,7 +118,7 @@ public class DaftarContact extends AppCompatActivity {
                         RecyclerView.LayoutManager layoutManager =
                                 new LinearLayoutManager(context);
                         recyclerView.setLayoutManager(layoutManager);
-                        adapter = new AdapterUser(context, owner, listchat);
+                        adapter = new AdapterUser(context, owner, listchat, getIntent().getStringExtra("level"));
                         recyclerView.setAdapter(adapter);
                     }
 

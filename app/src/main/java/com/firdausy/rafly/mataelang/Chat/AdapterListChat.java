@@ -63,10 +63,24 @@ public class AdapterListChat extends RecyclerView.Adapter<AdapterListChat.MyView
     @Override
     public void onBindViewHolder(@NonNull final AdapterListChat.MyViewHolder myViewHolder, final int i) {
         position = userlist.get(i);
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("user")
-                .child("ibu")
-                .child(position)
+
+        if(level.equalsIgnoreCase("admin")){
+            databaseReference = FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child("user")
+                    .child("ibu")
+                    .child(position);
+        } else {
+            databaseReference = FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child("user")
+                    .child("admin")
+                    .child(position);
+        }
+
+        databaseReference
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -84,9 +98,6 @@ public class AdapterListChat extends RecyclerView.Adapter<AdapterListChat.MyView
                     }
                 });
 
-//        myViewHolder.tvNama.setText(userlist2.get(i).getNama());
-//        myViewHolder.tvNama.setText(userlist2.get(i).getEmail());
-
         myViewHolder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +107,6 @@ public class AdapterListChat extends RecyclerView.Adapter<AdapterListChat.MyView
                 intent.putExtra("email",  myViewHolder.tvIsi.getText());
                 intent.putExtra("level", level);
                 context.startActivity(intent);
-//                context.startActivity(new Intent(context, Chat.class).putExtra("uid", userlist2.get(i).getKey()));
             }
         });
 

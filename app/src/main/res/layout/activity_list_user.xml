@@ -1,76 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Chat.ListUser">
 
-    <LinearLayout
-        android:id="@+id/linear_isi"
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginTop="?attr/actionBarSize">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv"
+        <LinearLayout
+            android:id="@+id/linear_isi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:id="@+id/rl_belumChatSiapapun"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true">
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/rl_belumChatSiapapun"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerInParent="true"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp">
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true">
 
-                <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    app:srcCompat="@drawable/ic_not_found"
-                    android:layout_gravity="center"
-                    android:tint="@color/colorPrimaryDark"/>
-
-                <TextView
-                    android:paddingTop="10dp"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/oops_kamu_belum_pernah_chat_siapapun"
-                    android:textStyle="bold"
-                    android:textSize="25sp"
-                    android:fontFamily="monospace"
-                    android:gravity="center"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp">
+
+                    <ImageView
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:tint="@color/colorPrimaryDark"
+                        app:srcCompat="@drawable/ic_not_found" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:gravity="center"
+                        android:paddingTop="10dp"
+                        android:text="@string/oops_kamu_belum_pernah_chat_siapapun"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
 
 
+                </LinearLayout>
+            </RelativeLayout>
 
-            </LinearLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_new_chat"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:src="@drawable/fab_add" />
         </RelativeLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_new_chat"
-            android:src="@drawable/fab_add"
-            android:backgroundTint="@color/colorPrimary"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"/>
-    </RelativeLayout>
+    </FrameLayout>
 
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

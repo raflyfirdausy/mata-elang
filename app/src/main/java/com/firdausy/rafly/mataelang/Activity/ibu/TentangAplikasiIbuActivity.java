@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.firdausy.rafly.mataelang.Activity.DataPosyanduActivity;
 import com.firdausy.rafly.mataelang.Activity.LoginActivity;
+import com.firdausy.rafly.mataelang.Chat.ListUser;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,7 +68,7 @@ public class TentangAplikasiIbuActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.getMenu().getItem(4).setChecked(true);
+        navigationView.getMenu().getItem(5).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
 
         tv_namaPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_namaPengguna);
@@ -289,6 +290,8 @@ public class TentangAplikasiIbuActivity extends AppCompatActivity
             firebaseAuth.signOut();
             startActivity(new Intent(context, LoginActivity.class));
             finish();
+        } else if(id== R.id.action_chat){
+            startActivity(new Intent(context, ListUser.class).putExtra("level","ibu"));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

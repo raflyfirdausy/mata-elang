@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.firdausy.rafly.mataelang.Activity.DataPosyanduActivity;
 import com.firdausy.rafly.mataelang.Activity.LoginActivity;
+import com.firdausy.rafly.mataelang.Chat.ListUser;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
@@ -161,6 +162,8 @@ public class IbuCaraPencegahanStuntingActivity extends AppCompatActivity
             firebaseAuth.signOut();
             startActivity(new Intent(context, LoginActivity.class));
             finish();
+        } else if(id== R.id.action_chat){
+            startActivity(new Intent(context, ListUser.class).putExtra("level","ibu"));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

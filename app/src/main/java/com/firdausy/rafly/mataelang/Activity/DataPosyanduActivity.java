@@ -25,6 +25,7 @@ import com.firdausy.rafly.mataelang.Activity.ibu.IbuEditProfilActivity;
 import com.firdausy.rafly.mataelang.Activity.ibu.IbuTindakanUntukAnak;
 import com.firdausy.rafly.mataelang.Activity.ibu.MainActivityIbuActivity;
 import com.firdausy.rafly.mataelang.Activity.ibu.TentangAplikasiIbuActivity;
+import com.firdausy.rafly.mataelang.Chat.ListUser;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
@@ -202,6 +203,8 @@ public class DataPosyanduActivity extends AppCompatActivity
             firebaseAuth.signOut();
             startActivity(new Intent(context, LoginActivity.class));
             finish();
+        } else if(id== R.id.action_chat){
+            startActivity(new Intent(context, ListUser.class).putExtra("level","ibu"));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
