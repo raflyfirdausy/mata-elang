@@ -7,7 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 
+import com.firdausy.rafly.mataelang.Activity.MainActivity;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
@@ -38,6 +40,10 @@ public class DaftarContact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_contact);
 
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.mata_elang);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         context = DaftarContact.this;
         recyclerView = findViewById(R.id.rv);
         owner = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
@@ -49,10 +55,12 @@ public class DaftarContact extends AppCompatActivity {
             //jika dia admin maka ambil data di root ibu
             ambilid_posyannduadmin();
             dataUserIbu();
+            getSupportActionBar().setSubtitle("Daftar Kontak User Ibu");
         } else {
             //jika dia admin maka ambil data di root admin
             ambilid_posyannduibu();
             dataUseradmin();
+            getSupportActionBar().setSubtitle("Daftar Kader Posyandu");
         }
     }
 
@@ -163,7 +171,23 @@ public class DaftarContact extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(context, ListUser.class)
+                .putExtra("level", getIntent().getStringExtra("level")));
+        finish();
+    }
 
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                startActivity(new Intent(context, ListUser.class)
+                        .putExtra("level", getIntent().getStringExtra("level")));
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

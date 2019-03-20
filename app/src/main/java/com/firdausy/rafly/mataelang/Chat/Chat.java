@@ -171,7 +171,7 @@ public class Chat extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(context, ListUser.class));
+        startActivity(new Intent(context, ListUser.class).putExtra("level", getIntent().getStringExtra("level")));
         finish();
     }
 
@@ -179,7 +179,7 @@ public class Chat extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(context, ListUser.class));
+                startActivity(new Intent(context, ListUser.class).putExtra("level", getIntent().getStringExtra("level")));
                 finish();
                 return true;
             default:

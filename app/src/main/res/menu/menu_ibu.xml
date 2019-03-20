@@ -24,13 +24,16 @@
             android:title="@string/tindakan_untuk_anak" />
 
         <item
+            android:visible="true"
+            android:id="@+id/action_chat"
+            android:icon="@drawable/ic_speech_bubble"
+            android:title="Chat" />
+
+        <item
             android:id="@+id/action_about"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/tentang_aplikasi" />
-        <item
-            android:id="@+id/action_chat"
-            android:icon="@drawable/ic_android_black_24dp"
-            android:title="Chat" />
+
     </group>
 
     <item android:title="@string/managemen_akun">

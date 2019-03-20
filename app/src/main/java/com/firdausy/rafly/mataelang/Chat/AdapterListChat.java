@@ -29,6 +29,7 @@ public class AdapterListChat extends RecyclerView.Adapter<AdapterListChat.MyView
     private String owner;
     private String position;
     private DatabaseReference databaseReference;
+    private String level;
 
     AdapterListChat(Context context, String owner, ArrayList<String> userlist) {
         this.context = context;
@@ -41,6 +42,13 @@ public class AdapterListChat extends RecyclerView.Adapter<AdapterListChat.MyView
         this.owner = owner;
         this.userlist = userlist;
         this.userlist2 = userlist2;
+    }
+
+    AdapterListChat(Context context, String owner, ArrayList<String> userlist, String level) {
+        this.context = context;
+        this.owner = owner;
+        this.userlist = userlist;
+        this.level = level;
     }
 
 
@@ -86,6 +94,7 @@ public class AdapterListChat extends RecyclerView.Adapter<AdapterListChat.MyView
                 intent.putExtra("uid", position);
                 intent.putExtra("nama",  myViewHolder.tvNama.getText());
                 intent.putExtra("email",  myViewHolder.tvIsi.getText());
+                intent.putExtra("level", level);
                 context.startActivity(intent);
 //                context.startActivity(new Intent(context, Chat.class).putExtra("uid", userlist2.get(i).getKey()));
             }

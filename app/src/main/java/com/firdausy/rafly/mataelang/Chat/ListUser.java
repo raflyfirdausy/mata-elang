@@ -89,7 +89,7 @@ public class ListUser extends AppCompatActivity {
                             rl_belumChatSiapapun.setVisibility(View.VISIBLE);
                         }
 
-                        adapter = new AdapterListChat(context, owner, listchat);
+                        adapter = new AdapterListChat(context, owner, listchat, getIntent().getStringExtra("level"));
                         recyclerView.setAdapter(adapter);
                     }
 

@@ -25,6 +25,7 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/pengaturan" />
         <item
+            android:visible="true"
             android:id="@+id/action_chat"
             android:icon="@drawable/ic_speech_bubble"
             android:title="Chat" />

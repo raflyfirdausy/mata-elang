@@ -78,7 +78,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
                     Timer timer = new Timer();
                     if (terupdate) {
-                        timer.schedule(new Splash(), 3000);
+                        timer.schedule(new Splash(), 1000);
                     } else {
                         AlertDialog.Builder builder;
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
