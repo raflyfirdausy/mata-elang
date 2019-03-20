@@ -33,6 +33,7 @@ import com.firdausy.rafly.mataelang.Activity.ibu.IbuTindakanUntukAnak;
 import com.firdausy.rafly.mataelang.Activity.ibu.MainActivityIbuActivity;
 import com.firdausy.rafly.mataelang.Activity.ibu.TentangAplikasiIbuActivity;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
+import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -67,7 +68,7 @@ public class ListUser extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(getIntent().getStringExtra("level").equalsIgnoreCase("admin")){
+        if (getIntent().getStringExtra("level").equalsIgnoreCase("admin")) {
             setContentView(R.layout.list_user_baru_lagi_hehehe);
         } else {
             setContentView(R.layout.list_user_new);
@@ -85,7 +86,7 @@ public class ListUser extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        if(getIntent().getStringExtra("level").equalsIgnoreCase("admin")){
+        if (getIntent().getStringExtra("level").equalsIgnoreCase("admin")) {
             navigationView.getMenu().getItem(5).setChecked(true);
         } else {
             navigationView.getMenu().getItem(4).setChecked(true);
@@ -104,6 +105,7 @@ public class ListUser extends AppCompatActivity
         owner = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("chat");
 
+        firebaseAuth = FirebaseAuth.getInstance();
         final Intent intent = getIntent();
 
         datachat();
@@ -145,6 +147,55 @@ public class ListUser extends AppCompatActivity
                         new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
                     }
                 });
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            if (getIntent().getStringExtra("level").equalsIgnoreCase("admin")) {
+                databaseReference.child("user")
+                        .child("admin")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    InformasiPosyandu.ID_POSYANDU = dataSnapshot.child("id_posyandu").getValue(String.class);
+                                    tv_namaPengguna.setText(dataSnapshot.child("namaLengkap").getValue(String.class));
+                                    tv_tipePengguna.setText(getString(R.string.tipe_user_ibu));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                            }
+                        });
+            } else {
+                databaseReference.child("user")
+                        .child("ibu")
+                        .child(firebaseAuth.getCurrentUser().getUid())
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    InformasiPosyandu.ID_POSYANDU = dataSnapshot.child("id_posyandu").getValue(String.class);
+                                    tv_namaPengguna.setText(dataSnapshot.child("namaLengkap").getValue(String.class));
+                                    tv_tipePengguna.setText(getString(R.string.tipe_user_ibu));
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                            }
+                        });
+            }
+        }
+
     }
 
     @Override
@@ -192,7 +243,7 @@ public class ListUser extends AppCompatActivity
             startActivity(new Intent(context, IbuTindakanUntukAnak.class));
             finish();
         } else if (id == R.id.action_about) {
-            if(getIntent().getStringExtra("level").equalsIgnoreCase("admin")){
+            if (getIntent().getStringExtra("level").equalsIgnoreCase("admin")) {
                 startActivity(new Intent(context, TentangAplikasiActivity.class));
                 finish();
             } else {
@@ -200,7 +251,7 @@ public class ListUser extends AppCompatActivity
                 finish();
             }
         } else if (id == R.id.action_edit) {
-            if(getIntent().getStringExtra("level").equalsIgnoreCase("admin")){
+            if (getIntent().getStringExtra("level").equalsIgnoreCase("admin")) {
                 startActivity(new Intent(context, EditProfilActivity.class));
                 finish();
             } else {
@@ -211,11 +262,11 @@ public class ListUser extends AppCompatActivity
             firebaseAuth.signOut();
             startActivity(new Intent(context, LoginActivity.class));
             finish();
-        }else if(id== R.id.action_chat){
-            if(getIntent().getStringExtra("level").equalsIgnoreCase("admin")){
-                startActivity(new Intent(context, ListUser.class).putExtra("level","admin"));
+        } else if (id == R.id.action_chat) {
+            if (getIntent().getStringExtra("level").equalsIgnoreCase("admin")) {
+                startActivity(new Intent(context, ListUser.class).putExtra("level", "admin"));
             } else {
-                startActivity(new Intent(context, ListUser.class).putExtra("level","ibu"));
+                startActivity(new Intent(context, ListUser.class).putExtra("level", "ibu"));
             }
         } else if (id == R.id.action_dashboard) {
             startActivity(new Intent(context, MainActivity.class));
