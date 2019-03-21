@@ -126,9 +126,10 @@ public class ListUser extends AppCompatActivity
                 new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         databaseReference.child(owner)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+                .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        listchat.clear();
                         if (dataSnapshot.exists()) {
                             rl_belumChatSiapapun.setVisibility(View.GONE);
                             for (final DataSnapshot data : dataSnapshot.getChildren()) {

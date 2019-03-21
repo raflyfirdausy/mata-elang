@@ -184,8 +184,10 @@
             </intent-filter>
         </activity>
 
+
+
         <service
-            android:name=".fcm.InstanceIdService"
+            android:name=".Service.FIDService"
             tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -193,7 +195,7 @@
         </service>
 
         <service
-            android:name=".fcm.MessagingService"
+            android:name=".Service.FMessagingService"
             tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
