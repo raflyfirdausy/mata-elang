@@ -188,7 +188,7 @@
 
         <service
             android:name=".Service.FIDService"
-            tools:ignore="ExportedService">
+            tools:ignore="ExportedService,InnerclassSeparator">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
@@ -196,7 +196,7 @@
 
         <service
             android:name=".Service.FMessagingService"
-            tools:ignore="ExportedService">
+            tools:ignore="ExportedService,InnerclassSeparator">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
