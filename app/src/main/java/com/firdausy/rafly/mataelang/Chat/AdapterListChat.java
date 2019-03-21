@@ -27,7 +27,6 @@ public class AdapterListChat extends RecyclerView.Adapter<AdapterListChat.MyView
     private List<String> userlist;
     private List<ListModel> userlist2;
     private String owner;
-    private String position;
     private DatabaseReference databaseReference;
     private String level;
 
@@ -62,7 +61,7 @@ public class AdapterListChat extends RecyclerView.Adapter<AdapterListChat.MyView
 
     @Override
     public void onBindViewHolder(@NonNull final AdapterListChat.MyViewHolder myViewHolder, final int i) {
-        position = userlist.get(i);
+        final String  position = userlist.get(i);
 
         if(level.equalsIgnoreCase("admin")){
             databaseReference = FirebaseDatabase

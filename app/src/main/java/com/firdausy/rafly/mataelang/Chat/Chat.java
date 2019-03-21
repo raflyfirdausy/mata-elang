@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.firdausy.rafly.mataelang.Activity.MainActivity;
+import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -63,6 +64,7 @@ public class Chat extends AppCompatActivity {
         owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Useruid = intent.getStringExtra("uid");
 
+
         inputEditText.requestFocus();
         inisiasi_chat();
 
@@ -85,6 +87,11 @@ public class Chat extends AppCompatActivity {
                 .child("chat")
                 .child(Useruid)
                 .child(owner)
+                .push()
+                .setValue(message);
+        databaseReference
+                .child("notifications")
+                .child("messages")
                 .push()
                 .setValue(message);
         if (!owner.equals(Useruid))
