@@ -1,13 +1,12 @@
 <resources>
 
-    <!--<string name="app_id_admob">ca-app-pub-6440486231590088~5648687746</string>-->
-    <!--<string name="banner_id_admob">ca-app-pub-6440486231590088/5457116059</string>-->
-    <!--<string name="inter_id_admob">ca-app-pub-6440486231590088/5265544362</string>-->
-
-    <!--<string name="app_id_admob">ca-app-pub-9437841907037262~3969091798</string>-->
     <string name="app_id_admob">ca-app-pub-2143713369225060~2979335959</string>
-    <!--<string name="inter_id_admob">ca-app-pub-3940256099942544/1033173712</string>-->
     <string name="inter_id_admob">ca-app-pub-2143713369225060/4264497469</string>
+    <string name="banner_id_admob">ca-app-pub-2143713369225060/7961690584</string>
+
+    <!--<string name="app_id_admob">ca-app-pub-2143713369225060~2979335959</string>-->
+    <!--<string name="inter_id_admob">ca-app-pub-3940256099942544/1033173712</string>-->
+    <!--<string name="banner_id_admob">ca-app-pub-3940256099942544/6300978111</string>-->
 
     <string name="app_name">Mata Elang</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

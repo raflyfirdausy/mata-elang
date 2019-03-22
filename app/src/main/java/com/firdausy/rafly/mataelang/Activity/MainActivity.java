@@ -29,6 +29,9 @@ import com.firdausy.rafly.mataelang.Helper.AdManager;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -54,6 +57,9 @@ public class MainActivity extends AppCompatActivity
     private int jumlahIbu = 0;
     private int jumlahBayi = 0;
     private InterstitialAd mInterstitialAd;
+
+    private AdView mAdView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +116,44 @@ public class MainActivity extends AppCompatActivity
         if (interstitialAd != null) {
             interstitialAd.show();
         }
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+//                new Bantuan(context).toastShort("banner onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+//                new Bantuan(context).toastShort("banner onAdFailedToLoad");
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+//                new Bantuan(context).toastShort("banner onAdOpened");
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+//                new Bantuan(context).toastShort("banner onAdLeftApplication");
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the user is about to return
+                // to the app after tapping on an ad.
+//                new Bantuan(context).toastShort("banner onAdClosed");
+            }
+        });
 
 
     }

@@ -20,6 +20,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/app_id_admob" />
+
         <activity
             android:name=".Chat.ListUser"
             android:configChanges="orientation"
@@ -39,10 +43,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarTransparent"
             tools:ignore="InnerclassSeparator" />
-
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/app_id_admob" />
 
         <activity
             android:name=".Activity.ibu.IbuCaraPencegahanStuntingActivity"
