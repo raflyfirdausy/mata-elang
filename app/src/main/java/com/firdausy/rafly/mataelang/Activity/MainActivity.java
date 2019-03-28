@@ -207,7 +207,8 @@ public class MainActivity extends AppCompatActivity
                                 }
                             }
                         } else {
-                            tv_totalIbu.setText(getString(R.string.belum_ada_ibu));
+                            tv_totalIbu.setText("0 ibu");
+                            tv_totalBayi.setText("0 bayi");
                         }
                     }
 

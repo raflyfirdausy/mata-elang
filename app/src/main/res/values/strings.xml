@@ -100,8 +100,10 @@
     <string name="tipe_user_ibu">Jenis Akun : User Ibu</string>
     <string name="masih_kosong">Masih Ada Data Yang Kosong !</string>
     <string name="pass_salah">Konfirmasi Password Salah !</string>
-    <string name="databae_url">https://mata-elang-8c8a7.firebaseio.com/</string>
-    <string name="web_api">AIzaSyDCbTEo1D55Gpr7MeN-Dqz3MZ9ekw_bBZo</string>
+    <!--<string name="databae_url">https://mata-elang-8c8a7.firebaseio.com/</string>-->
+    <string name="databae_url">https://mata-elang-project.firebaseio.com/</string>
+    <!--<string name="web_api">AIzaSyDCbTEo1D55Gpr7MeN-Dqz3MZ9ekw_bBZo</string>-->
+    <string name="web_api">AIzaSyDkzUYJXIwo5pPnAxQ1i626gqa24e71P3Y</string>
     <string name="project_idku">com.firdausy.rafly.mataelang</string>
     <string name="berhasil_membuat_akun">Berhasil Membuat akun  </string>
     <string name="data_berhasil_di_simpan">Data Berhasil Di Simpan !</string>
@@ -184,9 +186,9 @@
     <string name="default_tindakan_normal">1.\tTetap lakukan upaya pencegahan stunting untuk menjaga status kesehatan anak agar tetap baik.\n\n2.\tMelakukan pemantauan pertumbuhan dan perkembangan anak sebagai upaya deteksi dini.\n\n3.\tDapat memanfaatkan fitur panggilan jika diperlukan untuk konsultasi dengan kader.</string>
     <string name="default_tindakan_stunting">1.\tLakukan upaya pencegahan stunting.\n\n2.\tKonsultasi kepada tenaga kesehatan, misalnya kader posyandu atau bidan desa. Dapat melakukan panggilan kepada kader posyandu jika sewaktu-waktu diperlukan.\n\n3.\tMembawa anak yang beresiko stunting ke puskesmas atau tempat pelayanan kesehatan lainnya untuk mendapatkan intervensi lebih lanjut. \n\n4.\tMendapatkan upaya penanganan atau intervensi dari puskesmas.</string>
     <string name="reset_default">Reset Default</string>
-    <string name="oopss_pencegahan_stunting_belum_tersedia">Oopss, Pencegahan stunting belum tersedia !</string>
-    <string name="oopss_tindakan_anak_normal">Oopss, Tindakan untuk anak normal belum tersedia !</string>
-    <string name="oopss_tindakan_anak_stunting">Oopss, Tindakan untuk anak stunting belum tersedia !</string>
+    <string name="oopss_pencegahan_stunting_belum_tersedia">Oopss, Pencegahan stunting belum di atur oleh posyandu anda !</string>
+    <string name="oopss_tindakan_anak_normal">Oopss, Tindakan untuk anak normal belum di atur oleh posyandu anda !</string>
+    <string name="oopss_tindakan_anak_stunting">Oopss, Tindakan untuk anak stunting belum di atur oleh posyandu anda !</string>
     <string name="tindakan_stunting">Tindakan Stunting</string>
     <string name="mau_mendaftarkan_posyandu">Mau mendaftarkan posyandu ?</string>
     <string name="klik_disini">Klik disini !</string>

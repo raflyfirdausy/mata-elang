@@ -135,12 +135,11 @@ public class ListUser extends AppCompatActivity
                             for (final DataSnapshot data : dataSnapshot.getChildren()) {
                                 listchat.add(data.getKey());
                             }
+                            adapter = new AdapterListChat(context, owner, listchat, getIntent().getStringExtra("level"));
+                            recyclerView.setAdapter(adapter);
                         } else {
                             rl_belumChatSiapapun.setVisibility(View.VISIBLE);
                         }
-
-                        adapter = new AdapterListChat(context, owner, listchat, getIntent().getStringExtra("level"));
-                        recyclerView.setAdapter(adapter);
                     }
 
                     @Override
