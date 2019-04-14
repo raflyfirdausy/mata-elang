@@ -14,7 +14,7 @@
     <color name="darkGreen2">#13772C</color>
     <color name="black">#000000</color>
     <color name="orange">#f39c12</color>
-
+    <color name="actionbar_opacity">#33000000</color>
     <color name="black_overlay">#66000000</color>
 
 

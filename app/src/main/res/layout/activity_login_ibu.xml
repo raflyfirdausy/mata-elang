@@ -10,13 +10,16 @@
     android:weightSum="100"
     tools:context=".Activity.LoginActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="85"
-        android:padding="30dp">
+        android:padding="30dp"
+        android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/rl_login"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:ignore="UselessParent">
@@ -62,42 +65,36 @@
                         android:layout_marginBottom="10dp"
                         android:fontFamily="monospace"
                         android:gravity="center_horizontal"
-                        android:text="@string/login_posyandu"
+                        android:text="@string/login_user_ibu"
                         android:textColor="@color/white"
                         android:textSize="30sp"
                         android:textStyle="bold" />
 
-                    <android.support.design.widget.TextInputLayout
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:theme="@style/login">
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="center_horizontal"
+                        android:text="@string/silahkan_masuk_dengan_nomer_hp_yang_sudah_terdaftar"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
 
-                        <EditText
-                            android:id="@+id/et_emailLogin"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/email"
-                            android:inputType="textEmailAddress"
-                            android:textColor="@color/white"
-                            android:textColorHint="@color/white" />
-                    </android.support.design.widget.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.firdausy.rafly.mataelang.Helper.CustomEditText
+                        android:id="@+id/et_noHpLogin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:theme="@style/login">
+                        android:gravity="bottom"
+                        android:hint="@string/contoh_85726123456"
+                        android:inputType="phone"
+                        android:tag="+62    "
+                        android:textColor="@color/greyLight"
+                        android:textColorHint="@color/white"
+                        android:textSize="20sp"
+                        android:visibility="visible" />
 
-                        <EditText
-                            android:id="@+id/et_passwordLogin"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/password"
-                            android:inputType="textPassword"
-                            android:textColor="@color/white"
-                            android:textColorHint="@color/white" />
-                    </android.support.design.widget.TextInputLayout>
 
                     <Button
                         android:id="@+id/btn_login"
@@ -106,7 +103,7 @@
                         android:layout_marginTop="20dp"
                         android:backgroundTint="@color/white"
                         android:fontFamily="monospace"
-                        android:text="@string/login"
+                        android:text="Lanjut"
                         android:textColor="@color/colorPrimary"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -123,12 +120,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/login_user_ibu_lagi"
+                            android:text="@string/login_posyandu_lagi"
                             android:textColor="@color/white"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/tv_klikDisini"
+                            android:id="@+id/tv_loginDisini"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
@@ -137,9 +134,9 @@
                             android:paddingStart="10dp"
                             android:text="@string/login_disini"
                             android:textColor="@color/white"
+                            android:textSize="16sp"
                             android:textStyle="bold"
-                            tools:ignore="RtlSymmetry"
-                            android:textSize="16sp"/>
+                            tools:ignore="RtlSymmetry" />
                     </LinearLayout>
 
 
@@ -148,6 +145,92 @@
 
 
         </RelativeLayout>
+
+        <!--LAYOUT VERIFIKASI-->
+        <LinearLayout
+            android:id="@+id/ll_verifikasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/selangkah_lagi_nih"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/kamu_tinggal_memasukan_kode_verifikasi_yang_kami_sms_ke_nomer_hp_mu_yang_baru_saja_di_daftarkan"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <com.firdausy.rafly.mataelang.Helper.pinEntryEditText
+                android:id="@+id/et_pin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:digits="1234567890"
+                android:inputType="number"
+                android:maxLength="6"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textIsSelectable="false"
+                android:textSize="30sp" />
+
+            <LinearLayout
+                android:id="@+id/ll_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <ProgressBar
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:indeterminate="true"
+                    android:indeterminateTint="@color/white"
+                    tools:targetApi="lollipop" />
+
+                <TextView
+                    android:id="@+id/tv_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:text="@string/_02_00"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:ignore="RtlSymmetry" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_kirim_ulang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="?attr/selectableItemBackground"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="sans-serif"
+                android:padding="5dp"
+                android:text="@string/kirim_ulang"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
 

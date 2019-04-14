@@ -141,18 +141,18 @@ public class DataPosyanduActivity extends AppCompatActivity
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
+        tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getPhoneNumber());
 
         if (firebaseAuth.getCurrentUser() != null) {
             databaseReference.child("user")
                     .child("ibu")
                     .child(firebaseAuth.getCurrentUser().getUid())
-                    .child("namaLengkap")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
-                                tv_namaPengguna.setText(dataSnapshot.getValue(String.class));
+                                InformasiPosyandu.ID_POSYANDU = dataSnapshot.child("id_posyandu").getValue(String.class);
+                                tv_namaPengguna.setText(dataSnapshot.child("namaLengkap").getValue(String.class));
                                 tv_tipePengguna.setText(getString(R.string.tipe_user_ibu));
                             }
                         }
@@ -201,7 +201,7 @@ public class DataPosyanduActivity extends AppCompatActivity
             finish();
         } else if (id == R.id.action_logout) {
             firebaseAuth.signOut();
-            startActivity(new Intent(context, LoginActivity.class));
+            startActivity(new Intent(context, SplashScreenActivity.class));
             finish();
         } else if(id== R.id.action_chat){
             startActivity(new Intent(context, ListUser.class).putExtra("level","ibu"));

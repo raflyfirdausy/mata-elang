@@ -127,7 +127,7 @@ public class IbuEditProfilActivity extends AppCompatActivity
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
+        tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getPhoneNumber());
 
         if (firebaseAuth.getCurrentUser() != null) {
             databaseReference.child("user")

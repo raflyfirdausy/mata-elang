@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.firdausy.rafly.mataelang.Activity.IbuDetailActivity;
 import com.firdausy.rafly.mataelang.Activity.LoginActivity;
 import com.firdausy.rafly.mataelang.Activity.MainActivity;
+import com.firdausy.rafly.mataelang.Activity.SplashScreenActivity;
 import com.firdausy.rafly.mataelang.Adapter.IbuAdapterInput;
 import com.firdausy.rafly.mataelang.Chat.ListUser;
 import com.firdausy.rafly.mataelang.Helper.AdManager;
@@ -69,7 +70,7 @@ public class InputDataAntropometriActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        final NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.getMenu().getItem(2).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -85,6 +86,24 @@ public class InputDataAntropometriActivity extends AppCompatActivity
         databaseReference.keepSynced(true);
 
         getAndSetData();
+
+        databaseReference.child("user_posyandu")
+                .child(firebaseAuth.getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            navigationView.getMenu().getItem(1).setVisible(true);
+                        } else {
+                            navigationView.getMenu().getItem(1).setVisible(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                    }
+                });
 
     }
 
@@ -212,13 +231,16 @@ public class InputDataAntropometriActivity extends AppCompatActivity
             finish();
         } else if (id == R.id.action_logout) {
             firebaseAuth.signOut();
-            startActivity(new Intent(context, LoginActivity.class));
+            startActivity(new Intent(context, SplashScreenActivity.class));
             finish();
         } else if (id == R.id.action_about) {
             startActivity(new Intent(context, TentangAplikasiActivity.class));
             finish();
         } else if(id == R.id.action_chat) {
             startActivity(new Intent(context, ListUser.class).putExtra("level","admin"));
+            finish();
+        } else if(id == R.id.action_kodePosyandu) {
+            startActivity(new Intent(context, AdminKodePosyanduActivity.class));
             finish();
         }
 

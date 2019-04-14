@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.firdausy.rafly.mataelang.Activity.LoginActivity;
 import com.firdausy.rafly.mataelang.Activity.MainActivity;
+import com.firdausy.rafly.mataelang.Activity.SplashScreenActivity;
 import com.firdausy.rafly.mataelang.Chat.ListUser;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
@@ -66,7 +67,7 @@ public class TentangAplikasiActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        final NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.getMenu().getItem(6).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -110,6 +111,24 @@ public class TentangAplikasiActivity extends AppCompatActivity
         });
 
         setData();
+
+        databaseReference.child("user_posyandu")
+                .child(firebaseAuth.getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            navigationView.getMenu().getItem(1).setVisible(true);
+                        } else {
+                            navigationView.getMenu().getItem(1).setVisible(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                    }
+                });
     }
 
     @Override
@@ -287,13 +306,16 @@ public class TentangAplikasiActivity extends AppCompatActivity
             finish();
         } else if (id == R.id.action_logout) {
             firebaseAuth.signOut();
-            startActivity(new Intent(context, LoginActivity.class));
+            startActivity(new Intent(context, SplashScreenActivity.class));
             finish();
         } else if (id == R.id.action_about) {
             startActivity(new Intent(context, TentangAplikasiActivity.class));
             finish();
         } else if(id == R.id.action_chat) {
             startActivity(new Intent(context, ListUser.class).putExtra("level","admin"));
+            finish();
+        } else if(id == R.id.action_kodePosyandu) {
+            startActivity(new Intent(context, AdminKodePosyanduActivity.class));
             finish();
         }
 

@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.firdausy.rafly.mataelang.Activity.DataPosyanduActivity;
 import com.firdausy.rafly.mataelang.Activity.LoginActivity;
+import com.firdausy.rafly.mataelang.Activity.SplashScreenActivity;
 import com.firdausy.rafly.mataelang.Chat.ListUser;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.R;
@@ -117,7 +118,7 @@ public class TentangAplikasiIbuActivity extends AppCompatActivity
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
+        tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getPhoneNumber());
 
         if(firebaseAuth.getCurrentUser() != null){
             databaseReference.child("user")
@@ -288,7 +289,7 @@ public class TentangAplikasiIbuActivity extends AppCompatActivity
             finish();
         } else if (id == R.id.action_logout) {
             firebaseAuth.signOut();
-            startActivity(new Intent(context, LoginActivity.class));
+            startActivity(new Intent(context, SplashScreenActivity.class));
             finish();
         } else if(id== R.id.action_chat){
             startActivity(new Intent(context, ListUser.class).putExtra("level","ibu"));

@@ -16,12 +16,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.firdausy.rafly.mataelang.Activity.LoginActivity;
 import com.firdausy.rafly.mataelang.Activity.MainActivity;
+import com.firdausy.rafly.mataelang.Activity.SplashScreenActivity;
 import com.firdausy.rafly.mataelang.Adapter.TabFragmentAdapter;
 import com.firdausy.rafly.mataelang.Chat.ListUser;
-import com.firdausy.rafly.mataelang.Fragment.admin.EditDataDiriAdminFragment;
 import com.firdausy.rafly.mataelang.Fragment.EditPasswordFragment;
+import com.firdausy.rafly.mataelang.Fragment.admin.EditDataDiriAdminFragment;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
 import com.firdausy.rafly.mataelang.R;
@@ -64,7 +64,7 @@ public class EditProfilActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        final NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.getMenu().getItem(7).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -81,12 +81,30 @@ public class EditProfilActivity extends AppCompatActivity
         tabLayout = findViewById(R.id.tab_layout);
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
+
+        databaseReference.child("user_posyandu")
+                .child(firebaseAuth.getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            navigationView.getMenu().getItem(1).setVisible(true);
+                        } else {
+                            navigationView.getMenu().getItem(1).setVisible(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                    }
+                });
     }
 
     private void setupViewPager(ViewPager viewPager) {
 
         tabFragmentAdapter = new TabFragmentAdapter(getSupportFragmentManager());
-        if(!firebaseAuth.getCurrentUser().getUid().equals(InformasiPosyandu.ID_POSYANDU)){
+        if (!firebaseAuth.getCurrentUser().getUid().equals(InformasiPosyandu.ID_POSYANDU)) {
             tabFragmentAdapter.addFragment(new EditDataDiriAdminFragment(), getString(R.string.data_diri));
         }
         tabFragmentAdapter.addFragment(new EditPasswordFragment(), getString(R.string.password));
@@ -175,13 +193,16 @@ public class EditProfilActivity extends AppCompatActivity
             finish();
         } else if (id == R.id.action_logout) {
             firebaseAuth.signOut();
-            startActivity(new Intent(context, LoginActivity.class));
+            startActivity(new Intent(context, SplashScreenActivity.class));
             finish();
         } else if (id == R.id.action_about) {
             startActivity(new Intent(context, TentangAplikasiActivity.class));
             finish();
-        } else if(id == R.id.action_chat) {
-            startActivity(new Intent(context, ListUser.class).putExtra("level","admin"));
+        } else if (id == R.id.action_chat) {
+            startActivity(new Intent(context, ListUser.class).putExtra("level", "admin"));
+            finish();
+        } else if(id == R.id.action_kodePosyandu) {
+            startActivity(new Intent(context, AdminKodePosyanduActivity.class));
             finish();
         }
 

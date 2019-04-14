@@ -130,49 +130,45 @@ public class SplashScreenActivity extends AppCompatActivity {
         @Override
         public void run() {
             if (firebaseAuth.getCurrentUser() != null) {
-                if (Objects.requireNonNull(firebaseAuth.getCurrentUser()).isEmailVerified()) {
-                    databaseReference.child("user_posyandu").child(firebaseAuth.getCurrentUser().getUid())
-                            .addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if (dataSnapshot.exists()) {
-                                        startActivity(new Intent(context, MainActivity.class));
-                                        finish();
-                                    } else {
-                                        databaseReference.child("user")
-                                                .child("admin")
-                                                .child(firebaseAuth.getCurrentUser().getUid())
-                                                .addValueEventListener(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                        if (dataSnapshot.exists()) {
-                                                            startActivity(new Intent(context, MainActivity.class));
-                                                            finish();
-                                                        } else {
-                                                            startActivity(new Intent(context, MainActivityIbuActivity.class));
-                                                            finish();
-                                                        }
+                databaseReference.child("user_posyandu").child(firebaseAuth.getCurrentUser().getUid())
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    startActivity(new Intent(context, MainActivity.class));
+                                    finish();
+                                } else {
+                                    databaseReference.child("user")
+                                            .child("admin")
+                                            .child(firebaseAuth.getCurrentUser().getUid())
+                                            .addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    if (dataSnapshot.exists()) {
+                                                        startActivity(new Intent(context, MainActivity.class));
+                                                        finish();
+                                                    } else {
+                                                        startActivity(new Intent(context, MainActivityIbuActivity.class));
+                                                        finish();
                                                     }
+                                                }
 
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
-                                                    }
-                                                });
-                                    }
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                    new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                                                }
+                                            });
                                 }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
-                                }
-                            });
-                } else {
-                    new Bantuan(context).alertDialogPeringatan(getString(R.string.belum_verif));
-                    startActivity(new Intent(context, LoginActivity.class));
-                    finish();
-                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                            }
+                        });
             } else {
-                startActivity(new Intent(context, LoginActivity.class));
+//                startActivity(new Intent(context, LoginActivity.class));
+                startActivity(new Intent(context, WelcomeScreenActivity.class));
                 finish();
             }
         }

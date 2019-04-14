@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.firdausy.rafly.mataelang.Activity.LoginActivity;
 import com.firdausy.rafly.mataelang.Activity.MainActivity;
+import com.firdausy.rafly.mataelang.Activity.SplashScreenActivity;
 import com.firdausy.rafly.mataelang.Chat.ListUser;
 import com.firdausy.rafly.mataelang.Helper.Bantuan;
 import com.firdausy.rafly.mataelang.Helper.InformasiPosyandu;
@@ -123,6 +124,11 @@ public class TambahAdminUserActivity extends AppCompatActivity
                 prosesDaftar();
             }
         });
+
+        if(!Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid()
+                .equalsIgnoreCase(InformasiPosyandu.ID_POSYANDU)){
+            navigationView.getMenu().getItem(1).setVisible(false);
+        }
     }
 
     @Override
@@ -138,8 +144,10 @@ public class TambahAdminUserActivity extends AppCompatActivity
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
 
-                                tv_user.setText("Tambah User");
-                                ll_pilihTipeAkun.setVisibility(View.VISIBLE);
+                                tv_user.setText("Tambah Admin");
+                                ll_pilihTipeAkun.setVisibility(View.GONE);
+                                rb_userIbu.setChecked(false);
+                                rb_admin.setChecked(true);
 
                                 InformasiPosyandu.IS_SUPER_USER = true;
                                 InformasiPosyandu.ID_POSYANDU = firebaseAuth.getCurrentUser().getUid();
@@ -338,13 +346,16 @@ public class TambahAdminUserActivity extends AppCompatActivity
             finish();
         } else if (id == R.id.action_logout) {
             firebaseAuth.signOut();
-            startActivity(new Intent(context, LoginActivity.class));
+            startActivity(new Intent(context, SplashScreenActivity.class));
             finish();
         } else if (id == R.id.action_about) {
             startActivity(new Intent(context, TentangAplikasiActivity.class));
             finish();
         } else if(id == R.id.action_chat) {
             startActivity(new Intent(context, ListUser.class).putExtra("level","admin"));
+            finish();
+        } else if(id == R.id.action_kodePosyandu) {
+            startActivity(new Intent(context, AdminKodePosyanduActivity.class));
             finish();
         }
 

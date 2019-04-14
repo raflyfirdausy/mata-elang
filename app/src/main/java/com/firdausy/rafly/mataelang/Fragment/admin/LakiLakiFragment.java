@@ -58,6 +58,8 @@ public class LakiLakiFragment extends Fragment {
 
     };
 
+
+
     private EditText[] editTexts;
     private Button btn_reset;
     private Button btn_simpan;

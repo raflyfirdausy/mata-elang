@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.firdausy.rafly.mataelang">
+    package="com.firdausy.rafly.mataelang" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -18,32 +19,56 @@
         android:roundIcon="@drawable/mataelang"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning" >
+        <activity android:name=".Activity.ScanBarcodeActivity"
+            tools:ignore="InnerclassSeparator"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Activity.DaftarIbuActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarTransparent"
+            tools:ignore="InnerclassSeparator" />
+        <activity
+            android:name=".Activity.LoginIbuActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarTransparent"
+            tools:ignore="InnerclassSeparator" />
+        <activity
+            android:name=".Activity.WelcomeScreenActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarTransparent"
+            tools:ignore="InnerclassSeparator" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/app_id_admob" />
 
         <activity
+            android:name=".Activity.admin.AdminKodePosyanduActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="InnerclassSeparator" />
+        <activity
             android:name=".Chat.ListUser"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
-
         <activity
             android:name=".Chat.Chat"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator" />
-
         <activity
             android:name=".Activity.DaftarPosyanduActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarTransparent"
             tools:ignore="InnerclassSeparator" />
-
         <activity
             android:name=".Activity.ibu.IbuCaraPencegahanStuntingActivity"
             android:configChanges="orientation"
@@ -176,7 +201,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="InnerclassSeparator" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -184,19 +209,16 @@
             </intent-filter>
         </activity>
 
-
-
         <service
             android:name=".Service.FIDService"
-            tools:ignore="ExportedService,InnerclassSeparator">
+            tools:ignore="ExportedService,InnerclassSeparator" >
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
         <service
             android:name=".Service.FMessagingService"
-            tools:ignore="ExportedService,InnerclassSeparator">
+            tools:ignore="ExportedService,InnerclassSeparator" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

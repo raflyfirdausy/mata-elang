@@ -102,7 +102,9 @@ public class LoginActivity extends AppCompatActivity {
         tv_klikDisini.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(context, DaftarPosyanduActivity.class));
+//                startActivity(new Intent(context, DaftarPosyanduActivity.class));
+                startActivity(new Intent(context, LoginIbuActivity.class));
+                finish();
             }
         });
 

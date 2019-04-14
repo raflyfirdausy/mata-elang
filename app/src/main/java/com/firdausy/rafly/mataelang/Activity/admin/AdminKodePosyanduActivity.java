@@ -1,8 +1,11 @@
 package com.firdausy.rafly.mataelang.Activity.admin;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -13,10 +16,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.firdausy.rafly.mataelang.Activity.LoginActivity;
 import com.firdausy.rafly.mataelang.Activity.MainActivity;
 import com.firdausy.rafly.mataelang.Activity.SplashScreenActivity;
 import com.firdausy.rafly.mataelang.Chat.ListUser;
@@ -29,28 +31,38 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.util.Objects;
 
-public class PengaturanActivity extends AppCompatActivity
+public class AdminKodePosyanduActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Context context = PengaturanActivity.this;
+    private Context context = AdminKodePosyanduActivity.this;
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
     private TextView tv_namaPengguna;
     private TextView tv_emailPengguna;
     private TextView tv_tipePengguna;
-    private DatabaseReference databaseReference;
 
+    private TextView tv_bagikan;
+    private TextView tv_salinKode;
+    private ImageView iv_barcodeKodePosyandu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pengaturan);
+        setContentView(R.layout.activity_admin_kode_posyandu);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.mata_elang);
-        toolbar.setSubtitle(R.string.pengaturan);
+        toolbar.setSubtitle(R.string.kode_posyanduu);
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -58,7 +70,7 @@ public class PengaturanActivity extends AppCompatActivity
         toggle.syncState();
 
         final NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.getMenu().getItem(4).setChecked(true);
+        navigationView.getMenu().getItem(7).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
 
         tv_namaPengguna = navigationView.getHeaderView(0).findViewById(R.id.tv_namaPengguna);
@@ -70,42 +82,48 @@ public class PengaturanActivity extends AppCompatActivity
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.keepSynced(true);
 
-        LinearLayout action_posyandu = findViewById(R.id.action_posyandu);
-        LinearLayout action_antropometeri = findViewById(R.id.action_antropometeri);
-        LinearLayout action_pencegahan = findViewById(R.id.action_pencegahan);
-        LinearLayout action_tindakan = findViewById(R.id.action_tindakan);
+        iv_barcodeKodePosyandu = findViewById(R.id.iv_barcodeKodePosyandu);
+        tv_bagikan = findViewById(R.id.tv_bagikan);
+        tv_salinKode = findViewById(R.id.tv_salinKode);
 
-        action_posyandu.setOnClickListener(new View.OnClickListener() {
+        tv_salinKode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(context, PengaturanPosyanduActivity.class));
-                finish();
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("kode", tv_salinKode.getText().toString());
+                clipboard.setPrimaryClip(clip);
+
+                new Bantuan(context).toastShort("Anda berhasil menyalin kode posyandu !");
             }
         });
 
-        action_antropometeri.setOnClickListener(new View.OnClickListener() {
+        tv_bagikan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(context, PengaturanAntrompometriActivity.class));
-                finish();
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Ayo bergabung Mata Elang dengan kode posyandu : " + tv_salinKode.getText().toString() + " agar anak ibu tercegah dari resiko stunting!");
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, "Pilih Aplikasi"));
             }
         });
 
-        action_pencegahan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(context, PengaturanPencegahanActivity.class));
-                finish();
-            }
-        });
+        databaseReference.child("user_posyandu")
+                .child(InformasiPosyandu.ID_POSYANDU)
+                .child("kodePosyandu")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            setBarcode(dataSnapshot.getValue(String.class));
+                        }
+                    }
 
-        action_tindakan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(context, PengaturanTindakanActivity.class));
-                finish();
-            }
-        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                    }
+                });
 
         databaseReference.child("user_posyandu")
                 .child(firebaseAuth.getCurrentUser().getUid())
@@ -125,6 +143,19 @@ public class PengaturanActivity extends AppCompatActivity
                     }
                 });
 
+    }
+
+    private void setBarcode(String data) {
+        tv_salinKode.setText(data);
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+        try {
+            BitMatrix bitMatrix = multiFormatWriter.encode(data, BarcodeFormat.QR_CODE, 350, 350);
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+            iv_barcodeKodePosyandu.setImageBitmap(bitmap);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -180,13 +211,13 @@ public class PengaturanActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            startActivity(new Intent(context, MainActivity.class));
-            finish();
+            super.onBackPressed();
         }
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+
         int id = menuItem.getItemId();
 
         if (id == R.id.action_dashboard) {
@@ -214,15 +245,15 @@ public class PengaturanActivity extends AppCompatActivity
         } else if (id == R.id.action_about) {
             startActivity(new Intent(context, TentangAplikasiActivity.class));
             finish();
-        } else if(id == R.id.action_chat) {
-            startActivity(new Intent(context, ListUser.class).putExtra("level","admin"));
+        } else if (id == R.id.action_chat) {
+            startActivity(new Intent(context, ListUser.class).putExtra("level", "admin"));
             finish();
-        } else if(id == R.id.action_kodePosyandu) {
+        } else if (id == R.id.action_kodePosyandu) {
             startActivity(new Intent(context, AdminKodePosyanduActivity.class));
             finish();
         }
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

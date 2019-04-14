@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.firdausy.rafly.mataelang.Activity.admin.AdminKodePosyanduActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.EditProfilActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.InputDataAntropometriActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.LihatDataAntropometriActivity;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
 //        new Bantuan(context).alertDialogPeringatan(BuildConfig.VERSION_NAME + " " + BuildConfig.VERSION_CODE);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.getMenu().getItem(0).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -154,6 +155,24 @@ public class MainActivity extends AppCompatActivity
 //                new Bantuan(context).toastShort("banner onAdClosed");
             }
         });
+
+        databaseReference.child("user_posyandu")
+                .child(firebaseAuth.getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            navigationView.getMenu().getItem(1).setVisible(true);
+                        } else {
+                            navigationView.getMenu().getItem(1).setVisible(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                    }
+                });
 
 
     }
@@ -320,13 +339,16 @@ public class MainActivity extends AppCompatActivity
             finish();
         } else if (id == R.id.action_logout) {
             firebaseAuth.signOut();
-            startActivity(new Intent(context, LoginActivity.class));
+            startActivity(new Intent(context, SplashScreenActivity.class));
             finish();
         } else if (id == R.id.action_about) {
             startActivity(new Intent(context, TentangAplikasiActivity.class));
             finish();
         } else if(id == R.id.action_chat) {
             startActivity(new Intent(context, ListUser.class).putExtra("level","admin"));
+            finish();
+        } else if(id == R.id.action_kodePosyandu) {
+            startActivity(new Intent(context, AdminKodePosyanduActivity.class));
             finish();
         }
 

@@ -21,6 +21,8 @@ import android.widget.TextView;
 import com.firdausy.rafly.mataelang.Activity.DataPosyanduActivity;
 import com.firdausy.rafly.mataelang.Activity.LoginActivity;
 import com.firdausy.rafly.mataelang.Activity.MainActivity;
+import com.firdausy.rafly.mataelang.Activity.SplashScreenActivity;
+import com.firdausy.rafly.mataelang.Activity.admin.AdminKodePosyanduActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.EditProfilActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.InputDataAntropometriActivity;
 import com.firdausy.rafly.mataelang.Activity.admin.LihatDataAntropometriActivity;
@@ -85,7 +87,7 @@ public class ListUser extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (getIntent().getStringExtra("level").equalsIgnoreCase("admin")) {
             navigationView.getMenu().getItem(5).setChecked(true);
         } else {
@@ -118,6 +120,24 @@ public class ListUser extends AppCompatActivity
                 finish();
             }
         });
+
+        databaseReference.child("user_posyandu")
+                .child(firebaseAuth.getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            navigationView.getMenu().getItem(1).setVisible(true);
+                        } else {
+                            navigationView.getMenu().getItem(1).setVisible(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        new Bantuan(context).alertDialogPeringatan(databaseError.getMessage());
+                    }
+                });
 
     }
 
@@ -152,7 +172,12 @@ public class ListUser extends AppCompatActivity
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
+        if(getIntent().getStringExtra("level").equalsIgnoreCase("admin")){
+            tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail());
+        } else {
+            tv_emailPengguna.setText(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getPhoneNumber());
+        }
+
 
         if (firebaseAuth.getCurrentUser() != null) {
             if (getIntent().getStringExtra("level").equalsIgnoreCase("admin")) {
@@ -260,7 +285,7 @@ public class ListUser extends AppCompatActivity
             }
         } else if (id == R.id.action_logout) {
             firebaseAuth.signOut();
-            startActivity(new Intent(context, LoginActivity.class));
+            startActivity(new Intent(context, SplashScreenActivity.class));
             finish();
         } else if (id == R.id.action_chat) {
             if (getIntent().getStringExtra("level").equalsIgnoreCase("admin")) {
@@ -282,6 +307,9 @@ public class ListUser extends AppCompatActivity
             finish();
         } else if (id == R.id.action_pengaturan) {
             startActivity(new Intent(context, PengaturanActivity.class));
+            finish();
+        } else if(id == R.id.action_kodePosyandu) {
+            startActivity(new Intent(context, AdminKodePosyanduActivity.class));
             finish();
         }
 

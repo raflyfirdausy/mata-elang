@@ -7,8 +7,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         multiDexEnabled true
-        versionCode 5
-        versionName "3.4.1"
+        versionCode 6
+        versionName "3.5.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -35,9 +35,9 @@ dependencies {
     //firebase
     implementation 'com.google.firebase:firebase-core:16.0.8'
     implementation 'com.google.firebase:firebase-database:16.1.0'
-    implementation 'com.google.firebase:firebase-auth:16.2.0'
-    implementation 'com.google.firebase:firebase-messaging:17.5.0'
-    implementation 'com.google.firebase:firebase-messaging:17.5.0'
+    implementation 'com.google.firebase:firebase-auth:16.2.1'
+    implementation 'com.google.firebase:firebase-messaging:17.6.0'
+    implementation 'com.google.firebase:firebase-messaging:17.6.0'
     implementation 'com.google.android.gms:play-services-places:16.0.0'
 
     //wave
@@ -53,5 +53,13 @@ dependencies {
     implementation 'com.github.HYY-yu:TableRecyclerView:v1.0.0'
 
     implementation 'com.google.android.gms:play-services-ads:17.2.0'
+
+    //library generate barcode
+    implementation 'com.google.zxing:core:3.3.3'
+    implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+
+    implementation 'me.dm7.barcodescanner:zxing:1.9.13'
+
+
 }
 apply plugin: 'com.google.gms.google-services'

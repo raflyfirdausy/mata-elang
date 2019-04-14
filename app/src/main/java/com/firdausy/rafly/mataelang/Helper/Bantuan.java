@@ -5,11 +5,18 @@ import android.content.Context;
 import android.os.Build;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class Bantuan {
     private Context context;
+    private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     public Bantuan(Context context) {
         this.context = context;
+    }
+
+    public Bantuan(){
+        //constructor kosong
     }
 
     public void toastShort(String pesan) {
@@ -52,5 +59,16 @@ public class Bantuan {
                 .setPositiveButton(android.R.string.yes, null)
                 .setCancelable(false)
                 .show();
+    }
+
+    public String generateString(int length) {
+        Random random = new Random();
+        StringBuilder builder = new StringBuilder(length);
+
+        for (int i = 0; i < length; i++) {
+            builder.append(ALPHABET.charAt(random.nextInt(ALPHABET.length())));
+        }
+
+        return builder.toString();
     }
 }
